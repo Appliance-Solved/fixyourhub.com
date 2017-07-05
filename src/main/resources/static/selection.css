@@ -1,0 +1,20 @@
+body {
+    background-color: #596059;
+}
+
+h2 {
+    margin-top: 5em;
+    text-align: center;
+    font-size: 4em;
+    font-family: Didot;
+}
+
+button {
+    border: 1px solid black;
+    margin-top: 2em;
+    margin-left: 15em;
+    font-size: xx-large;
+    width:200px;
+    background-color: #575F6C;
+    font-family: Didot;
+}
