@@ -34,7 +34,7 @@ public class ServiceRecords {
     @Column(nullable = false)
     private String parts_installed;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2000)
     private String desc_service;
 
     public int getId() {
