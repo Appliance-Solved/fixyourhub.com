@@ -1,4 +1,4 @@
-package com.codeup.models;
+package com.codeup.Models;
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ public class UserRoles {
     private int id;
 
     @OneToOne
-    private int user_id;
+    private User user;
 
     @Column(nullable = false)
     private String role;
@@ -28,12 +28,12 @@ public class UserRoles {
         this.id = id;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public User getUser_id() {
+        return user;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user= user;
     }
 
     public String getRole() {
