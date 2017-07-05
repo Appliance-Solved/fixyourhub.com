@@ -12,6 +12,10 @@ public class UserController {
     @GetMapping("/")
     public String index() {
         return "index";
+    }
 
+    @GetMapping("selection")
+    public String selection() {
+        return "selection";
     }
 }
