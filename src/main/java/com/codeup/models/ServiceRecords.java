@@ -1,4 +1,4 @@
-package com.codeup.models;
+package com.codeup.Models;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +15,7 @@ public class ServiceRecords {
     private int id;
 
     @OneToOne
-    private int service_id;
+    private Servicer servicer;
 
     @ManyToOne
     @JoinColumn(name ="user_id")
@@ -45,12 +45,12 @@ public class ServiceRecords {
         this.id = id;
     }
 
-    public int getService_id() {
-        return service_id;
+    public Servicer getServicer() {
+        return servicer;
     }
 
-    public void setService_id(int service_id) {
-        this.service_id = service_id;
+    public void setServicer(Servicer servicer) {
+        this.servicer = servicer;
     }
 
     public User getUser() {
