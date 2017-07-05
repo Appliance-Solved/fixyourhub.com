@@ -14,7 +14,7 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("selection")
+    @GetMapping("/selection")
     public String selection() {
         return "selection";
     }
