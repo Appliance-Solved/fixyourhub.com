@@ -1,0 +1,29 @@
+
+body {
+    background-color: #D0C7B8;
+}
+
+h1 {
+    margin-top: 1em;
+    text-align: center;
+    font-size: 4em;
+}
+
+h3 {
+    margin-top: 3em;
+    text-align: center;
+    font-size: 3em;
+    border: 1px solid black;
+
+}
+
+button {
+    margin-left: 15em;
+    margin-top: 6em;
+    font-size: xx-large;
+}
+
+.box {
+    border: 1px solid black;
+}
+
