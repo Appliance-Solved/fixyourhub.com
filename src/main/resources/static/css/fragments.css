@@ -21,3 +21,58 @@ li a {
 li a:hover {
     background-color: #575f6c;
 }
+
+footer {
+    margin-top: 40px;
+    width: 100%;
+    display: inline-block;
+    height: 70px;
+    background-color: #333;
+}
+
+.follow-and-connect{
+    width: 50%;
+    float: left;
+}
+
+.follow-and-connect p {
+    margin: 0;
+    padding-left: 10%;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+}
+
+.social {
+    width: 50%;
+    float: right;
+}
+
+.social a {
+    float: left;
+    line-height: 70px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.support{
+    background-color: gray;
+    width: 40%;
+}
+
+.face {
+    background-color: darkblue;
+    width: 20%;
+}
+
+.tweet {
+    background-color: lightblue;
+    width: 20%;
+}
+
+.linked {
+    background-color: blue;
+    width: 20%;
+}
