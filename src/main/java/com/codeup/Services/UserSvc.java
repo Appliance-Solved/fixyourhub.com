@@ -26,4 +26,5 @@ public class UserSvc {
     public void save(User user){
         userDao.save(user);
     }
+
 }
