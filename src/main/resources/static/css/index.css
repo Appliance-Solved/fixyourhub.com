@@ -27,12 +27,11 @@ button {
 
 .box {
     border: 1px solid black;
-
-    width: 600px;
+    width: 400px;
     height: 100px;
     background-color: #575F6C;
     font-family: Didot;
-    margin-left: 650px;
-
+    margin: auto;
+    margin-left: 40%;
 }
 
