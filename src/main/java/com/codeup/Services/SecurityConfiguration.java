@@ -44,8 +44,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
                     .logoutSuccessUrl("/login?logout") // append a query string value
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/dashboard") // only authenticated users can create ads
+                    .antMatchers("/dashboard") // only authenticated users
                     .authenticated()
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/servicer/dashboard") // only servicer users can view service dashboard
+                    .hasAuthority("SERVICER")
+                    .and()
+                    .authorizeRequests()
+                    .antMatchers("/user/dashboard") // only users can view user dashboard
+                    .hasAuthority("USER")
             ;
         }
 
