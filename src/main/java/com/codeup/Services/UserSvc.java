@@ -23,6 +23,8 @@ public class UserSvc {
         return userDao.findOne(id);
     }
 
-
+    public void save(User user){
+        userDao.save(user);
+    }
 
 }
