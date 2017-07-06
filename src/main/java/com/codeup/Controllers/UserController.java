@@ -41,10 +41,10 @@ public class UserController {
         return "register";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     public String register(@ModelAttribute User user){
         userSvc.save(user);
-        System.out.println("saved the user");
+        System.out.println("saved the user " + user.getName());
         return "user/dashboard";
     }
 

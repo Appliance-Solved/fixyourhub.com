@@ -20,7 +20,7 @@
         <input type="radio" class="userRole" id="servicer" name="userRole" value="servicer" /></label>
     </form>
 <div class="userRegister">
-<form action="/user/register" method="post">
+<form th:action="@{/user/register}" method="post">
     <div>
         <label for="name">Name</label>
         <input type="text" id="name" name="name" />
