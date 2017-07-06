@@ -4,15 +4,19 @@
 "use strict";
 $(document).ready(function () {
     "use strict";
+    $(".serviceRegister").hide();
+    $(".userRole").change(function(){
+        if (this.value == "user"){
+            $(".serviceRegister").hide();
+            $(".userRegister").show();
+        }else{
+            $(".serviceRegister").show();
+            $(".userRegister").hide();
+        }
 
-    var userRole = $("#userRole");
-    if (userRole == "user"){
-        $(".serviceRegister").hide();
-        $(".userRegister").show();
-    }else{
-        $(".serviceRegister").show();
-        $(".userRegister").hide();
-    }
+    })
+
+
 
 
 });
