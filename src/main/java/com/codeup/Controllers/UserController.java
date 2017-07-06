@@ -18,4 +18,9 @@ public class UserController {
     public String selection() {
         return "selection";
     }
+
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
 }
