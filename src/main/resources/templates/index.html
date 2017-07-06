@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+
     <meta charset="UTF-8">
     <meta name=“viewport” content=“width=device-width, initial-scale=1">
     <title>Fix It Hub</title>
     <link rel="stylesheet" href="../static/css/css/index.css">
+
 </head>
 <body>
+<nav th:replace="fragments :: my-navbar" />
 <h1>Welcome to FixItHub!</h1>
 <h3>Lets get started, choose an option.</h3>
 <button class="box">Fix my appliance!</button>
