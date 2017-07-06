@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="css/fragments.css" />
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar" />
+<h1>Login</h1>
+<form action="/login">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" />
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+    </div>
+    <div>
+
+        <input type="submit" value="Login" />
+    </div>
+</form>
+
+</body>
+</html>
