@@ -36,7 +36,6 @@ public class UserController {
     public String showRegistrationForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        System.out.println("in showRegistrationForm()");
         System.out.println("user: " + user);
         return "register";
     }
