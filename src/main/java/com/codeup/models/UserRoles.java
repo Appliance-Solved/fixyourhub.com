@@ -20,6 +20,11 @@ public class UserRoles {
     @Column(nullable = false)
     private String role;
 
+    public UserRoles(User user){
+        this.user = user;
+    }
+
+
     public int getId() {
         return id;
     }
