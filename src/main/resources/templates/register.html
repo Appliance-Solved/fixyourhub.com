@@ -50,7 +50,7 @@
 
 
 <div class="serviceRegister">
-    <form action="/servicer/register" method="post">
+    <form th:action="@{/servicer/register}" method="post">
         <div>
             <label for="name">Company Name</label>
             <input type="text" id="name" name="name" />
