@@ -1,7 +1,6 @@
 package com.codeup.Services;
 
 import com.codeup.Models.User;
-import com.codeup.Models.UserWithRoles;
 import com.codeup.Repositories.UserRepository;
 import com.codeup.Repositories.UserRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.codeup.Services;
 
-import com.codeup.Models.UserWithRoles;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,7 +33,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
             http
                     .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/") // user's home page, it can be any URL
+                    .defaultSuccessUrl("/dashboard") // after login goes to login handler
                     .permitAll() // Anyone can go to the login page
                     .and()
                     .authorizeRequests()
@@ -41,10 +41,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
                     .permitAll()
                     .and()
                     .logout()
-                    .logoutSuccessUrl("/login?logout") // append a query string value
+                    .logoutSuccessUrl("/login?logout")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/dashboard") // only authenticated users
+                    .antMatchers("/dashboard", "/servicer/dashboard", "/user/dashboard") // only authenticated users can go through handle
                     .authenticated()
                     .and()
                     .authorizeRequests()

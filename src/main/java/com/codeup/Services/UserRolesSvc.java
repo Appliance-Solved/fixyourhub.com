@@ -1,7 +1,7 @@
 package com.codeup.Services;
 
 import com.codeup.Models.User;
-import com.codeup.Models.UserRoles;
+import com.codeup.Models.UserRole;
 import com.codeup.Repositories.UserRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +20,19 @@ public class UserRolesSvc {
         this.userRolesDao = userRolesDao;
     }
 
+    public UserRole findRolebyUser(User user){
+        return userRolesDao.findUserRolesByUser(user);
+    }
+
     public void setUserRole(User user){
-        UserRoles userRoles = new UserRoles(user);
-        userRoles.setRole("user");
-        userRolesDao.save(userRoles);
+        UserRole userRole = new UserRole(user);
+        userRole.setRole("USER");
+        userRolesDao.save(userRole);
     }
 
     public void setServicerRole(User user){
-        UserRoles userRoles = new UserRoles(user);
-        userRoles.setRole("servicer");
-        userRolesDao.save(userRoles);
+        UserRole userRole = new UserRole(user);
+        userRole.setRole("SERVICER");
+        userRolesDao.save(userRole);
     }
 }
