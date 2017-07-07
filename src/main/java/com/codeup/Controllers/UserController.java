@@ -1,7 +1,9 @@
 package com.codeup.Controllers;
 
 import com.codeup.Models.User;
+import com.codeup.Models.UserAppliance;
 import com.codeup.Models.UserRole;
+import com.codeup.Services.UserAppliancesSvc;
 import com.codeup.Services.UserRolesSvc;
 import com.codeup.Services.UserSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +22,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     private UserSvc userSvc;
     private UserRolesSvc userRolesSvc;
+    private UserAppliancesSvc userAppliancesSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc){
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
+        this.userAppliancesSvc = userAppliancesSvc;
     }
 
     @GetMapping("/")
@@ -68,6 +72,26 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
        UserRole roles = userRolesSvc.findRolebyUser(user);
         return "redirect:/" + roles.getRole().toLowerCase() + "/dashboard";
+    }
+
+    @GetMapping("/user/myappliances")
+    public String userAppliances(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
+        model.addAttribute("userAppliances",userAppliances);
+        UserAppliance userAppliance = new UserAppliance();
+        model.addAttribute("appliance", userAppliance);
+
+        return "user/myappliances";
+    }
+
+    @PostMapping("/user/myappliance")
+    public String addUserAppliance(UserAppliance userappliance) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userappliance.setUser(user);
+        userAppliancesSvc.save(userappliance);
+        return "redirect:/user/myappliances";
     }
 
 

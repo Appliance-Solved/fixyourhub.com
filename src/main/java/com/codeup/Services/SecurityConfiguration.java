@@ -48,11 +48,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
                     .authenticated()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/servicer/dashboard/**") // only servicer users can view service dashboard
+                    .antMatchers("/servicer/**") // only servicer users can view service dashboard
                     .hasAuthority("SERVICER")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/user/dashboard/**") // only users can view user dashboard
+                    .antMatchers("/user/**") // only users can view user dashboard
                     .hasAuthority("USER")
             ;
         }

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="user_appliances")
-public class UserAppliances {
+public class UserAppliance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +22,24 @@ public class UserAppliances {
     private int appliance_id;
 
     @Column
+    private String name;
+
+    @Column
     private String model;
 
     @Column
     private String serial;
+
+    public UserAppliance() {
+    }
+
+    public UserAppliance(User user, int appliance_id, String name, String model, String serial) {
+        this.user = user;
+        this.appliance_id = appliance_id;
+        this.name = name;
+        this.model = model;
+        this.serial = serial;
+    }
 
     public int getId() {
         return id;
@@ -65,5 +79,13 @@ public class UserAppliances {
 
     public void setSerial(String serial) {
         this.serial = serial;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
