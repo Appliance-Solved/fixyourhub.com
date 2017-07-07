@@ -1,7 +1,11 @@
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments :: head('Dashboard')" />
+<head>
+    <th:block th:replace="fragments :: head('Dashboard')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link rel="stylesheet" href="/css/fragments.css"/>
+</head>
 
 <body>
 <nav th:replace="fragments :: my-navbar" />

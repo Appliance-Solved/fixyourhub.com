@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments :: head('Sign Up')" />
+<head>
+    <th:block th:replace="fragments :: head('Log In')"></th:block>
+    <link rel="stylesheet" href="/css/login.css"/>
+    <link rel="stylesheet" href="/css/fragments.css"/>
+</head>
 
 <body>
 <nav th:replace="fragments :: my-navbar" />

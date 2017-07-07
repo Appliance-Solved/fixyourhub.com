@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments :: head('Fix It Hub')" />
-
+<head>
+    <th:block th:replace="fragments :: head('Fix It Hub')"></th:block>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/fragments.css"/>
+</head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
 <h1>Welcome to FixItHub!</h1>

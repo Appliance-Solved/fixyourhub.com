@@ -24,6 +24,15 @@ footer {
     float: right;
 }
 
+@media (max-width: 600px) {
+    .social{
+    width: 100%;
+    }
+    .follow-and-connect{
+        width: 100%;
+    }
+}
+
 .social a {
     float: left;
     line-height: 70px;

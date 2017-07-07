@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>My Appliances</title>
-    <link rel="stylesheet" href="../css/fragments.css" />
+    <th:block th:replace="fragments :: head('My Appliances')"></th:block>
+    <link rel="stylesheet" href="/css/fragments.css"/>
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
