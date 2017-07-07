@@ -2,9 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/fragments.css" />
 </head>
 <body>
+<nav th:replace="fragments :: my-navbar" />
 <div id="container">
 <h1>Welcome to your Servicer Dashboard <span th:text="${user.username}"></span>!</h1>
 <div>

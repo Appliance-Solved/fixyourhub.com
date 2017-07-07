@@ -12,7 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -52,15 +52,18 @@ public class User {
     }
 
     public User(User user) {
-
+        id = user.id;
+        email = user.email;
+        username = user.username;
+        password = user.password;
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        id = id;
     }
 
     public String getUsername() {
