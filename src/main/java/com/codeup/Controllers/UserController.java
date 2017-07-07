@@ -55,7 +55,9 @@ public class UserController {
     public String registerUser(@ModelAttribute User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userSvc.save(user);
-        userRolesSvc.setUserRole(user);
+        UserRole userRole = new UserRole(user);
+        userRole.setRole("USER");
+        userRolesSvc.save(userRole);
         return "redirect:/login";
     }
 
@@ -63,7 +65,9 @@ public class UserController {
     public String registerServicer(@ModelAttribute User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userSvc.save(user);
-        userRolesSvc.setServicerRole(user);
+        UserRole userRole = new UserRole(user);
+        userRole.setRole("SERVICER");
+        userRolesSvc.save(userRole);
         return "redirect:/login";
     }
 
