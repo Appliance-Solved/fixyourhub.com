@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="css/fragments.css" />
-</head>
+<head th:include="fragments :: head('Register')" />
 <body>
 <nav th:replace="fragments :: my-navbar" />
 <div class="userRegister">
