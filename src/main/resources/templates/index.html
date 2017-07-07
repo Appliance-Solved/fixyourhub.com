@@ -8,13 +8,49 @@
 <h3>Lets get started, choose an option.</h3>
 <div class="col-sm-6 col-sm-offset-3">
     <div class="col-sm-6">
-        <button class="box">Fix my appliance!</button>
+        <button class="box" data-toggle="modal" data-target="#myModal">Fix my appliance!</button>
     </div>
     <div class="col-sm-6">
         <button class="box">Provide service!</button>
     </div>
 </div>
 
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Choose Your Appliance:</h4>
+            </div>
+            <div class="modal-body">
+                <button class="btn-lg btn-primary">Refrigerator</button>
+                <button class="btn-lg btn-primary">Microwave</button>
+                <button class="btn-lg btn-primary">Oven/Stove</button>
+                <button class="btn-lg btn-primary">Dishwasher</button>
+                <button class="btn-lg btn-primary">Ice machine</button>
+                <button class="btn-lg btn-primary">Washer</button>
+                <button class="btn-lg btn-primary">Dryer</button>
+                <button class="btn-lg btn-primary">Others</button>
+            </div>
+            <!--<h4 class="modal-title">Choose a time and date:</h4>-->
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <footer th:replace="fragments :: my-footer"/>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

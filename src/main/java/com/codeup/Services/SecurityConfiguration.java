@@ -44,15 +44,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
                     .logoutSuccessUrl("/login?logout")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/dashboard", "/servicer/dashboard", "/user/dashboard") // only authenticated users can go through handle
+                    .antMatchers("/dashboard") // only authenticated users can go through handle
                     .authenticated()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/servicer/dashboard") // only servicer users can view service dashboard
+                    .antMatchers("/servicer/**") // only servicer users can view service dashboard
                     .hasAuthority("SERVICER")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/user/dashboard") // only users can view user dashboard
+                    .antMatchers("/user/**") // only users can view user dashboard
                     .hasAuthority("USER")
             ;
         }

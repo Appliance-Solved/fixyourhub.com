@@ -37,3 +37,11 @@ button {
 
 }
 
+.btn-primary {
+    background-color: #596059;
+    border: solid 1px #596059;
+    margin-bottom: 30px;
+    margin: 9px;
+}
+
+

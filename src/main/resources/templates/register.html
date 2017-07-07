@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments :: head('Register')" />
+
 <body>
 <nav th:replace="fragments :: my-navbar" />
 <div class="userRegister">
@@ -9,67 +10,69 @@
 <div class="serviceRegister">
     <h1>Servicer Signup</h1>
 </div>
-    <form>
-        <label for="user">User
+    <form class="col-sm-4 col-sm-offset-5">
+        <label class="choice" for="user">User
         <input type="radio" class="userRole" id="user" name="userRole" value="user" checked="checked" /></label>
-        <label for="servicer">Servicer
+        &nbsp;
+        &nbsp;
+        <label class="choice" for="servicer">Servicer
         <input type="radio" class="userRole" id="servicer" name="userRole" value="servicer" /></label>
     </form>
-<div class="userRegister">
+<div class="userRegister col-sm-4 col-sm-offset-5" >
 <form th:action="@{/user/register}" method="post">
     <div>
-        <label for="name">Name</label>
+        <label class="other" for="name">Name</label>
         <input type="text" id="name" name="name" />
     </div>
     <div>
-        <label for="username">Username</label>
+        <label class="other" for="username">Username</label>
         <input type="text" id="username" name="username" />
     </div>
     <div>
-        <label for="name">Email</label>
+        <label class="other" for="name">Email</label>
         <input type="text" id="email" name="email" />
     </div>
     <div>
-        <label for="password">Password</label>
+        <label class="other" for="password">Password</label>
         <input type="password" id="password" name="password" />
     </div>
     <div>
-        <label for="name">Confirm Password</label>
+        <label class="other" for="name">Confirm Password</label>
         <input type="text" id="passConfirm" name="passConfirm" />
     </div>
     <div>
 
-        <input type="submit" value="Register" />
+        <input class="go" type="submit" value="Register" />
     </div>
 </form>
 </div>
 
 
-<div class="serviceRegister">
+<div class="serviceRegister col-sm-4 col-sm-offset-5">
     <form th:action="@{/servicer/register}" method="post">
         <div>
-            <label for="name">Company Name</label>
+            <label class="other" for="name">Company Name</label>
             <input type="text" id="name" name="name" />
         </div>
         <div>
-            <label for="username">Username</label>
+            <label class="other" for="username">Username</label>
             <input type="text" id="username" name="username" />
         </div>
         <div>
-            <label for="name">Email</label>
+            <label class="other" for="name">Email</label>
             <input type="text" id="email" name="email" />
         </div>
         <div>
-            <label for="password">Password</label>
+            <label class="other" for="password">Password</label>
             <input type="password" id="password" name="password" />
         </div>
         <div>
-            <label for="name">Confirm Password</label>
+            <label class="other" for="name">Confirm Password</label>
             <input type="text" id="passConfirm" name="passConfirm" />
         </div>
         <div>
 
-            <input type="submit" value="Register" />
+            <input class="go" type="submit" value="Register" />
         </div>
     </form>
 </div>
