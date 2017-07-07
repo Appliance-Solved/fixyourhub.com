@@ -1,0 +1,17 @@
+body {
+    background-color: #596059;
+}
+
+.login {
+    margin-top: 3em;
+    font-family: Didot;
+    font-size: 4em;
+    text-align: center;
+}
+
+.choice {
+    margin-top: 1.5em;
+    font-family: Didot;
+    font-size: 3em;
+    text-align: center;
+}
