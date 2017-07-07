@@ -56,6 +56,7 @@ public class User {
         email = user.email;
         username = user.username;
         password = user.password;
+        name = user.name;
     }
 
     public Long getId() {
