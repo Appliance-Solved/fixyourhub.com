@@ -1,9 +1,17 @@
+nav {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
+    display: inline-block;
 }
 
 li {
@@ -20,6 +28,27 @@ li a {
 
 li a:hover {
     background-color: #575f6c;
+}
+
+nav form {
+    display: inline-block;
+}
+
+nav button {
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+    font-size: inherit;
+    font-family: inherit;
+    float: left;
+}
+
+nav button:hover {
+    background-color: #575f6c;
+    cursor: pointer;
 }
 
 footer {
