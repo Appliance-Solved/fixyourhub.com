@@ -4,26 +4,28 @@
 <head>
     <meta charset="UTF-8" />
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
     <link rel="stylesheet" href="../css/fragments.css" />
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
 <div id="container">
     <h1>Welcome to your User Dashboard <span th:text="${user.username}"></span>!</h1>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <h2><a href="#">Schedule service</a></h2>
         </div>
 
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <h2>My Appliances</h2>
             <h2><a href="#">View</a></h2>
         </div>
 
-    <div>
+    <div class="col-sm-6 col-sm-offset-3">
         <h2>My Service History</h2>
         <h2><a href="#">View</a></h2>
     </div>
-    <div>
+    <div class="col-sm-6 col-sm-offset-3">
         <h2>My Reviews</h2>
         <h2><a href="#">View/ leave feedback</a></h2>
     </div>

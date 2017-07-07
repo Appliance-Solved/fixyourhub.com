@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8" />
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
     <link rel="stylesheet" href="../css/fragments.css" />
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
 <div id="container">
-<h1>Welcome to your Servicer Dashboard <span th:text="${user.username}"></span>!</h1>
-<div>
+<h1 class="welcome">Welcome to your Servicer Dashboard <span th:text="${user.username}"></span>!</h1>
+<div class="col-sm-6 col-sm-offset-3">
     <img src="http://via.placeholder.com/250x250" alt="" />
     <p>star rating here = 5.0</p>
     <a href="#">View Reviews</a>
 </div>
-    <div>
-        <div>
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-6 col-sm-offset-3">
         <h2>Appoinments Scheduled: 2</h2>
         <h2><a href="#">View calender</a></h2>
         </div>
 
-        <div>
+        <div class="col-sm-6 col-sm-offset-3" >
             <h2>Pending Service Request: 1</h2>
             <h2><a href="#">View/approve</a></h2>
         </div>
 
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <h2>Appointments pending: 0</h2>
             <h2><a href="#">Edit</a></h2>
         </div>
