@@ -39,9 +39,6 @@ public class ServicerController {
     @GetMapping("/servicer/tech")
     public String showtechs(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user);
-        System.out.println(user.getName());
-        System.out.println(user.getUsername());
         model.addAttribute("user", user);
         Iterable<Technician> team = techsvc.findAllByUser(user);
         model.addAttribute("team", team);
