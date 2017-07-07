@@ -33,12 +33,15 @@
                 <li sec:authorize="!isAuthenticated()">
                     <a href="/register">Register</a>
                 </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a href="/dashboard">Profile</a>
+                </li>
                 <li>
                     <a href="#">About</a>
                 </li>
                 <li>
                     <form th:action="@{/logout}" th:method="post" sec:authorize="isAuthenticated()">
-                        <button type="submit"><a>Logout</a></button>
+                        <button class="btn-link btn" style="margin-top: 7px; text-decoration: none">Logout</button>
                     </form>
                 </li>
             </ul>
