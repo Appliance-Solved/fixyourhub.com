@@ -29,4 +29,8 @@ public class TechnicianSvc {
     public Iterable<Technician> findAllByUser(User user) {
         return technicianDao.findAllByUser(user);
     }
+
+    public void delete(Long id) {
+        technicianDao.delete(id);
+    }
 }

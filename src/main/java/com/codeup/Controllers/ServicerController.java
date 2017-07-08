@@ -1,7 +1,9 @@
 package com.codeup.Controllers;
 
+import com.codeup.Models.Servicer;
 import com.codeup.Models.Technician;
 import com.codeup.Models.User;
+import com.codeup.Services.ServicerSvc;
 import com.codeup.Services.TechnicianSvc;
 import com.codeup.Services.UserSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,14 +29,16 @@ import java.nio.file.Paths;
 public class ServicerController {
     private UserSvc userSvc;
     private TechnicianSvc techsvc;
+    private ServicerSvc servicerSvc;
     @Value("${file-upload-path}")
     private String uploadPath;
 
 
     @Autowired
-    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc) {
+    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc) {
         this.userSvc = userSvc;
         this.techsvc = techsvc;
+        this.servicerSvc = servicerSvc;
     }
 
     @GetMapping("/servicer/tech")
@@ -66,4 +71,46 @@ public class ServicerController {
         techsvc.save(tech);
         return "redirect:/servicer/tech";
     }
+
+    @PostMapping("/servicer/tech/delete")
+    public String deleteTech(@RequestParam(name = "id") Long id){
+        techsvc.delete(id);
+        return "redirect:/servicer/tech";
+    }
+
+    @GetMapping("/servicer/setprofile")
+    public String showServSetProfile(Model model) {
+        User user = new User((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        model.addAttribute("user",user);
+        model.addAttribute("servicer", new Servicer());
+        return "servicer/setup-profile";
+    }
+
+    @PostMapping("/servicer/setprofile")
+    public String setServUserProfile(
+            @RequestParam(name = "address")String address,
+            @RequestParam(name = "city")String city,
+            @RequestParam(name = "state")String state,
+            @RequestParam(name = "zip")Long zip,
+            @RequestParam(name = "phone")String phone,
+            @ModelAttribute Servicer servicer,
+            @RequestParam(name = "file") MultipartFile uploadedFile
+            ) {
+        String filename = uploadedFile.getOriginalFilename();
+        String filepath = Paths.get(uploadPath, filename).toString();
+        File destinationFile = new File(filepath);
+        try {
+            uploadedFile.transferTo(destinationFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userSvc.update(address, city, state, zip, phone, user.getId());
+        servicer.setPicUrl(filename);
+        servicer.setUser(user);
+        servicerSvc.save(servicer);
+        return "redirect:/servicer/dashboard";
+    }
+
+
 }

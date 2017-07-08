@@ -12,7 +12,7 @@ public class UserAppliance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -41,11 +41,11 @@ public class UserAppliance {
         this.serial = serial;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

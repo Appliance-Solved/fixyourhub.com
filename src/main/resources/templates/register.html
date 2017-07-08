@@ -23,18 +23,18 @@
         <input type="radio" class="userRole" id="servicer" name="userRole" value="servicer" /></label>
     </form>
 <div class="userRegister col-sm-4 col-sm-offset-5" >
-<form th:action="@{/user/register}" method="post">
+<form th:action="@{/user/register}" th:method="post" th:object="${user}">
     <div>
         <label class="other" for="name">Name</label>
-        <input type="text" id="name" name="name" />
+        <input type="text" id="name" name="name" th:field="*{name}" />
     </div>
     <div>
         <label class="other" for="username">Username</label>
-        <input type="text" id="username" name="username" />
+        <input type="text" id="username" name="username" th:field="*{username}" />
     </div>
     <div>
         <label class="other" for="name">Email</label>
-        <input type="text" id="email" name="email" />
+        <input type="text" id="email" name="email" th:field="*{email}" />
     </div>
     <div>
         <label class="other" for="password">Password</label>
@@ -42,7 +42,7 @@
     </div>
     <div>
         <label class="other" for="name">Confirm Password</label>
-        <input type="text" id="passConfirm" name="passConfirm" />
+        <input type="password" id="passConfirm" name="passConfirm" />
     </div>
     <div>
 
@@ -53,18 +53,18 @@
 
 
 <div class="serviceRegister col-sm-4 col-sm-offset-5">
-    <form th:action="@{/servicer/register}" method="post">
+    <form th:action="@{/servicer/register}" th:method="post" th:object="${user}">
         <div>
             <label class="other" for="name">Company Name</label>
-            <input type="text" id="name" name="name" />
+            <input type="text" id="name" name="name" th:field="*{name}" />
         </div>
         <div>
             <label class="other" for="username">Username</label>
-            <input type="text" id="username" name="username" />
+            <input type="text" id="username" name="username" th:field="*{username}" />
         </div>
         <div>
             <label class="other" for="name">Email</label>
-            <input type="text" id="email" name="email" />
+            <input type="email" id="email" name="email" th:field="*{email}" />
         </div>
         <div>
             <label class="other" for="password">Password</label>
@@ -72,7 +72,7 @@
         </div>
         <div>
             <label class="other" for="name">Confirm Password</label>
-            <input type="text" id="passConfirm" name="passConfirm" />
+            <input type="password" id="passConfirm" name="passConfirm" />
         </div>
         <div>
 

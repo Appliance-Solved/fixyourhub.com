@@ -49,6 +49,8 @@ public class UserAppliancesSvc {
         return applianceTypes.get(appliance_id);
     }
 
-
+    public void delete(Long id){
+        userAppliancesDao.delete(id);
+    }
 
 }
