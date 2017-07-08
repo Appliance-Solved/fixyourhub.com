@@ -105,5 +105,26 @@ public class UserController {
         return "redirect:/user/myappliances";
     }
 
+    @GetMapping("/user/setprofile")
+    public String showSetProfile(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user",user);
+        return "user/setup-profile";
+    }
+
+
+    @PostMapping("/user/setprofile")
+    public String setUserProfile(
+            @RequestParam(name = "address")String address,
+            @RequestParam(name = "city")String city,
+            @RequestParam(name = "state")String state,
+            @RequestParam(name = "zip")Long zip,
+            @RequestParam(name = "phone")String phone
+            ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userSvc.update(address, city, state, zip, phone, user.getId());
+        System.out.println("im out");
+        return "redirect:/user/dashboard";
+    }
 
 }

@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
     @Configuration
     @EnableWebSecurity
-    @ComponentScan(basePackageClasses = UserWithRoles.class)
+    @ComponentScan(basePackageClasses = com.codeup.Services.UserWithRoles.class)
     public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         @Autowired
@@ -48,11 +48,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
                     .authenticated()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/servicer/**") // only servicer users can view service dashboard
+                    .antMatchers("/servicer/dashboard") // only servicer users can view service dashboard
                     .hasAuthority("SERVICER")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/user/**") // only users can view user dashboard
+                    .antMatchers("/user/dashboard") // only users can view user dashboard
                     .hasAuthority("USER")
             ;
         }

@@ -27,4 +27,8 @@ public class UserSvc {
         userDao.save(user);
     }
 
+    public void update(String address, String city, String state, Long zipcode, String phone, Long id) {
+        userDao.updateUserProfile(address, city, state, zipcode, phone, id);
+    }
+
 }
