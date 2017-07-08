@@ -66,4 +66,10 @@ public class ServicerController {
         techsvc.save(tech);
         return "redirect:/servicer/tech";
     }
+
+    @PostMapping("/servicer/tech/delete")
+    public String deleteTech(@RequestParam(name = "id") Long id){
+        techsvc.delete(id);
+        return "redirect:/servicer/tech";
+    }
 }

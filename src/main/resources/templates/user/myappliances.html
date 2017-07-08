@@ -22,7 +22,10 @@
         </th:block></h5>
         <h5>Model: <span th:text="${appliance.model}"></span></h5>
         <h5>Model: <span th:text="${appliance.serial}"></span></h5>
-
+        <form th:action="@{/user/myappliance/delete}" th:method="post">
+            <input type="hidden" id="id" name="id" th:value="${appliance.id}" />
+            <input type="submit" value="Delete" />
+        </form>
     </div>
 
 

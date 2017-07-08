@@ -12,6 +12,11 @@
         <div class="col-sm-6 col-sm-offset-3" th:each="tech: ${team}">
             <img th:src="'/uploads/' + ${tech.PicUrl}" alt="" />
             <h4 th:text="${tech.name}"></h4>
+            <form th:action="@{/servicer/tech/delete}" th:method="post">
+                <input type="hidden" id="id" name="id" th:value="${tech.id}" />
+                <input type="submit" value="Delete" />
+            </form>
+
         </div>
 
 

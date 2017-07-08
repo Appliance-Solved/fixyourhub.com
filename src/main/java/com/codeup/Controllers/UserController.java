@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by larryg on 7/5/17.
@@ -95,6 +96,12 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userappliance.setUser(user);
         userAppliancesSvc.save(userappliance);
+        return "redirect:/user/myappliances";
+    }
+
+    @PostMapping("/user/myappliance/delete")
+    public String deleteUserAppliance(@RequestParam(name = "id") Long id){
+        userAppliancesSvc.delete(id);
         return "redirect:/user/myappliances";
     }
 
