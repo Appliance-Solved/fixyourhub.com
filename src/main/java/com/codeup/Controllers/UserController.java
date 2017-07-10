@@ -1,5 +1,6 @@
 package com.codeup.Controllers;
 
+import com.codeup.Models.Servicer;
 import com.codeup.Models.User;
 import com.codeup.Models.UserAppliance;
 import com.codeup.Models.UserRole;
@@ -127,9 +128,21 @@ public class UserController {
         return "redirect:/user/dashboard";
     }
 
-    @GetMapping("/user/sheduleservice")
+    @GetMapping("/user/scheduleservice")
     public String scheduleService(Model model) {
-        return "user/shedule-service";
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
+        model.addAttribute("userAppliances",userAppliances);
+        UserAppliance userAppliance = new UserAppliance();
+        model.addAttribute("appliance", userAppliance);
+        return "user/schedule-service";
+    }
+
+    @GetMapping("/user/scheduleservice/results")
+    public String serviceSearchResults(@RequestParam(name = "id") Long id ){
+        Iterable<Servicer> servicers =
+        return "user/servicer-results";
     }
 
 }

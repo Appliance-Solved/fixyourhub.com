@@ -23,6 +23,11 @@ public class ServicerSvc {
         return servicerDao.findOne(id);
     }
 
+    public Iterable<Servicer> findAllServicersByAppliance(){
+
+        return null;
+    }
+
     public void save(Servicer servicer) {
         servicerDao.save(servicer);
     }

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="fragments :: head('Shedule Service')"></th:block>
+    <th:block th:replace="fragments :: head('Schedule Service')"></th:block>
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
 
-Shedule Service
+<h1>Shedule Service</h1>
 
-select an appliance
+<h3>select an appliance</h3>
 
 <div th:each="appliance: ${userAppliances}">
     <h4 th:text="${appliance.name}"></h4>
@@ -24,6 +24,10 @@ select an appliance
     </th:block></h5>
     <h5>Model: <span th:text="${appliance.model}"></span></h5>
     <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
+    <form th:action="@{/user/scheduleservice/results}" th:method="GET">
+        <input type="hidden" id="id" name="id" th:value="${appliance.id}" />
+        <input type="submit" value="Request Service" />
+    </form>
 </div>
 
 <footer th:replace="fragments :: my-footer"/>
