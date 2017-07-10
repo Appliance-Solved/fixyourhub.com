@@ -127,4 +127,9 @@ public class UserController {
         return "redirect:/user/dashboard";
     }
 
+    @GetMapping("/user/sheduleservice")
+    public String scheduleService(Model model) {
+        return "user/shedule-service";
+    }
+
 }
