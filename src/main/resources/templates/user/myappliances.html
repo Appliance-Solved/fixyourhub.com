@@ -2,15 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('My Appliances')"></th:block>
+    <link rel="stylesheet" href="/css/appliances.css" />
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
-<div id="container">
-    <h1><span th:text="${user.name}"></span>'s Applianes</h1>
+<div id="container" class="col-sm-6 col-sm-offset-3">
+    <h1><span th:text="${user.name}"></span>'s Appliances</h1>
     <div th:each="appliance: ${userAppliances}">
         <h4 th:text="${appliance.name}"></h4>
         <h5>Type: <th:block th:switch="${appliance.appliance_id}">
-            <span th:case="0">Regrigerator</span>
+            <span th:case="0">Refrigerator</span>
             <span th:case="1">Stove/ Oven</span>
             <span th:case="2">Washer</span>
             <span th:case="3">Dryer</span>
@@ -22,18 +23,18 @@
         <h5>Model: <span th:text="${appliance.model}"></span></h5>
         <h5>Model: <span th:text="${appliance.serial}"></span></h5>
         <form th:action="@{/user/myappliance/delete}" th:method="post">
-            <input type="hidden" id="id" name="id" th:value="${appliance.id}" />
+            <input class="choice" type="hidden" id="id" name="id" th:value="${appliance.id}" />
             <input type="submit" value="Delete" />
         </form>
     </div>
 
 
     <form th:action="@{/user/myappliance}" th:method="post" th:object="${appliance}">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" th:field="*{name}" />
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="name">Name</label>
+            <input class="choice" type="text" id="name" name="name" th:field="*{name}" />
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <select id="type" name="type" th:field="*{appliance_id}">
                 <option value="0">Refrigerator</option>
                 <option value="1">Stove/ Oven</option>
@@ -45,15 +46,15 @@
                 <option value="7">Other</option>
             </select>
         </div>
-        <div>
-            <label for="model">Model</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="model">Model</label>
             <input type="text" id="model" name="model" th:field="*{model}" />
         </div>
-        <div>
-            <label for="serial">Serial</label>
-            <input type="text" id="serial" name="serial" th:field="*{serial}" />
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="serial">Serial</label>
+            <input class="choice" type="text" id="serial" name="serial" th:field="*{serial}" />
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <input type="submit" value="Add" />
         </div>
 
