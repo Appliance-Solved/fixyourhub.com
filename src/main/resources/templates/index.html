@@ -3,7 +3,6 @@
 <head>
     <th:block th:replace="fragments :: head('Fix It Hub')"></th:block>
     <link rel="stylesheet" href="/css/index.css"/>
-    <link rel="stylesheet" href="/css/fragments.css"/>
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
@@ -48,9 +47,7 @@
 
     </div>
 </div>
-
-<footer th:replace="fragments :: my-footer"/>
-
+<footer th:include="fragments :: my-footer"/>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>

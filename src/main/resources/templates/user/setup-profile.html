@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('My Appliances')"></th:block>
-    <link rel="stylesheet" href="/css/fragments.css"/>
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
@@ -88,5 +87,6 @@
     </form>
 
 </div>
+<footer th:replace="fragments :: my-footer"/>
 </body>
 </html>

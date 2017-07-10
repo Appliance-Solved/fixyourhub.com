@@ -3,7 +3,6 @@
 <head>
     <th:block th:replace="fragments :: head('Log In')"></th:block>
     <link rel="stylesheet" href="/css/login.css"/>
-    <link rel="stylesheet" href="/css/fragments.css"/>
 </head>
 
 <body>
@@ -29,6 +28,6 @@
         <input type="submit" value="Login" />
     </div>
 </form>
-
+<footer th:replace="fragments :: my-footer"/>
 </body>
 </html>
