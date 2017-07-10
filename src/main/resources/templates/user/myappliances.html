@@ -2,15 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('My Appliances')"></th:block>
+    <link rel="stylesheet" href="/css/setup.css" />
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
-<div id="container">
-    <h1><span th:text="${user.name}"></span>'s Applianes</h1>
+<div id="container" class="col-sm-6 col-sm-offset-3">
+    <h1><span th:text="${user.name}"></span>'s Appliances</h1>
     <div th:each="appliance: ${userAppliances}">
         <h4 th:text="${appliance.name}"></h4>
         <h5>Type: <th:block th:switch="${appliance.appliance_id}">
-            <span th:case="0">Regrigerator</span>
+            <span th:case="0">Refrigerator</span>
             <span th:case="1">Stove/ Oven</span>
             <span th:case="2">Washer</span>
             <span th:case="3">Dryer</span>
@@ -29,11 +30,11 @@
 
 
     <form th:action="@{/user/myappliance}" th:method="post" th:object="${appliance}">
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" th:field="*{name}" />
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <select id="type" name="type" th:field="*{appliance_id}">
                 <option value="0">Refrigerator</option>
                 <option value="1">Stove/ Oven</option>
@@ -45,7 +46,7 @@
                 <option value="7">Other</option>
             </select>
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <label for="model">Model</label>
             <input type="text" id="model" name="model" th:field="*{model}" />
         </div>
