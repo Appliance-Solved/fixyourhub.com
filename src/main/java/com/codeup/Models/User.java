@@ -48,6 +48,18 @@ public class User {
         this.name = name;
     }
 
+    public User(String username, String password, String email, String name, String address, String city, String state, Long zipcode, String phone) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.phone = phone;
+    }
+
     public User() {
     }
 
@@ -56,7 +68,14 @@ public class User {
         email = user.email;
         username = user.username;
         password = user.password;
+        name = user.name;
+        address = user.address;
+        city = user.city;
+        state = user.state;
+        zipcode = user.zipcode;
+        phone = user.phone;
     }
+    
 
     public Long getId() {
         return id;

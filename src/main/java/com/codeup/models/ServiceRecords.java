@@ -23,7 +23,7 @@ public class ServiceRecords {
 
     @ManyToOne
     @JoinColumn(name = "user_appliance_id")
-    private UserAppliances userAppliances;
+    private UserAppliance userAppliance;
 
     @Column
     private java.util.Date date;
@@ -61,12 +61,12 @@ public class ServiceRecords {
         this.user = user;
     }
 
-    public UserAppliances getUserAppliances() {
-        return userAppliances;
+    public UserAppliance getUserAppliance() {
+        return userAppliance;
     }
 
-    public void setUserAppliances(UserAppliances userAppliances) {
-        this.userAppliances = userAppliances;
+    public void setUserAppliance(UserAppliance userAppliance) {
+        this.userAppliance = userAppliance;
     }
 
     public Date getDate() {

@@ -1,7 +1,9 @@
 package com.codeup.Controllers;
 
 import com.codeup.Models.User;
+import com.codeup.Models.UserAppliance;
 import com.codeup.Models.UserRole;
+import com.codeup.Services.UserAppliancesSvc;
 import com.codeup.Services.UserRolesSvc;
 import com.codeup.Services.UserSvc;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by larryg on 7/5/17.
@@ -20,14 +23,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     private UserSvc userSvc;
     private UserRolesSvc userRolesSvc;
+    private UserAppliancesSvc userAppliancesSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc){
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
+        this.userAppliancesSvc = userAppliancesSvc;
     }
 
     @GetMapping("/")
@@ -51,7 +56,9 @@ public class UserController {
     public String registerUser(@ModelAttribute User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userSvc.save(user);
-        userRolesSvc.setUserRole(user);
+        UserRole userRole = new UserRole(user);
+        userRole.setRole("USER");
+        userRolesSvc.save(userRole);
         return "redirect:/login";
     }
 
@@ -59,7 +66,9 @@ public class UserController {
     public String registerServicer(@ModelAttribute User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userSvc.save(user);
-        userRolesSvc.setServicerRole(user);
+        UserRole userRole = new UserRole(user);
+        userRole.setRole("SERVICER");
+        userRolesSvc.save(userRole);
         return "redirect:/login";
     }
 
@@ -70,5 +79,52 @@ public class UserController {
         return "redirect:/" + roles.getRole().toLowerCase() + "/dashboard";
     }
 
+    @GetMapping("/user/myappliances")
+    public String userAppliances(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
+        model.addAttribute("userAppliances",userAppliances);
+        UserAppliance userAppliance = new UserAppliance();
+        model.addAttribute("appliance", userAppliance);
+
+        return "user/myappliances";
+    }
+
+    @PostMapping("/user/myappliance")
+    public String addUserAppliance(UserAppliance userappliance) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userappliance.setUser(user);
+        userAppliancesSvc.save(userappliance);
+        return "redirect:/user/myappliances";
+    }
+
+    @PostMapping("/user/myappliance/delete")
+    public String deleteUserAppliance(@RequestParam(name = "id") Long id){
+        userAppliancesSvc.delete(id);
+        return "redirect:/user/myappliances";
+    }
+
+    @GetMapping("/user/setprofile")
+    public String showSetProfile(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user",user);
+        return "user/setup-profile";
+    }
+
+
+    @PostMapping("/user/setprofile")
+    public String setUserProfile(
+            @RequestParam(name = "address")String address,
+            @RequestParam(name = "city")String city,
+            @RequestParam(name = "state")String state,
+            @RequestParam(name = "zip")Long zip,
+            @RequestParam(name = "phone")String phone
+            ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userSvc.update(address, city, state, zip, phone, user.getId());
+        System.out.println("im out");
+        return "redirect:/user/dashboard";
+    }
 
 }

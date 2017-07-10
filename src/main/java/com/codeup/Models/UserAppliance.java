@@ -8,11 +8,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="user_appliances")
-public class UserAppliances {
+public class UserAppliance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -22,16 +22,30 @@ public class UserAppliances {
     private int appliance_id;
 
     @Column
+    private String name;
+
+    @Column
     private String model;
 
     @Column
     private String serial;
 
-    public int getId() {
+    public UserAppliance() {
+    }
+
+    public UserAppliance(User user, int appliance_id, String name, String model, String serial) {
+        this.user = user;
+        this.appliance_id = appliance_id;
+        this.name = name;
+        this.model = model;
+        this.serial = serial;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,5 +79,13 @@ public class UserAppliances {
 
     public void setSerial(String serial) {
         this.serial = serial;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

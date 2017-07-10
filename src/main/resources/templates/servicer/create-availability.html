@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Technician')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link rel="stylesheet" href="/css/fragments.css"/>
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" />
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar" />
+<div class="col-sm-6 col-sm-offset-3" id="container">
+    <h1><span th:text="${user.name}"></span>'s Availability</h1>
+    <div class="col-sm-6 col-sm-offset-3" th:each="appointment: ${availability}">
+        <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
+        <h4 th:text="${appointment.formatTime(appointment.startTime)}"></h4>
+        <h4 th:text="${appointment.formatTime(appointment.stopTime)}"></h4>
+        <form th:action="@{/servicer/appointment/delete}" th:method="post">
+            <input type="hidden" id="id" name="id" th:value="${appointment.id}" />
+            <input type="submit" value="Delete" />
+        </form>
+
+    </div>
+
+    <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3"></h4>
+    <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/availability}" th:method="post" th:object="${appointment}" >
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="date">Select Date</label>
+            <input type="text" id="date" name="date" th:field="*{date}" />
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="start_time">Appontment block start</label>
+            <select id="start_time" name="start_time" th:field="*{startTime}">
+                <option disabled="disabled" selected="selected" value="0">-Select a start time-</option>
+                <option value="7">7:00AM</option>
+                <option value="8">8:00AM</option>
+                <option value="9">9:00AM</option>
+                <option value="10">10:00AM</option>
+                <option value="11">11:00AM</option>
+                <option value="12">12:00PM</option>
+                <option value="13">1:00PM</option>
+                <option value="14">2:00PM</option>
+                <option value="15">3:00PM</option>
+                <option value="16">4:00PM</option>
+                <option value="17">5:00PM</option>
+                <option value="18">6:00PM</option>
+                <option value="19">7:00PM</option>
+                <option value="20">8:00PM</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label for="stop_time">Appontment block stop</label>
+            <select id="stop_time" name="stop_time" th:field="*{stopTime}">
+                <option disabled="disabled" selected="selected" value="0">-Select a stop time-</option>
+                <option value="7">7:00AM</option>
+                <option value="8">8:00AM</option>
+                <option value="9">9:00AM</option>
+                <option value="10">10:00AM</option>
+                <option value="11">11:00AM</option>
+                <option value="12">12:00PM</option>
+                <option value="13">1:00PM</option>
+                <option value="14">2:00PM</option>
+                <option value="15">3:00PM</option>
+                <option value="16">4:00PM</option>
+                <option value="17">5:00PM</option>
+                <option value="18">6:00PM</option>
+                <option value="19">7:00PM</option>
+                <option value="20">8:00PM</option>
+            </select>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <input type="submit" value="Add" />
+        </div>
+
+    </form>
+</div>
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
