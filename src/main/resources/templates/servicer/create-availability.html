@@ -11,7 +11,7 @@
 
 
 <nav th:replace="fragments :: my-navbar" />
-<div  class="col-sm-6 col-sm-offset-3" id="container">
+<div  class="col-sm-10 col-sm-offset-1" id="container">
 
     <h1><span th:text="${user.name}"></span>'s Availability</h1>
     <div class="col-sm-3" th:each="appointment: ${availability}">
