@@ -30,4 +30,8 @@ public class AppointmentSvc {
         appointmentDao.save(appointment);
     }
 
+    public void delete(Long id) {
+        appointmentDao.delete(id);
+    }
+
 }

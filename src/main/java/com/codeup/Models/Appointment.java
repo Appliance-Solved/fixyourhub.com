@@ -1,8 +1,14 @@
 package com.codeup.Models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -65,6 +71,26 @@ public class Appointment {
             e.printStackTrace();
             return "Error formatting time";
         }
+    }
+
+    public boolean checkIfDateTimePassed (Date date, int startTime) {
+        String time24;
+        if(startTime <10) {
+            time24 = "0" + startTime + ":00:00";
+        }else {
+            time24 = startTime + ":00:00";
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        String formatedDate = dateFormat.format(date);
+            LocalDate localDate = LocalDate.parse(formatedDate);
+            LocalTime localTime = LocalTime.parse(time24);
+            LocalDateTime appointment = LocalDateTime.of(localDate, localTime);
+        if (appointment.isBefore(LocalDateTime.now())){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     public Long getId() {

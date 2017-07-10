@@ -117,20 +117,35 @@ public class ServicerController {
     }
 
     @GetMapping("/servicer/create-availability")
-    public String servicerAvailability(Model model) {
+    public String servicerAvailability(@RequestParam(required = false)boolean error, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         Iterable<Appointment> availability = appointmentSvc.findAllByServicer(user, true);
         model.addAttribute("availability", availability);
         model.addAttribute("appointment", new Appointment());
+        if (error) {
+            String message = "Please specify a date in the future";
+            model.addAttribute("error", message);
+        }
         return "servicer/create-availability";
     }
 
     @PostMapping("/servicer/availability")
-    public String createAvailability(@ModelAttribute Appointment appointment){
+    public String createAvailability(@ModelAttribute Appointment appointment, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         appointment.setServicer(user);
-        appointmentSvc.save(appointment);
+        if (appointment.checkIfDateTimePassed(appointment.getDate(), appointment.getStartTime())) {
+            appointmentSvc.save(appointment);
+            return "redirect:/servicer/create-availability";
+        }else {
+            return "redirect:/servicer/create-availability?error=true";
+        }
+
+    }
+
+    @PostMapping("/servicer/appointment/delete")
+    public String deleteAvailability(@RequestParam(name = "id") Long id) {
+        appointmentSvc.delete(id);
         return "redirect:/servicer/create-availability";
     }
 

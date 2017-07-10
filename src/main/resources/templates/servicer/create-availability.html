@@ -14,26 +14,26 @@
         <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
         <h4 th:text="${appointment.formatTime(appointment.startTime)}"></h4>
         <h4 th:text="${appointment.formatTime(appointment.stopTime)}"></h4>
-        <!--<form th:action="@{/servicer/appointment/delete}" th:method="post">-->
-            <!--<input type="hidden" id="id" name="id" th:value="${tech.id}" />-->
-            <!--<input type="submit" value="Delete" />-->
-        <!--</form>-->
+        <form th:action="@{/servicer/appointment/delete}" th:method="post">
+            <input type="hidden" id="id" name="id" th:value="${appointment.id}" />
+            <input type="submit" value="Delete" />
+        </form>
 
     </div>
 
-
+    <div th:text="${error}" class="col-sm-6 col-sm-offset-3"></div>
     <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/availability}" th:method="post" th:object="${appointment}" >
         <div class="col-sm-6 col-sm-offset-3">
             <label for="date">Select Date</label>
             <input type="text" id="date" name="date" th:field="*{date}" />
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <label for="start_time">Appontment block start</label>
             <select id="start_time" name="start_time" th:field="*{startTime}">
                 <option disabled="disabled" selected="selected" value="0">-Select a start time-</option>
-                <option value="07">7:00AM</option>
-                <option value="08">8:00AM</option>
-                <option value="09">9:00AM</option>
+                <option value="7">7:00AM</option>
+                <option value="8">8:00AM</option>
+                <option value="9">9:00AM</option>
                 <option value="10">10:00AM</option>
                 <option value="11">11:00AM</option>
                 <option value="12">12:00PM</option>
@@ -47,13 +47,13 @@
                 <option value="20">8:00PM</option>
             </select>
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <label for="stop_time">Appontment block stop</label>
             <select id="stop_time" name="stop_time" th:field="*{stopTime}">
                 <option disabled="disabled" selected="selected" value="0">-Select a stop time-</option>
-                <option value="07">7:00AM</option>
-                <option value="08">8:00AM</option>
-                <option value="09">9:00AM</option>
+                <option value="7">7:00AM</option>
+                <option value="8">8:00AM</option>
+                <option value="9">9:00AM</option>
                 <option value="10">10:00AM</option>
                 <option value="11">11:00AM</option>
                 <option value="12">12:00PM</option>
