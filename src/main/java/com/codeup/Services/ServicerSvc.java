@@ -22,4 +22,8 @@ public class ServicerSvc {
     public Servicer findOne(long id) {
         return servicerDao.findOne(id);
     }
+
+    public void save(Servicer servicer) {
+        servicerDao.save(servicer);
+    }
 }

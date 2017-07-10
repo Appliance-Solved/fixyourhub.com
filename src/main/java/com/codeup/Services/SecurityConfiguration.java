@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
     @Configuration
     @EnableWebSecurity
-    @ComponentScan(basePackageClasses = UserWithRoles.class)
+    @ComponentScan(basePackageClasses = com.codeup.Services.UserWithRoles.class)
     public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         @Autowired
@@ -37,14 +37,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
                     .permitAll() // Anyone can go to the login page
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/", "/logout") // anyone can see the home and logout page
+                    .antMatchers("/", "/logout", "/**/register") // anyone can see the home and logout page
                     .permitAll()
                     .and()
                     .logout()
                     .logoutSuccessUrl("/login?logout")
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/dashboard", "/servicer/dashboard", "/user/dashboard") // only authenticated users can go through handle
+                    .antMatchers("/dashboard") // only authenticated users can go through handle
                     .authenticated()
                     .and()
                     .authorizeRequests()

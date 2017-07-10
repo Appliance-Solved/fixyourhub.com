@@ -33,6 +33,14 @@ public class Servicer {
     public Servicer() {
     }
 
+    public Servicer(Long serviceCallFee, String about, String services, String picUrl, User user) {
+        this.serviceCallFee = serviceCallFee;
+        this.about = about;
+        this.services = services;
+        this.picUrl = picUrl;
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }

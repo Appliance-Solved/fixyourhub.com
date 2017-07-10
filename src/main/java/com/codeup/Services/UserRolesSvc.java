@@ -24,6 +24,10 @@ public class UserRolesSvc {
         return userRolesDao.findUserRolesByUser(user);
     }
 
+    public void save(UserRole userRole) {
+        userRolesDao.save(userRole);
+    }
+
     public void setUserRole(User user){
         UserRole userRole = new UserRole(user);
         userRole.setRole("USER");

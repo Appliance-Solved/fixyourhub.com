@@ -1,6 +1,7 @@
 package com.codeup.Services;
 
 import com.codeup.Models.User;
+import com.codeup.Models.UserRole;
 import com.codeup.Repositories.UserRepository;
 import com.codeup.Repositories.UserRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserDetailsLoader implements UserDetailsService {
             throw new UsernameNotFoundException("No user found for " + username);
         }
 
-        List<String> userRoles = roles.ofUserWith(username);
+        UserRole userRoles = roles.findUserRolesByUser(user);
         return new UserWithRoles(user, userRoles);
     }
 }
