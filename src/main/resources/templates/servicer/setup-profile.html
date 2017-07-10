@@ -2,23 +2,24 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('My Appliances')"></th:block>
+    <link rel="stylesheet" href="/css/setup.css" />
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
-<div id="container">
+<div id="container" class="col-sm-6 col-sm-offset-3">
     <h1><span th:text="${user.name}"></span>, please setup your profile</h1>
     <form th:action="@{/servicer/setprofile}" th:method="post" th:object="${servicer}" enctype="multipart/form-data">
 
-        <div>
-            <label for="address">Adress</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="address">Adress</label>
             <input type="text" id="address" name="address" />
         </div>
-        <div>
-            <label for="city">City</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="city">City</label>
             <input type="text" id="city" name="city" />
         </div>
-        <div>
-            <label for="state">State</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="state">State</label>
             <select name="state" id="state">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -73,22 +74,22 @@
                 <option value="WY">Wyoming</option>
             </select>
         </div>
-        <div>
-            <label for="zip">Zipcode</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="zip">Zipcode</label>
             <input type="number" id="zip" name="zip" />
         </div>
-        <div>
-            <label for="phone">Phone</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="phone">Phone</label>
             <input type="text" id="phone" name="phone" />
         </div>
-        <div>
-            <label for="service_call">Service Call Fee</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="service_call">Service Call Fee</label>
             <input type="text" id="service_call" name="service_call" th:field="*{serviceCallFee}" />
         </div>
-        <div>
-            <legend>Choose all appliances you provide service for</legend>
+        <div class="col-sm-6 col-sm-offset-3">
+            <legend class="choice">Choose all appliances you provide service for</legend>
         <input type="checkbox" id="refrigerator" name="services" value="0" />
-        <label for="refrigerator">Refrigerator</label>
+        <label class="choice" for="refrigerator">Refrigerator</label>
 
             <input type="checkbox" id="stove" name="services" value="1" />
             <label for="stove">Stove/ Oven</label>
@@ -111,15 +112,15 @@
             <input type="checkbox" id="other" name="services" value="7" />
             <label for="other">Other</label>
         </div>
-        <div>
-            <label for="file">Image</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="file">Image</label>
             <input type="file" id="file" name="file" />
         </div>
-        <div>
-            <label for="about">About</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="about">About</label>
             <textarea name="about" id="about" cols="30" rows="15" th:field="*{about}"></textarea>
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <input type="submit" value="Submit" />
         </div>
 
