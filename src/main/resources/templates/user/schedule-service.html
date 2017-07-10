@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Shedule Service')"></th:block>
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar" />
+
+Shedule Service
+
+select an appliance
+
+<div th:each="appliance: ${userAppliances}">
+    <h4 th:text="${appliance.name}"></h4>
+    <h5>Type: <th:block th:switch="${appliance.appliance_id}">
+        <span th:case="0">Regrigerator</span>
+        <span th:case="1">Stove/ Oven</span>
+        <span th:case="2">Washer</span>
+        <span th:case="3">Dryer</span>
+        <span th:case="4">Dishwasher</span>
+        <span th:case="5">Microwave</span>
+        <span th:case="6">Ice Machine</span>
+        <span th:case="7">Other</span>
+    </th:block></h5>
+    <h5>Model: <span th:text="${appliance.model}"></span></h5>
+    <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
+</div>
+
+<footer th:replace="fragments :: my-footer"/>
+
+</body>
+</html>
