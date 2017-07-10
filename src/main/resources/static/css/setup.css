@@ -1,0 +1,19 @@
+body {
+    background-color: #596059;
+}
+
+h1 {
+    margin-top: 2em;
+    text-align: center;
+    font-size: 4em;
+    font-family: Serif;
+    color: snow;
+}
+
+.choose {
+    margin-top: 1.5em;
+    font-family: Serif;
+    font-size: 3em;
+    text-align: center;
+    color: snow;
+}
