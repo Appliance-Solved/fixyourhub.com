@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('My Appliances')"></th:block>
-    <link rel="stylesheet" href="/css/setup.css" />
+    <link rel="stylesheet" href="/css/appliances.css" />
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
@@ -23,7 +23,7 @@
         <h5>Model: <span th:text="${appliance.model}"></span></h5>
         <h5>Model: <span th:text="${appliance.serial}"></span></h5>
         <form th:action="@{/user/myappliance/delete}" th:method="post">
-            <input type="hidden" id="id" name="id" th:value="${appliance.id}" />
+            <input class="choice" type="hidden" id="id" name="id" th:value="${appliance.id}" />
             <input type="submit" value="Delete" />
         </form>
     </div>
@@ -31,8 +31,8 @@
 
     <form th:action="@{/user/myappliance}" th:method="post" th:object="${appliance}">
         <div class="col-sm-6 col-sm-offset-3">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" th:field="*{name}" />
+            <label class="choice" for="name">Name</label>
+            <input class="choice" type="text" id="name" name="name" th:field="*{name}" />
         </div>
         <div class="col-sm-6 col-sm-offset-3">
             <select id="type" name="type" th:field="*{appliance_id}">
@@ -47,14 +47,14 @@
             </select>
         </div>
         <div class="col-sm-6 col-sm-offset-3">
-            <label for="model">Model</label>
+            <label class="choice" for="model">Model</label>
             <input type="text" id="model" name="model" th:field="*{model}" />
         </div>
-        <div>
-            <label for="serial">Serial</label>
-            <input type="text" id="serial" name="serial" th:field="*{serial}" />
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choice" for="serial">Serial</label>
+            <input class="choice" type="text" id="serial" name="serial" th:field="*{serial}" />
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <input type="submit" value="Add" />
         </div>
 

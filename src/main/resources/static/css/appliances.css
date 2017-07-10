@@ -1,0 +1,23 @@
+body {
+    background-color: #596059;
+
+}
+h1 {
+    text-align: center;
+    color: snow;
+}
+
+.choice {
+    margin-top: 1.5em;
+    font-family: Serif;
+    text-align: center;
+    color: snow;
+}
+
+.col-sm-6 {
+    text-align: center;
+}
+
+#type {
+    margin-top: 1.5em;
+}
