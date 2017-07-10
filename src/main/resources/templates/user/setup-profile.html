@@ -2,22 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('My Appliances')"></th:block>
+
+    <link rel="stylesheet" href="/css/fragments.css"/>
+    <link rel="stylesheet" href="/css/setup.css" />
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
-<div id="container">
+<div id="container" class="col-sm-6 col-sm-offset-3">
     <h1><span th:text="${user.name}"></span>, please setup your profile</h1>
     <form th:action="@{/user/setprofile}" th:method="post">
-        <div>
-            <label for="address">Adress</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choose" for="address">Address</label>
             <input type="text" id="address" name="address" />
         </div>
-        <div>
-            <label for="city">City</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choose" for="city">City</label>
             <input type="text" id="city" name="city" />
         </div>
-        <div>
-            <label for="state">State</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choose" for="state">State</label>
             <select name="state" id="state">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -72,15 +75,15 @@
                 <option value="WY">Wyoming</option>
             </select>
         </div>
-        <div>
-            <label for="zip">Zipcode</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choose" for="zip">Zipcode</label>
             <input type="text" id="zip" name="zip" />
         </div>
-        <div>
-            <label for="phone">Phone</label>
+        <div class="col-sm-6 col-sm-offset-3">
+            <label class="choose" for="phone">Phone</label>
             <input type="text" id="phone" name="phone" />
         </div>
-        <div>
+        <div class="col-sm-6 col-sm-offset-3">
             <input type="submit" value="Submit" />
         </div>
 
