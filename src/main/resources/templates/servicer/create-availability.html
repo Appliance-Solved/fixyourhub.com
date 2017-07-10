@@ -8,7 +8,7 @@
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
-<div class="col-sm-6 col-sm-offset-3" id="container">
+<div  class="col-sm-6 col-sm-offset-3" id="container">
     <h1><span th:text="${user.name}"></span>'s Availability</h1>
     <div class="col-sm-6 col-sm-offset-3" th:each="appointment: ${availability}">
         <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
@@ -24,11 +24,11 @@
     <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3"></h4>
     <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/availability}" th:method="post" th:object="${appointment}" >
         <div class="col-sm-6 col-sm-offset-3">
-            <label for="date">Select Date</label>
+            <label class="time" for="date">Select Date</label>
             <input type="text" id="date" name="date" th:field="*{date}" />
         </div>
         <div class="col-sm-6 col-sm-offset-3">
-            <label for="start_time">Appontment block start</label>
+            <label class="time" for="start_time">Appontment block start</label>
             <select id="start_time" name="start_time" th:field="*{startTime}">
                 <option disabled="disabled" selected="selected" value="0">-Select a start time-</option>
                 <option value="7">7:00AM</option>
@@ -48,7 +48,7 @@
             </select>
         </div>
         <div class="col-sm-6 col-sm-offset-3">
-            <label for="stop_time">Appontment block stop</label>
+            <label class="time" for="stop_time">Appontment block stop</label>
             <select id="stop_time" name="stop_time" th:field="*{stopTime}">
                 <option disabled="disabled" selected="selected" value="0">-Select a stop time-</option>
                 <option value="7">7:00AM</option>
