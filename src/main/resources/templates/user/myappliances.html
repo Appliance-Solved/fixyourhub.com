@@ -5,6 +5,7 @@
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
+<div class="container">
 <div id="container">
     <h1><span th:text="${user.name}"></span>'s Applianes</h1>
     <div th:each="appliance: ${userAppliances}">
@@ -59,6 +60,7 @@
 
     </form>
 </div>
-<footer th:replace="fragments :: my-footer"/>
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
 </body>
 </html>
