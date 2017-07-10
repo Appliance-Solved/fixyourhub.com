@@ -3,22 +3,25 @@ body {
 }
 h1 {
     margin-top: 3em;
-    font-family: Didot;
+    font-family: Serif;
     font-size: 4em;
     text-align: center;
+    color: snow;
 }
 
 .choice {
     margin-top: 1.5em;
-    font-family: Didot;
+    font-family: Serif;
     font-size: 3em;
     text-align: center;
+    color: snow;
 }
 
 .other {
     margin-top: 1em;
-    font-family: Didot;
+    font-family: Serif;
     font-size: 2em;
     text-align: center;
+    color: snow;
 }
 
