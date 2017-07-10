@@ -4,6 +4,7 @@
 "use strict";
 $(document).ready(function () {
     "use strict";
+    //  function to switch registration form and page content from standard user to servicer
     $(".serviceRegister").hide();
     $(".userRole").change(function(){
         if (this.value == "user"){
@@ -13,10 +14,10 @@ $(document).ready(function () {
             $(".serviceRegister").show();
             $(".userRegister").hide();
         }
-
     })
 
 
+    $("#date").datepicker();
 
 
 });

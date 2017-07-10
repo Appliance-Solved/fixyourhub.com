@@ -1,8 +1,10 @@
 package com.codeup.Controllers;
 
+import com.codeup.Models.Appointment;
 import com.codeup.Models.Servicer;
 import com.codeup.Models.Technician;
 import com.codeup.Models.User;
+import com.codeup.Services.AppointmentSvc;
 import com.codeup.Services.ServicerSvc;
 import com.codeup.Services.TechnicianSvc;
 import com.codeup.Services.UserSvc;
@@ -30,15 +32,17 @@ public class ServicerController {
     private UserSvc userSvc;
     private TechnicianSvc techsvc;
     private ServicerSvc servicerSvc;
+    private AppointmentSvc appointmentSvc;
     @Value("${file-upload-path}")
     private String uploadPath;
 
 
     @Autowired
-    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc) {
+    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc) {
         this.userSvc = userSvc;
         this.techsvc = techsvc;
         this.servicerSvc = servicerSvc;
+        this.appointmentSvc = appointmentSvc;
     }
 
     @GetMapping("/servicer/tech")
@@ -110,6 +114,24 @@ public class ServicerController {
         servicer.setUser(user);
         servicerSvc.save(servicer);
         return "redirect:/servicer/dashboard";
+    }
+
+    @GetMapping("/servicer/create-availability")
+    public String servicerAvailability(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Iterable<Appointment> availability = appointmentSvc.findAllByServicer(user, true);
+        model.addAttribute("availability", availability);
+        model.addAttribute("appointment", new Appointment());
+        return "servicer/create-availability";
+    }
+
+    @PostMapping("/servicer/availability")
+    public String createAvailability(@ModelAttribute Appointment appointment){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        appointment.setServicer(user);
+        appointmentSvc.save(appointment);
+        return "redirect:/servicer/create-availability";
     }
 
 

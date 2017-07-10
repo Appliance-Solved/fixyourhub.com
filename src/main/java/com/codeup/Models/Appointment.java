@@ -1,6 +1,8 @@
 package com.codeup.Models;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,7 +16,7 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "DATE")
     private Date date;
 
     @Column(nullable = false)
@@ -37,6 +39,33 @@ public class Appointment {
     public Appointment() {
     }
 
+    public Appointment(Date date, int startTime, int stopTime, boolean available, User servicer, User user) {
+        this.date = date;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.available = available;
+        this.servicer = servicer;
+        this.user = user;
+    }
+
+    public String formatDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMMMM dd, YYYY");
+        return dateFormat.format(date);
+    }
+
+    public String formatTime(int time) {
+        String time24 = time + ":00";
+        SimpleDateFormat time24format = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat time12format = new SimpleDateFormat("hh:mm a");
+        try {
+            Date time24new = time24format.parse(time24);
+            String time12 = time12format.format(time24new);
+            return  time12;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "Error formatting time";
+        }
+    }
 
     public Long getId() {
         return id;
