@@ -93,6 +93,16 @@ public class Appointment {
 
     }
 
+    public boolean startBeforeStopTimeAndWindowMax(int startTime, int stopTime) {
+        int max = 8;
+        int window = stopTime - startTime;
+        if(startTime < stopTime && window <= max) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public Long getId() {
         return id;
     }

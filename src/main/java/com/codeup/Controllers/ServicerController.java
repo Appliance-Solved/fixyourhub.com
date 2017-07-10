@@ -117,14 +117,18 @@ public class ServicerController {
     }
 
     @GetMapping("/servicer/create-availability")
-    public String servicerAvailability(@RequestParam(required = false)boolean error, Model model) {
+    public String servicerAvailability(@RequestParam(required = false)boolean past,@RequestParam(required = false)boolean timeconflict , Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         Iterable<Appointment> availability = appointmentSvc.findAllByServicer(user, true);
+        
         model.addAttribute("availability", availability);
         model.addAttribute("appointment", new Appointment());
-        if (error) {
-            String message = "Please specify a date in the future";
+        if (past) {
+            String message = "Please specify a date that has not passed.";
+            model.addAttribute("error", message);
+        }else if(timeconflict){
+            String message = "You must specify a window greater than one hour and no more than eight hours.";
             model.addAttribute("error", message);
         }
         return "servicer/create-availability";
@@ -134,11 +138,14 @@ public class ServicerController {
     public String createAvailability(@ModelAttribute Appointment appointment, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         appointment.setServicer(user);
+        if(appointment.startBeforeStopTimeAndWindowMax(appointment.getStartTime(), appointment.getStopTime())){
         if (appointment.checkIfDateTimePassed(appointment.getDate(), appointment.getStartTime())) {
             appointmentSvc.save(appointment);
             return "redirect:/servicer/create-availability";
         }else {
-            return "redirect:/servicer/create-availability?error=true";
+            return "redirect:/servicer/create-availability?past=true";
+        }}else{
+            return "redirect:/servicer/create-availability?timeconflict=true";
         }
 
     }

@@ -21,7 +21,7 @@
 
     </div>
 
-    <div th:text="${error}" class="col-sm-6 col-sm-offset-3"></div>
+    <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3"></h4>
     <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/availability}" th:method="post" th:object="${appointment}" >
         <div class="col-sm-6 col-sm-offset-3">
             <label for="date">Select Date</label>

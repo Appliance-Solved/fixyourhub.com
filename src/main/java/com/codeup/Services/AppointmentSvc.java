@@ -23,7 +23,7 @@ public class AppointmentSvc {
     }
 
     public Iterable<Appointment> findAllByServicer(User servicer, boolean available) {
-        return appointmentDao.findAllByServicerAndAvailableEquals(servicer, available);
+        return appointmentDao.findAllByServicerAndAvailability(servicer, available);
     }
 
     public void save(Appointment appointment){
