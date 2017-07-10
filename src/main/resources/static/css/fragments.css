@@ -14,7 +14,7 @@ footer {
 .follow-and-connect p {
     margin: 0;
     padding-left: 10%;
-    color: white;
+    color: snow;
     text-align: center;
     line-height: 70px;
 }
@@ -37,7 +37,7 @@ footer {
     float: left;
     line-height: 70px;
     text-decoration: none;
-    color: white;
+    color: snow;
     text-align: center;
     font-weight: bold;
 }
