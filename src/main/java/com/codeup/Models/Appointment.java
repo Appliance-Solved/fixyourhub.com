@@ -9,7 +9,10 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by larryg on 7/9/17.
@@ -101,6 +104,22 @@ public class Appointment {
         }else {
             return false;
         }
+    }
+
+    public List<String> findTodayNext7() {
+        Date today = new Date();
+        Date day = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(day);
+        List<String> week = new ArrayList<>();
+        SimpleDateFormat plannerFormat = new SimpleDateFormat("EEEEE MMMMM dd");
+        week.add(plannerFormat.format(today));
+        for(int i = 1; i < 7; i++){
+            c.add(Calendar.DATE, 1);
+            day = c.getTime();
+            week.add(plannerFormat.format(day));
+        }
+        return week;
     }
 
     public Long getId() {
