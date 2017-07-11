@@ -26,7 +26,7 @@
         <form th:action="@{/user/register}" th:method="post" th:object="${user}">
             <div>
                 <label class="other" for="name">Name</label>
-                <input type="text" id="name" name="name" th:field="*{name}"/>
+                <input type="text" id="name" name="name" th:field="*{name}" autofocus="autofocus"/>
             </div>
             <div>
                 <label class="other" for="username">Username</label>

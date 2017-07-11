@@ -18,7 +18,7 @@
             <button class="box" data-toggle="modal" data-target="#myModal">Fix my appliance!</button>
         </div>
         <div class="col-sm-6">
-            <button class="box">Provide service!</button>
+                <button class="box" onclick="location.href='register.html?true'">Provide service!</button>
         </div>
     </div>
 
@@ -86,6 +86,11 @@
                     <option value="19">7:00PM</option>
                     <option value="20">8:00PM</option>
                 </select>
+            </div>
+            <div class="modal-body">
+                <label class="zipcode" for="zipcode">Zipcode:</label>
+                <input type="text" id="zipcode" name="zipcode" />
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Select</button>

@@ -23,9 +23,9 @@
             <span th:case="7">Other</span>
         </th:block></h5>
         <h5>Model: <span th:text="${appliance.model}"></span></h5>
-        <h5>Model: <span th:text="${appliance.serial}"></span></h5>
+        <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
         <form th:action="@{/user/myappliance/delete}" th:method="post">
-            <input class="choice" type="hidden" id="id" name="id" th:value="${appliance.id}" />
+            <input  type="hidden" id="id" name="id" th:value="${appliance.id}" />
             <input type="submit" value="Delete" />
         </form>
     </div>
@@ -34,7 +34,7 @@
     <form th:action="@{/user/myappliance}" th:method="post" th:object="${appliance}">
         <div class="col-sm-6 col-sm-offset-3">
             <label class="choice" for="name">Name</label>
-            <input class="choice" type="text" id="name" name="name" th:field="*{name}" />
+            <input type="text" id="name" name="name" th:field="*{name}" />
         </div>
         <div class="col-sm-6 col-sm-offset-3">
             <select id="type" name="type" th:field="*{appliance_id}">
@@ -54,7 +54,7 @@
         </div>
         <div class="col-sm-6 col-sm-offset-3">
             <label class="choice" for="serial">Serial</label>
-            <input class="choice" type="text" id="serial" name="serial" th:field="*{serial}" />
+            <input type="text" id="serial" name="serial" th:field="*{serial}" />
         </div>
         <div class="col-sm-6 col-sm-offset-3">
             <input type="submit" value="Add" />
