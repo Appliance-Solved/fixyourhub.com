@@ -23,10 +23,10 @@ public class ServicerSvc {
         return servicerDao.findOne(id);
     }
 
-    public Iterable<Servicer> findAllServicersByAppliance(){
-
-        return null;
-    }
+    //Query does not work yet
+//    public Iterable<Servicer> findAllServicersByApplianceId(long id){
+//        return servicerDao.findServicerByApplianceId(id);
+//    }
 
     public void save(Servicer servicer) {
         servicerDao.save(servicer);

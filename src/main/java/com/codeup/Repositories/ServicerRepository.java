@@ -1,8 +1,6 @@
 package com.codeup.Repositories;
 
 import com.codeup.Models.Servicer;
-import com.codeup.Models.User;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -10,7 +8,9 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ServicerRepository extends CrudRepository<Servicer, Long>{
 
-    @Query("select * from Appointment a where a.servicer = ?1 and a.available = ?2 order by a.date, a.startTime asc")
-    Iterable<Servicer> findAllByServicerAndAvailability(User servicer, int appliance_id);
+    //Query does not work yet
+//    @Query("select u.username from Servicer s join User u on s.user_id = u.id where services like concat('%',?1,'%')")
+//    Iterable<Servicer> findServicerByApplianceId(long id);
 
 }
+

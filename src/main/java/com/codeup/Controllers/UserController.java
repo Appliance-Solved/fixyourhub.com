@@ -1,9 +1,9 @@
 package com.codeup.Controllers;
 
-import com.codeup.Models.Servicer;
 import com.codeup.Models.User;
 import com.codeup.Models.UserAppliance;
 import com.codeup.Models.UserRole;
+import com.codeup.Services.ServicerSvc;
 import com.codeup.Services.UserAppliancesSvc;
 import com.codeup.Services.UserRolesSvc;
 import com.codeup.Services.UserSvc;
@@ -25,15 +25,17 @@ public class UserController {
     private UserSvc userSvc;
     private UserRolesSvc userRolesSvc;
     private UserAppliancesSvc userAppliancesSvc;
+    private ServicerSvc servicerSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc){
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
         this.userAppliancesSvc = userAppliancesSvc;
+        this.servicerSvc = servicerSvc;
     }
 
     @GetMapping("/")
@@ -140,8 +142,12 @@ public class UserController {
     }
 
     @GetMapping("/user/scheduleservice/results")
-    public String serviceSearchResults(@RequestParam(name = "id") Long id ){
-        Iterable<Servicer> servicers =
+    public String serviceSearchResults(@RequestParam(name = "id") long id, Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+//        Iterable<Servicer> servicersId = servicerSvc.findAllServicersByApplianceId(id);
+
+
         return "user/servicer-results";
     }
 
