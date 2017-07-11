@@ -23,6 +23,9 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by larryg on 7/7/17.
@@ -153,6 +156,22 @@ public class ServicerController {
     @PostMapping("/servicer/appointment/delete")
     public String deleteAvailability(@RequestParam(name = "id") Long id) {
         appointmentSvc.delete(id);
+        return "redirect:/servicer/create-availability";
+    }
+
+    @PostMapping("/servicer/setavailability")
+    public String setAvailability(@RequestParam(name = "date")List<Integer> dates, @RequestParam(name = "time")List<Integer> times) throws ParseException {
+        User servicer = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Appointment appointment = new Appointment();
+//        List<Appointment> appointments =  appointment.checkDatesetDate(dates);
+        Date date = appointment.findDate(dates.get(0));
+        int start = appointment.findLow(times);
+        int stop = appointment.findHigh(times);
+        appointment.setDate(date);
+        appointment.setStartTime(start);
+        appointment.setStopTime(stop + 1);
+        appointment.setServicer(servicer);
+        appointmentSvc.save(appointment);
         return "redirect:/servicer/create-availability";
     }
 

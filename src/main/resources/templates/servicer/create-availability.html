@@ -27,7 +27,7 @@
     <table class="col-xs-12">
         <tr>
             <th>Time</th>
-            <th th:each="day: ${appointment.findTodayNext7()}">
+            <th th:each="day: ${appointment.findTodayNext7('EEEEE MMMMM dd')}">
                 <span th:text="${day}"></span>
             </th>
 
@@ -175,6 +175,12 @@
             <td class="d-6 t-20"> </td>
         </tr>
     </table>
+
+    <form th:action="@{/servicer/setavailability}" th:method="post"  id="setAvail">
+        <input type="hidden" id="date" name="date" />
+        <input type="hidden" id="time" name="time" />
+    </form>
+    <button class="col-xs-2 col-xs-offset-1" id="add">Add</button>
 
     <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3"></h4>
     <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/availability}" th:method="post"
