@@ -28,4 +28,8 @@ tr:nth-child(odd) {
     background: #219913;
 }
 
+#add {
+    margin: 30px auto 100px auto;
+}
+
 
