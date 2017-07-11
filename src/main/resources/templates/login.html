@@ -8,10 +8,10 @@
 <body>
 <nav th:replace="fragments :: my-navbar"/>
 <div class="container">
-    <div class="col-sm-4 col-sm-offset-5" th:if="${param.error}">
+    <div id="pass" class="col-sm-4 col-sm-offset-5" th:if="${param.error}">
         Invalid Username and Password.
     </div>
-    <div class="col-sm-4 col-sm-offset-5" th:if="${param.logout}">
+    <div id="log" class="col-sm-4 col-sm-offset-5" th:if="${param.logout}">
         You have been logged out.
     </div>
     <form th:action="@{/login}" th:method="post">
