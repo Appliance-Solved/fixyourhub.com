@@ -5,7 +5,7 @@
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
-
+<div class="container">
 <h1>Shedule Service</h1>
 
 <h3>select an appliance</h3>
@@ -24,12 +24,14 @@
     </th:block></h5>
     <h5>Model: <span th:text="${appliance.model}"></span></h5>
     <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
+
     <form th:action="@{/user/scheduleservice/results}" th:method="GET">
         <input type="hidden" id="id" name="id" th:value="${appliance.id}" />
         <input type="submit" value="Request Service" />
     </form>
-</div>
 
+</div>
+</div>
 <footer th:replace="fragments :: my-footer"/>
 
 </body>

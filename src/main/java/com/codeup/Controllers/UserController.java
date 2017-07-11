@@ -146,9 +146,7 @@ public class UserController {
     public String serviceSearchResults(@RequestParam(name = "id") long id, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        System.out.println("in serviceSearchResults() appliance.id = "+id);
         Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(id);
-//        User servicers = userSvc.findOne(27);
         model.addAttribute("servicers", servicers);
 
 

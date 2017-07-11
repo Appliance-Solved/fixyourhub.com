@@ -24,7 +24,6 @@ public class ServicerSvc {
         return servicerDao.findOne(id);
     }
 
-    //Query does not work yet (find all servers that work on a appliance.id)
     public Iterable<User> findAllServicersByApplianceId(long id){
         return servicerDao.findServicerByApplianceId(id);
     }
