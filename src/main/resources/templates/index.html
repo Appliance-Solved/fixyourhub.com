@@ -9,21 +9,22 @@
 
 </head>
 <body>
-<nav th:replace="fragments :: my-navbar" />
-<h1>Welcome to FixItHub!</h1>
-<h3>Lets get started, choose an option.</h3>
-<div class="col-sm-6 col-sm-offset-3">
-    <div class="col-sm-6">
-        <button class="box" data-toggle="modal" data-target="#myModal">Fix my appliance!</button>
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container">
+    <h1>Welcome to FixItHub!</h1>
+    <h3>Lets get started, choose an option.</h3>
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-6">
+            <button class="box" data-toggle="modal" data-target="#myModal">Fix my appliance!</button>
+        </div>
+        <div class="col-sm-6">
+            <button class="box">Provide service!</button>
+        </div>
     </div>
-    <div class="col-sm-6">
-        <button class="box">Provide service!</button>
-    </div>
-</div>
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
@@ -90,11 +91,12 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Select</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
-        </div>
 
+        </div>
+    </div>
     </div>
 </div>
-<footer th:include="fragments :: my-footer"/>
+<footer th:include="fragments :: my-footer" class="footer"/>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
