@@ -17,3 +17,9 @@ body {
     text-align: center;
     color: snow;
 }
+
+#pass , #log {
+    color: coral;
+    font-size: 2em;
+    font-family: Serif;
+}
