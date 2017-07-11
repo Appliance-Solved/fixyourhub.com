@@ -1,6 +1,7 @@
 package com.codeup.Repositories;
 
 import com.codeup.Models.Servicer;
+import com.codeup.Models.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -12,5 +13,9 @@ public interface ServicerRepository extends CrudRepository<Servicer, Long>{
 //    @Query("select u.username from Servicer s join User u on s.user_id = u.id where services like concat('%',?1,'%')")
 //    Iterable<Servicer> findServicerByApplianceId(long id);
 
+//    @Query("select s from Servicer s where s.user = ?1 ")
+//    Servicer findServicerInfoByUserId(User user);
+
+    Servicer findServicerByUser(User user);
 }
 

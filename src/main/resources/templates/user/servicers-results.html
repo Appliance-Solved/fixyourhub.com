@@ -12,7 +12,6 @@
 
     <div th:each="servicer: ${servicers}">
         <h4 th:text="${servicer.username}"></h4>
-        <h4 th:text="${servicer.username}"></h4>
         <form th:action="@{/user/viewservicer}" th:method="GET">
             <input type="hidden" id="id" name="id" th:value="${servicer.id}"/>
             <input type="submit" value="View"/>

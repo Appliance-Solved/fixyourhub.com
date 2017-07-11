@@ -148,8 +148,8 @@ public class UserController {
         model.addAttribute("user", user);
         System.out.println("in serviceSearchResults() appliance.id = "+id);
 //        Iterable<Servicer> servicers = servicerSvc.findAllServicersByApplianceId(id);
-        Servicer servicers = servicerSvc.findOne(14);
-        System.out.println("Kelli? : " + servicers);
+        User servicers = userSvc.findOne(27);
+        System.out.println("Kelli? : " + servicers.getUsername());
         model.addAttribute("servicers", servicers);
 
 
@@ -157,7 +157,15 @@ public class UserController {
     }
 
     @GetMapping("/user/viewservicer")
-    public String showServicerProfile(){
+    public String showServicerProfile(@RequestParam(name = "id") long id, Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        System.out.println("in show ServicerProfile() id = " + id);
+        User servicer = userSvc.findOne(id);
+        model.addAttribute("servicer", servicer);
+        Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
+        System.out.println("servicer_info about: " + servicer_info.getAbout());
+        model.addAttribute("servicer_info", servicer_info);
         return "user/viewservicer";
     }
 

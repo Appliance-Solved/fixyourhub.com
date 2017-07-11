@@ -5,10 +5,19 @@
 
 </head>
 <body>
-<nav th:replace="fragments :: my-navbar" />
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container">
 
-Service Provider
+    Service Provider
+    <h2 th:text="${servicer.username}"></h2>
+    <img src="http://via.placeholder.com/250x250" alt=""/>
+    <h4 th:text="${servicer.phone}"></h4>
+    <p th:text="${servicer_info.serviceCallFee}"></p>
+    <p th:text="${servicer_info.about}"></p>
 
+</div>
 <footer th:replace="fragments :: my-footer"/>
 </body>
 </html>
+
+

@@ -22,6 +22,4 @@ public class ReviewsSvc {
     public void save(Reviews review){
         reviewsDao.save(review);
     }
-
-
 }
