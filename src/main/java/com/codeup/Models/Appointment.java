@@ -76,8 +76,10 @@ public class Appointment {
         }
     }
 
-    public boolean checkIfDateTimePassed (Date date, int startTime) {
+    public boolean checkIfDateTimePassed (Appointment appointment) {
         String time24;
+        int startTime = appointment.getStartTime();
+        Date date = appointment.getDate();
         if(startTime <10) {
             time24 = "0" + startTime + ":00:00";
         }else {
@@ -87,8 +89,8 @@ public class Appointment {
         String formatedDate = dateFormat.format(date);
             LocalDate localDate = LocalDate.parse(formatedDate);
             LocalTime localTime = LocalTime.parse(time24);
-            LocalDateTime appointment = LocalDateTime.of(localDate, localTime);
-        if (appointment.isBefore(LocalDateTime.now())){
+            LocalDateTime availability = LocalDateTime.of(localDate, localTime);
+        if (availability.isBefore(LocalDateTime.now())){
             return false;
         }else{
             return true;
@@ -106,13 +108,13 @@ public class Appointment {
         }
     }
 
-    public List<String> findTodayNext7() {
+    public List<String> findTodayNext7(String format) {
         Date today = new Date();
         Date day = new Date();
         Calendar c = Calendar.getInstance();
         c.setTime(day);
         List<String> week = new ArrayList<>();
-        SimpleDateFormat plannerFormat = new SimpleDateFormat("EEEEE MMMMM dd");
+        SimpleDateFormat plannerFormat = new SimpleDateFormat(format);
         week.add(plannerFormat.format(today));
         for(int i = 1; i < 7; i++){
             c.add(Calendar.DATE, 1);
@@ -121,6 +123,55 @@ public class Appointment {
         }
         return week;
     }
+
+
+
+    public List<Appointment> checkDatesetDate(List<Integer> dates, List<Integer> times) throws ParseException {
+        List<Appointment> allDates = new ArrayList<>();
+        Integer first = null;
+        List<String> week = findTodayNext7("YYYY-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+        for (int i = 0; i < dates.size(); i++){
+            Integer date = dates.get(i);
+            Integer time = times.get(i);
+            if(!date.equals(first)){
+                first = date;
+                Appointment appointment1 = new Appointment();
+                Date thisDate = format.parse(week.get(date));
+                appointment1.setDate(thisDate);
+                allDates.add(appointment1);
+            }
+        }
+        return allDates;
+    }
+
+    public Date findDate(int day) throws ParseException {
+        List<String> week = findTodayNext7("dd-M-yyyy hh:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        Date date = format.parse(week.get(day));
+        return date;
+    }
+
+    public int findHigh(List<Integer> times){
+        int max = times.get(0);
+        for(Integer time : times){
+            if(time > max){
+                max = time;
+            }
+        }
+        return max;
+    }
+
+    public int findLow(List<Integer> times){
+        int min = times.get(0);
+        for(Integer time : times){
+            if(time < min){
+                min = time;
+            }
+        }
+        return min;
+    }
+
 
     public Long getId() {
         return id;
