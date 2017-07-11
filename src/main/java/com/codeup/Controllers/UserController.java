@@ -142,14 +142,19 @@ public class UserController {
         return "user/schedule-service";
     }
 
+    @GetMapping("/user/scheduleservice/day")
+    public String scheduleServiceDate(
+            @RequestParam(name = "id") long id,
+            Model model
+    ){
+        model.addAttribute("id", id);
+        return"user/schedule-service-date";
+    }
+
     @GetMapping("/user/scheduleservice/results")
     public String serviceSearchResults(@RequestParam(name = "id") long id, Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
         Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(id);
         model.addAttribute("servicers", servicers);
-
-
         return "user/servicers-results";
     }
 

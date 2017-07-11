@@ -25,7 +25,7 @@
     <h5>Model: <span th:text="${appliance.model}"></span></h5>
     <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
 
-    <form th:action="@{/user/scheduleservice/results}" th:method="GET">
+    <form th:action="@{/user/scheduleservice/day}" th:method="GET">
         <input type="hidden" id="id" name="id" th:value="${appliance.id}" />
         <input type="submit" value="Request Service" />
     </form>
