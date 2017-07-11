@@ -76,8 +76,10 @@ public class Appointment {
         }
     }
 
-    public boolean checkIfDateTimePassed (Date date, int startTime) {
+    public boolean checkIfDateTimePassed (Appointment appointment) {
         String time24;
+        int startTime = appointment.getStartTime();
+        Date date = appointment.getDate();
         if(startTime <10) {
             time24 = "0" + startTime + ":00:00";
         }else {
@@ -87,8 +89,8 @@ public class Appointment {
         String formatedDate = dateFormat.format(date);
             LocalDate localDate = LocalDate.parse(formatedDate);
             LocalTime localTime = LocalTime.parse(time24);
-            LocalDateTime appointment = LocalDateTime.of(localDate, localTime);
-        if (appointment.isBefore(LocalDateTime.now())){
+            LocalDateTime availability = LocalDateTime.of(localDate, localTime);
+        if (availability.isBefore(LocalDateTime.now())){
             return false;
         }else{
             return true;

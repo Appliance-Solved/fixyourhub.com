@@ -123,8 +123,13 @@ public class ServicerController {
     public String servicerAvailability(@RequestParam(required = false)boolean past,@RequestParam(required = false)boolean timeconflict , Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
+        Iterable<Appointment> availabilityCheck = appointmentSvc.findAllByServicer(user, true);
+        for (Appointment appointment : availabilityCheck){
+            if(!appointment.checkIfDateTimePassed(appointment)){
+                appointmentSvc.delete(appointment.getId());
+            }
+        }
         Iterable<Appointment> availability = appointmentSvc.findAllByServicer(user, true);
-        
         model.addAttribute("availability", availability);
         model.addAttribute("appointment", new Appointment());
         if (past) {
@@ -173,7 +178,7 @@ public class ServicerController {
         appointment.setServicer(servicer);
         appointmentSvc.save(appointment);
         if(appointment.startBeforeStopTimeAndWindowMax(appointment.getStartTime(), appointment.getStopTime())){
-            if (appointment.checkIfDateTimePassed(appointment.getDate(), appointment.getStartTime())) {
+            if (appointment.checkIfDateTimePassed(appointment)) {
                 appointmentSvc.save(appointment);
                 return "redirect:/servicer/create-availability";
             }else {
