@@ -23,3 +23,10 @@ h2 {
     font-family: Serif;
     color: snow;
 }
+
+#error {
+    color: coral;
+    font-size: 2em;
+    font-family: Serif;
+    text-align: center;
+}
