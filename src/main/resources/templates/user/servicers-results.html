@@ -5,14 +5,22 @@
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar"/>
+
 <div class="container">
-<h1>Your Results</h1>
+
+    <h1>Your Results</h1>
 
     <div th:each="servicer: ${servicers}">
-    <h4 th:text="${servicers}"></h4>
+        <h4 th:text="${servicer.username}"></h4>
+        <h4 th:text="${servicer.username}"></h4>
+        <form th:action="@{/user/viewservicer}" th:method="GET">
+            <input type="hidden" id="id" name="id" th:value="${servicer.id}"/>
+            <input type="submit" value="View"/>
+        </form>
     </div>
 
 </div>
+
 <footer th:include="fragments :: my-footer" class="footer"/>
 </body>
 </html>

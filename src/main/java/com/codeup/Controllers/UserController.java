@@ -1,5 +1,6 @@
 package com.codeup.Controllers;
 
+import com.codeup.Models.Servicer;
 import com.codeup.Models.User;
 import com.codeup.Models.UserAppliance;
 import com.codeup.Models.UserRole;
@@ -145,10 +146,19 @@ public class UserController {
     public String serviceSearchResults(@RequestParam(name = "id") long id, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-//        Iterable<Servicer> servicersId = servicerSvc.findAllServicersByApplianceId(id);
+        System.out.println("in serviceSearchResults() appliance.id = "+id);
+//        Iterable<Servicer> servicers = servicerSvc.findAllServicersByApplianceId(id);
+        Servicer servicers = servicerSvc.findOne(14);
+        System.out.println("Kelli? : " + servicers);
+        model.addAttribute("servicers", servicers);
 
 
-        return "user/servicer-results";
+        return "user/servicers-results";
+    }
+
+    @GetMapping("/user/viewservicer")
+    public String showServicerProfile(){
+        return "user/viewservicer";
     }
 
 }
