@@ -146,9 +146,7 @@ public class Appointment {
     public Date findDate(int day) throws ParseException {
         List<String> week = findTodayNext7("dd-M-yyyy hh:mm:ss");
         SimpleDateFormat format = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        System.out.println(week.get(day));
         Date date = format.parse(week.get(day));
-        System.out.println(date);
         return date;
     }
 

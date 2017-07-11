@@ -23,7 +23,7 @@
             <input type="submit" value="Delete"/>
         </form>
     </div>
-
+    <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3"></h4>
     <table class="col-xs-12">
         <tr>
             <th>Time</th>
@@ -182,60 +182,60 @@
     </form>
     <button class="col-xs-2 col-xs-offset-1" id="add">Add</button>
 
-    <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3"></h4>
-    <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/availability}" th:method="post"
-          th:object="${appointment}">
-        <div class="col-sm-6 col-sm-offset-3">
 
-            <label for="date">Select Date</label>
-            <input type="text" id="date" name="date" th:field="*{date}"/>
+    <!--<form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/availability}" th:method="post"-->
+          <!--th:object="${appointment}">-->
+        <!--<div class="col-sm-6 col-sm-offset-3">-->
 
-        </div>
-        <div class="col-sm-6 col-sm-offset-3">
-            <label class="time" for="start_time">Appointment block start</label>
-            <select id="start_time" name="start_time" th:field="*{startTime}">
-                <option disabled="disabled" selected="selected" value="0">-Select a start time-</option>
-                <option value="7">7:00AM</option>
-                <option value="8">8:00AM</option>
-                <option value="9">9:00AM</option>
-                <option value="10">10:00AM</option>
-                <option value="11">11:00AM</option>
-                <option value="12">12:00PM</option>
-                <option value="13">1:00PM</option>
-                <option value="14">2:00PM</option>
-                <option value="15">3:00PM</option>
-                <option value="16">4:00PM</option>
-                <option value="17">5:00PM</option>
-                <option value="18">6:00PM</option>
-                <option value="19">7:00PM</option>
-                <option value="20">8:00PM</option>
-            </select>
-        </div>
-        <div class="col-sm-6 col-sm-offset-3">
-            <label class="time" for="stop_time">Appointment block stop</label>
-            <select id="stop_time" name="stop_time" th:field="*{stopTime}">
-                <option disabled="disabled" selected="selected" value="0">-Select a stop time-</option>
-                <option value="7">7:00AM</option>
-                <option value="8">8:00AM</option>
-                <option value="9">9:00AM</option>
-                <option value="10">10:00AM</option>
-                <option value="11">11:00AM</option>
-                <option value="12">12:00PM</option>
-                <option value="13">1:00PM</option>
-                <option value="14">2:00PM</option>
-                <option value="15">3:00PM</option>
-                <option value="16">4:00PM</option>
-                <option value="17">5:00PM</option>
-                <option value="18">6:00PM</option>
-                <option value="19">7:00PM</option>
-                <option value="20">8:00PM</option>
-            </select>
-        </div>
-        <div class="col-sm-6 col-sm-offset-3">
-            <input type="submit" value="Add"/>
-        </div>
+            <!--<label for="date">Select Date</label>-->
+            <!--<input type="text" id="date" name="date" th:field="*{date}"/>-->
 
-    </form>
+        <!--</div>-->
+        <!--<div class="col-sm-6 col-sm-offset-3">-->
+            <!--<label class="time" for="start_time">Appointment block start</label>-->
+            <!--<select id="start_time" name="start_time" th:field="*{startTime}">-->
+                <!--<option disabled="disabled" selected="selected" value="0">-Select a start time-</option>-->
+                <!--<option value="7">7:00AM</option>-->
+                <!--<option value="8">8:00AM</option>-->
+                <!--<option value="9">9:00AM</option>-->
+                <!--<option value="10">10:00AM</option>-->
+                <!--<option value="11">11:00AM</option>-->
+                <!--<option value="12">12:00PM</option>-->
+                <!--<option value="13">1:00PM</option>-->
+                <!--<option value="14">2:00PM</option>-->
+                <!--<option value="15">3:00PM</option>-->
+                <!--<option value="16">4:00PM</option>-->
+                <!--<option value="17">5:00PM</option>-->
+                <!--<option value="18">6:00PM</option>-->
+                <!--<option value="19">7:00PM</option>-->
+                <!--<option value="20">8:00PM</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6 col-sm-offset-3">-->
+            <!--<label class="time" for="stop_time">Appointment block stop</label>-->
+            <!--<select id="stop_time" name="stop_time" th:field="*{stopTime}">-->
+                <!--<option disabled="disabled" selected="selected" value="0">-Select a stop time-</option>-->
+                <!--<option value="7">7:00AM</option>-->
+                <!--<option value="8">8:00AM</option>-->
+                <!--<option value="9">9:00AM</option>-->
+                <!--<option value="10">10:00AM</option>-->
+                <!--<option value="11">11:00AM</option>-->
+                <!--<option value="12">12:00PM</option>-->
+                <!--<option value="13">1:00PM</option>-->
+                <!--<option value="14">2:00PM</option>-->
+                <!--<option value="15">3:00PM</option>-->
+                <!--<option value="16">4:00PM</option>-->
+                <!--<option value="17">5:00PM</option>-->
+                <!--<option value="18">6:00PM</option>-->
+                <!--<option value="19">7:00PM</option>-->
+                <!--<option value="20">8:00PM</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div class="col-sm-6 col-sm-offset-3">-->
+            <!--<input type="submit" value="Add"/>-->
+        <!--</div>-->
+
+    <!--</form>-->
 </div>
 <script src="/js/jquery.js"></script>
 <script src="/js/jquery-ui.min.js"></script>
