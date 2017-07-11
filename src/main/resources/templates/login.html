@@ -6,28 +6,30 @@
 </head>
 
 <body>
-<nav th:replace="fragments :: my-navbar" />
-<div class="col-sm-4 col-sm-offset-5" th:if="${param.error}">
-    Invalid Username and Password.
-</div>
-<div class="col-sm-4 col-sm-offset-5" th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" th:method="post">
-<h1 class="login">Login</h1>
-    <div class="col-sm-4 col-sm-offset-5">
-        <label class="choice" for="username">Username</label>
-        <input type="text" id="username" name="username" />
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container">
+    <div class="col-sm-4 col-sm-offset-5" th:if="${param.error}">
+        Invalid Username and Password.
     </div>
-    <div class="col-sm-4 col-sm-offset-5">
-        <label class="choice" for="password">Password</label>
-        <input type="password" id="password" name="password" />
+    <div class="col-sm-4 col-sm-offset-5" th:if="${param.logout}">
+        You have been logged out.
     </div>
-    <div class="col-sm-4 col-sm-offset-5">
+    <form th:action="@{/login}" th:method="post">
+        <h1 class="login">Login</h1>
+        <div class="col-sm-4 col-sm-offset-5">
+            <label class="choice" for="username">Username</label>
+            <input type="text" id="username" name="username"/>
+        </div>
+        <div class="col-sm-4 col-sm-offset-5">
+            <label class="choice" for="password">Password</label>
+            <input type="password" id="password" name="password"/>
+        </div>
+        <div class="col-sm-4 col-sm-offset-5">
 
-        <input type="submit" value="Login" />
-    </div>
-</form>
-<footer th:replace="fragments :: my-footer"/>
+            <input type="submit" value="Login"/>
+        </div>
+    </form>
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
 </body>
 </html>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,33 +6,35 @@
 </head>
 
 <body>
-<nav th:replace="fragments :: my-navbar" />
-<div id="container">
-    <h1>Welcome to your User Dashboard <span th:text="${user.username}"></span>!</h1>
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container">
+    <div id="container">
+        <h1>Welcome to your User Dashboard <span th:text="${user.username}"></span>!</h1>
         <div class="col-sm-6 col-sm-offset-3">
             <h2>Scheduling</h2>
             <h2><a href="/user/scheduleservice">Schedule service</a></h2>
         </div>
 
-    <div class="col-sm-6 col-sm-offset-3">
-        <h2>My Appliances</h2>
-        <h2><a href="/user/myappliances">View/ Add</a></h2>
-    </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <h2>My Appliances</h2>
+            <h2><a href="/user/myappliances">View/ Add</a></h2>
+        </div>
 
-    <div class="col-sm-6 col-sm-offset-3">
-        <h2>My Service History</h2>
-        <h2><a href="#">View</a></h2>
-    </div>
-    <div class="col-sm-6 col-sm-offset-3">
-        <h2>My Reviews</h2>
-        <h2><a href="#">View/ leave feedback</a></h2>
-    </div>
-    <div class="col-sm-6 col-sm-offset-3">
-        <h2>Setup Profile</h2>
-        <h2><a href="/user/setprofile">Setup Profile</a></h2>
-    </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <h2>My Service History</h2>
+            <h2><a href="#">View</a></h2>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <h2>My Reviews</h2>
+            <h2><a href="#">View/ leave feedback</a></h2>
+        </div>
+        <div class="col-sm-6 col-sm-offset-3">
+            <h2>Setup Profile</h2>
+            <h2><a href="/user/setprofile">Setup Profile</a></h2>
+        </div>
 
     </div>
-
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
 </body>
 </html>

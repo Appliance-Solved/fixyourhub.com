@@ -6,80 +6,82 @@
 </head>
 
 <body>
-<nav th:replace="fragments :: my-navbar" />
-<div class="userRegister">
-    <h1>User Signup</h1>
-</div>
-<div class="serviceRegister">
-    <h1>Servicer Signup</h1>
-</div>
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container">
+    <div class="userRegister">
+        <h1>User Signup</h1>
+    </div>
+    <div class="serviceRegister">
+        <h1>Servicer Signup</h1>
+    </div>
     <form class="col-sm-4 col-sm-offset-5">
         <label class="choice" for="user">User
-        <input type="radio" class="userRole" id="user" name="userRole" value="user" checked="checked" /></label>
+            <input type="radio" class="userRole" id="user" name="userRole" value="user" checked="checked"/></label>
         &nbsp;
         &nbsp;
         <label class="choice" for="servicer">Servicer
-        <input type="radio" class="userRole" id="servicer" name="userRole" value="servicer" /></label>
+            <input type="radio" class="userRole" id="servicer" name="userRole" value="servicer"/></label>
     </form>
-<div class="userRegister col-sm-4 col-sm-offset-5" >
-<form th:action="@{/user/register}" th:method="post" th:object="${user}">
-    <div>
-        <label class="other" for="name">Name</label>
-        <input type="text" id="name" name="name" th:field="*{name}" />
-    </div>
-    <div>
-        <label class="other" for="username">Username</label>
-        <input type="text" id="username" name="username" th:field="*{username}" />
-    </div>
-    <div>
-        <label class="other" for="name">Email</label>
-        <input type="text" id="email" name="email" th:field="*{email}" />
-    </div>
-    <div>
-        <label class="other" for="password">Password</label>
-        <input type="password" id="password" name="password" />
-    </div>
-    <div>
-        <label class="other" for="name">Confirm Password</label>
-        <input type="password" id="passConfirm" name="passConfirm" />
-    </div>
-    <div>
+    <div class="userRegister col-sm-4 col-sm-offset-5">
+        <form th:action="@{/user/register}" th:method="post" th:object="${user}">
+            <div>
+                <label class="other" for="name">Name</label>
+                <input type="text" id="name" name="name" th:field="*{name}"/>
+            </div>
+            <div>
+                <label class="other" for="username">Username</label>
+                <input type="text" id="username" name="username" th:field="*{username}"/>
+            </div>
+            <div>
+                <label class="other" for="name">Email</label>
+                <input type="text" id="email" name="email" th:field="*{email}"/>
+            </div>
+            <div>
+                <label class="other" for="password">Password</label>
+                <input type="password" id="password" name="password"/>
+            </div>
+            <div>
+                <label class="other" for="name">Confirm Password</label>
+                <input type="password" id="passConfirm" name="passConfirm"/>
+            </div>
+            <div>
 
-        <input class="go" type="submit" value="Register" />
+                <input class="go" type="submit" value="Register"/>
+            </div>
+        </form>
     </div>
-</form>
+
+
+    <div class="serviceRegister col-sm-4 col-sm-offset-5">
+        <form th:action="@{/servicer/register}" th:method="post" th:object="${user}">
+            <div>
+                <label class="other" for="name">Company Name</label>
+                <input type="text" id="name" name="name" th:field="*{name}"/>
+            </div>
+            <div>
+                <label class="other" for="username">Username</label>
+                <input type="text" id="username" name="username" th:field="*{username}"/>
+            </div>
+            <div>
+                <label class="other" for="name">Email</label>
+                <input type="email" id="email" name="email" th:field="*{email}"/>
+            </div>
+            <div>
+                <label class="other" for="password">Password</label>
+                <input type="password" id="password" name="password"/>
+            </div>
+            <div>
+                <label class="other" for="name">Confirm Password</label>
+                <input type="password" id="passConfirm" name="passConfirm"/>
+            </div>
+            <div>
+
+                <input class="go" type="submit" value="Register"/>
+            </div>
+        </form>
+    </div>
 </div>
-
-
-<div class="serviceRegister col-sm-4 col-sm-offset-5">
-    <form th:action="@{/servicer/register}" th:method="post" th:object="${user}">
-        <div>
-            <label class="other" for="name">Company Name</label>
-            <input type="text" id="name" name="name" th:field="*{name}" />
-        </div>
-        <div>
-            <label class="other" for="username">Username</label>
-            <input type="text" id="username" name="username" th:field="*{username}" />
-        </div>
-        <div>
-            <label class="other" for="name">Email</label>
-            <input type="email" id="email" name="email" th:field="*{email}" />
-        </div>
-        <div>
-            <label class="other" for="password">Password</label>
-            <input type="password" id="password" name="password" />
-        </div>
-        <div>
-            <label class="other" for="name">Confirm Password</label>
-            <input type="password" id="passConfirm" name="passConfirm" />
-        </div>
-        <div>
-
-            <input class="go" type="submit" value="Register" />
-        </div>
-    </form>
-</div>
-<footer th:replace="fragments :: my-footer"/>
+<footer th:include="fragments :: my-footer" class="footer"/>
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

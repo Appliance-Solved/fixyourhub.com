@@ -1,9 +1,13 @@
-#footer {
-    margin-top: 40px;
+body {
+    height: auto;
+}
+
+footer {
     width: 100%;
-    display: inline-block;
     height: 70px;
-    background-color: #333;
+    background-color: black;
+    float: left;
+    margin-top: 50px;
 }
 
 .follow-and-connect{
@@ -22,6 +26,8 @@
 .social {
     width: 50%;
     float: right;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 @media (max-width: 600px) {
