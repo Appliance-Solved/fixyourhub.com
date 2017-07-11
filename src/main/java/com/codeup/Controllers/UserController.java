@@ -1,8 +1,10 @@
 package com.codeup.Controllers;
 
+import com.codeup.Models.Servicer;
 import com.codeup.Models.User;
 import com.codeup.Models.UserAppliance;
 import com.codeup.Models.UserRole;
+import com.codeup.Services.ServicerSvc;
 import com.codeup.Services.UserAppliancesSvc;
 import com.codeup.Services.UserRolesSvc;
 import com.codeup.Services.UserSvc;
@@ -24,15 +26,17 @@ public class UserController {
     private UserSvc userSvc;
     private UserRolesSvc userRolesSvc;
     private UserAppliancesSvc userAppliancesSvc;
+    private ServicerSvc servicerSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc){
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
         this.userAppliancesSvc = userAppliancesSvc;
+        this.servicerSvc = servicerSvc;
     }
 
     @GetMapping("/")
@@ -125,6 +129,39 @@ public class UserController {
         userSvc.update(address, city, state, zip, phone, user.getId());
         System.out.println("im out");
         return "redirect:/user/dashboard";
+    }
+
+    @GetMapping("/user/scheduleservice")
+    public String scheduleService(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
+        model.addAttribute("userAppliances",userAppliances);
+        UserAppliance userAppliance = new UserAppliance();
+        model.addAttribute("appliance", userAppliance);
+        return "user/schedule-service";
+    }
+
+    @GetMapping("/user/scheduleservice/results")
+    public String serviceSearchResults(@RequestParam(name = "id") long id, Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(id);
+        model.addAttribute("servicers", servicers);
+
+
+        return "user/servicers-results";
+    }
+
+    @GetMapping("/user/viewservicer")
+    public String showServicerProfile(@RequestParam(name = "id") long id, Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        User servicer = userSvc.findOne(id);
+        model.addAttribute("servicer", servicer);
+        Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
+        model.addAttribute("servicer_info", servicer_info);
+        return "user/viewservicer";
     }
 
 }

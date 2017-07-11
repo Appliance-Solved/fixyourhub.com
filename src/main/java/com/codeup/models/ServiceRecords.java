@@ -1,7 +1,6 @@
 package com.codeup.Models;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by Carlos on 7/5/17.
@@ -14,19 +13,9 @@ public class ServiceRecords {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
-    private Servicer servicer;
-
-    @ManyToOne
-    @JoinColumn(name ="user_id")
-    private User user;
-
     @ManyToOne
     @JoinColumn(name = "user_appliance_id")
     private UserAppliance userAppliance;
-
-    @Column
-    private java.util.Date date;
 
     @Column(nullable = false, length = 1000)
     private String complaint;
@@ -45,36 +34,12 @@ public class ServiceRecords {
         this.id = id;
     }
 
-    public Servicer getServicer() {
-        return servicer;
-    }
-
-    public void setServicer(Servicer servicer) {
-        this.servicer = servicer;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public UserAppliance getUserAppliance() {
         return userAppliance;
     }
 
     public void setUserAppliance(UserAppliance userAppliance) {
         this.userAppliance = userAppliance;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getComplaint() {
@@ -100,4 +65,6 @@ public class ServiceRecords {
     public void setDesc_service(String desc_service) {
         this.desc_service = desc_service;
     }
+
+
 }

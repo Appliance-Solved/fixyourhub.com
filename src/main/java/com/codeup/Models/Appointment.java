@@ -1,11 +1,8 @@
 package com.codeup.Models;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -44,6 +41,9 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne
+    private ServiceRecords serviceRecords;
 
     public Appointment() {
     }
@@ -227,5 +227,13 @@ public class Appointment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ServiceRecords getServiceRecords() {
+        return serviceRecords;
+    }
+
+    public void setServiceRecords(ServiceRecords serviceRecords) {
+        this.serviceRecords = serviceRecords;
     }
 }
