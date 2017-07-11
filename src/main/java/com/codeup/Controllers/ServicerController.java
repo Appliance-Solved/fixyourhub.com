@@ -202,10 +202,11 @@ public class ServicerController {
         }
             model.addAttribute("appointments", appointmentsByServicer);
             model.addAttribute("user", servicer);
+            model.addAttribute("record", new ServiceRecords());
 
             return "servicer/submit-servicerecord";
         }
-//
+
 //        @PostMapping("/servicer/submit-service")
 //    public String submitServiceRecord(@ModelAttribute ServiceRecords record){
 //

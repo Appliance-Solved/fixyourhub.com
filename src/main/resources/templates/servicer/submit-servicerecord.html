@@ -15,7 +15,7 @@
 <nav th:replace="fragments :: my-navbar" />
 <div class="container">
 
-    <form th:action="@{/servicer/submit-service}" th:method="post" class="col-sm-10 col-sm-offset-1">
+    <form th:action="@{/servicer/submit-service}" th:method="post" class="col-sm-10 col-sm-offset-1" th:object="${record}">
     <div class="col-sm-3" th:each="appointment: ${appointments}">
         <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
         <h4><span th:text="${appointment.formatTime(appointment.startTime)}"></span> - <span th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
