@@ -16,6 +16,12 @@ $(document).ready(function () {
         }
     })
 
+    if(window.location.search){
+        $('#servicer').attr('checked', 'checked');
+        $(".serviceRegister").show();
+        $(".userRegister").hide();
+    }
+
 
     $("#date").datepicker();
 
