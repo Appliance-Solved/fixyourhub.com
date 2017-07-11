@@ -19,7 +19,7 @@ body {
 }
 
 #pass , #log {
-    color: red;
+    color: coral;
     font-size: 2em;
     font-family: Serif;
 }
