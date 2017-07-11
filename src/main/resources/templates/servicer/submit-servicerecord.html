@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Technician')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link rel="stylesheet" href="/css/fragments.css"/>
+    <link rel="stylesheet" href="/css/calender.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css"/>
+
+
+</head>
+<body>
+
+
+<nav th:replace="fragments :: my-navbar" />
+<div class="container">
+
+    <form th:action="@{/servicer/submit-service}" th:method="post" class="col-sm-10 col-sm-offset-1">
+    <div class="col-sm-3" th:each="appointment: ${appointments}">
+        <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
+        <h4><span th:text="${appointment.formatTime(appointment.startTime)}"></span> - <span th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
+        <h4>Customer: <span th:text="${appointment.user.name}"></span></h4>
+        <h4>Zip code: <span th:text="${appointment.user.zipcode}"></span></h4>
+        <h4>Appliance: <!--<span th:text="${appointment.serviceRecords.userAppliance}"></span>--></h4>
+        <input type="radio" name="service_record_id" /><!-- value="appointment.serviceRecords.id"-->
+    </div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <label for="parts" class="col-sm-10 col-sm-offset-1">Parts installed</label>
+            <input type="text" id="parts" name="parts" class="col-sm-10 col-sm-offset-1" th:field="*{parts_installed}" />
+        </div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <label for="description" class="col-sm-10 col-sm-offset-1">Description of service</label>
+            <textarea name="description" id="description"  rows="8" class="col-sm-10 col-sm-offset-1" th:field="*{desc_service}"></textarea>
+        </div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <input type="submit" value="Submit" class="col-sm-2 col-sm-offset-5" />
+        </div>
+
+
+
+    </form>
+
+
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>

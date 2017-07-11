@@ -1,9 +1,6 @@
 package com.codeup.Controllers;
 
-import com.codeup.Models.Appointment;
-import com.codeup.Models.Servicer;
-import com.codeup.Models.Technician;
-import com.codeup.Models.User;
+import com.codeup.Models.*;
 import com.codeup.Services.AppointmentSvc;
 import com.codeup.Services.ServicerSvc;
 import com.codeup.Services.TechnicianSvc;
@@ -25,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -80,7 +78,7 @@ public class ServicerController {
     }
 
     @PostMapping("/servicer/tech/delete")
-    public String deleteTech(@RequestParam(name = "id") Long id){
+    public String deleteTech(@RequestParam(name = "id") Long id) {
         techsvc.delete(id);
         return "redirect:/servicer/tech";
     }
@@ -88,21 +86,21 @@ public class ServicerController {
     @GetMapping("/servicer/setprofile")
     public String showServSetProfile(Model model) {
         User user = new User((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         model.addAttribute("servicer", new Servicer());
         return "servicer/setup-profile";
     }
 
     @PostMapping("/servicer/setprofile")
     public String setServUserProfile(
-            @RequestParam(name = "address")String address,
-            @RequestParam(name = "city")String city,
-            @RequestParam(name = "state")String state,
-            @RequestParam(name = "zip")Long zip,
-            @RequestParam(name = "phone")String phone,
+            @RequestParam(name = "address") String address,
+            @RequestParam(name = "city") String city,
+            @RequestParam(name = "state") String state,
+            @RequestParam(name = "zip") Long zip,
+            @RequestParam(name = "phone") String phone,
             @ModelAttribute Servicer servicer,
             @RequestParam(name = "file") MultipartFile uploadedFile
-            ) {
+    ) {
         String filename = uploadedFile.getOriginalFilename();
         String filepath = Paths.get(uploadPath, filename).toString();
         File destinationFile = new File(filepath);
@@ -120,12 +118,12 @@ public class ServicerController {
     }
 
     @GetMapping("/servicer/create-availability")
-    public String servicerAvailability(@RequestParam(required = false)boolean past,@RequestParam(required = false)boolean timeconflict , Model model) {
+    public String servicerAvailability(@RequestParam(required = false) boolean past, @RequestParam(required = false) boolean timeconflict, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         Iterable<Appointment> availabilityCheck = appointmentSvc.findAllByServicer(user, true);
-        for (Appointment appointment : availabilityCheck){
-            if(!appointment.checkIfDateTimePassed(appointment)){
+        for (Appointment appointment : availabilityCheck) {
+            if (!appointment.checkIfDateTimePassed(appointment)) {
                 appointmentSvc.delete(appointment.getId());
             }
         }
@@ -135,7 +133,7 @@ public class ServicerController {
         if (past) {
             String message = "Please specify a date that has not passed.";
             model.addAttribute("error", message);
-        }else if(timeconflict){
+        } else if (timeconflict) {
             String message = "You must specify a window greater than one hour and no more than eight hours.";
             model.addAttribute("error", message);
         }
@@ -165,7 +163,7 @@ public class ServicerController {
     }
 
     @PostMapping("/servicer/setavailability")
-    public String setAvailability(@RequestParam(name = "date")List<Integer> dates, @RequestParam(name = "time")List<Integer> times) throws ParseException {
+    public String setAvailability(@RequestParam(name = "date") List<Integer> dates, @RequestParam(name = "time") List<Integer> times) throws ParseException {
         User servicer = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Appointment appointment = new Appointment();
 //        List<Appointment> appointments =  appointment.checkDatesetDate(dates);
@@ -177,17 +175,42 @@ public class ServicerController {
         appointment.setStopTime(stop + 1);
         appointment.setServicer(servicer);
         appointmentSvc.save(appointment);
-        if(appointment.startBeforeStopTimeAndWindowMax(appointment.getStartTime(), appointment.getStopTime())){
+        if (appointment.startBeforeStopTimeAndWindowMax(appointment.getStartTime(), appointment.getStopTime())) {
             if (appointment.checkIfDateTimePassed(appointment)) {
                 appointmentSvc.save(appointment);
                 return "redirect:/servicer/create-availability";
-            }else {
+            } else {
                 return "redirect:/servicer/create-availability?past=true";
-            }}else{
+            }
+        } else {
             return "redirect:/servicer/create-availability?timeconflict=true";
         }
-
     }
 
 
-}
+    @GetMapping("/servicer/submit-service")
+    public String viewServiceRecordSubmit(Model model) {
+        User servicer = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Appointment appointment = new Appointment();
+        Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(servicer, false);
+        Iterator<Appointment> appointmentsThatPassed = appointmentsByServicer.iterator();
+        while (appointmentsThatPassed.hasNext()) {
+            Appointment scheduled = appointmentsThatPassed.next();
+            if (appointment.checkIfDateTimePassed(scheduled)) {
+                appointmentsThatPassed.remove();
+            }
+        }
+            model.addAttribute("appointments", appointmentsByServicer);
+            model.addAttribute("user", servicer);
+
+            return "servicer/submit-servicerecord";
+        }
+//
+//        @PostMapping("/servicer/submit-service")
+//    public String submitServiceRecord(@ModelAttribute ServiceRecords record){
+//
+//        }
+
+
+    }
+
