@@ -42,6 +42,9 @@ public class Appointment {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne
+    private ServiceRecords serviceRecords;
+
     public Appointment() {
     }
 
@@ -173,5 +176,13 @@ public class Appointment {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ServiceRecords getServiceRecords() {
+        return serviceRecords;
+    }
+
+    public void setServiceRecords(ServiceRecords serviceRecords) {
+        this.serviceRecords = serviceRecords;
     }
 }
