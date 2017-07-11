@@ -6,6 +6,7 @@
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar" />
+<div class="container">
 <div id="container" class="col-sm-6 col-sm-offset-3">
     <h1><span th:text="${user.name}"></span>, please setup your profile</h1>
     <form th:action="@{/servicer/setprofile}" th:method="post" th:object="${servicer}" enctype="multipart/form-data">
@@ -91,23 +92,23 @@
         <input type="checkbox" id="refrigerator" name="services" value="0" />
         <label class="choice" for="refrigerator">Refrigerator</label>
 
-            <input type="checkbox" id="stove" name="services" value="1" />
-            <label for="stove">Stove/ Oven</label>
+                <input type="checkbox" id="stove" name="services" value="1"/>
+                <label for="stove">Stove/ Oven</label>
 
-            <input type="checkbox" id="washer" name="services" value="2" />
-            <label for="washer">Washer</label>
+                <input type="checkbox" id="washer" name="services" value="2"/>
+                <label for="washer">Washer</label>
 
-            <input type="checkbox" id="dryer" name="services" value="3" />
-            <label for="dryer">Dryer</label>
+                <input type="checkbox" id="dryer" name="services" value="3"/>
+                <label for="dryer">Dryer</label>
 
-            <input type="checkbox" id="dishwasher" name="services" value="4" />
-            <label for="dishwasher">Dishwasher</label>
+                <input type="checkbox" id="dishwasher" name="services" value="4"/>
+                <label for="dishwasher">Dishwasher</label>
 
-            <input type="checkbox" id="microwave" name="services" value="5" />
-            <label for="microwave">Microwave</label>
+                <input type="checkbox" id="microwave" name="services" value="5"/>
+                <label for="microwave">Microwave</label>
 
-            <input type="checkbox" id="icemachine" name="services" value="6" />
-            <label for="icemachine">Ice Machine</label>
+                <input type="checkbox" id="icemachine" name="services" value="6"/>
+                <label for="icemachine">Ice Machine</label>
 
             <input type="checkbox" id="other" name="services" value="7" />
             <label for="other">Other</label>
@@ -124,9 +125,10 @@
             <input type="submit" value="Submit" />
         </div>
 
-    </form>
+        </form>
 
+    </div>
 </div>
-<footer th:replace="fragments :: my-footer"/>
+<footer th:include="fragments :: my-footer" class="footer"/>
 </body>
 </html>

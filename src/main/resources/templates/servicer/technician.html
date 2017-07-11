@@ -5,35 +5,38 @@
     <link rel="stylesheet" href="/css/dashboard.css"/>
 </head>
 <body>
-<nav th:replace="fragments :: my-navbar" />
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container">
     <div class="col-sm-6 col-sm-offset-3" id="container">
         <h1><span th:text="${user.name}"></span>'s Team</h1>
         <div class="col-sm-6 col-sm-offset-3" th:each="tech: ${team}">
-            <img th:src="'/uploads/' + ${tech.PicUrl}" alt="" />
+            <img th:src="'/uploads/' + ${tech.PicUrl}" alt=""/>
             <h4 th:text="${tech.name}"></h4>
             <form th:action="@{/servicer/tech/delete}" th:method="post">
-                <input type="hidden" id="id" name="id" th:value="${tech.id}" />
-                <input type="submit" value="Delete" />
+                <input type="hidden" id="id" name="id" th:value="${tech.id}"/>
+                <input type="submit" value="Delete"/>
             </form>
 
         </div>
 
 
-        <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/tech}" th:method="post" th:object="${tech}" enctype="multipart/form-data">
+        <form class="col-sm-6 col-sm-offset-3" th:action="@{/servicer/tech}" th:method="post" th:object="${tech}"
+              enctype="multipart/form-data">
             <div class="col-sm-6 col-sm-offset-3">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" th:field="*{name}" />
+                <input type="text" id="name" name="name" th:field="*{name}"/>
             </div>
             <div class="col-sm-6 col-sm-offset-3">
                 <label for="file">Image</label>
-                <input type="file" id="file" name="file" />
+                <input type="file" id="file" name="file"/>
             </div>
             <div class="col-sm-6 col-sm-offset-3">
-                <input type="submit" value="Add" />
+                <input type="submit" value="Add"/>
             </div>
 
         </form>
     </div>
-<footer th:replace="fragments :: my-footer"/>
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
 </body>
 </html>
