@@ -186,4 +186,17 @@ public class UserController {
         return "user/view-service-records";
     }
 
+    @GetMapping("/user/reviews")
+    public String userReviews(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Appointment appointment = new Appointment();
+        Iterable<Appointment> needReviews = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(needReviews);
+        appointment.filterByIfReviewed(needReviews, false);
+        model.addAttribute("needreviews", needReviews);
+        model.addAttribute("review", new Reviews());
+        return "user/reviews";
+    }
+
+
 }

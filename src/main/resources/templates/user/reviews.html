@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Technician')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+    <link rel="stylesheet" href="/css/fragments.css"/>
+    <link rel="stylesheet" href="/css/calender.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.min.css"/>
+
+
+</head>
+<body>
+
+
+<nav th:replace="fragments :: my-navbar" />
+<div class="container">
+
+    <h1>Please review the following service appointments</h1>
+    <div class="col-sm-3" th:each="appointment: ${needreviews}">
+        <div data-toggle="modal" th:attr="data-target='#modal' + ${appointment.id}">
+        <h4>Company: <span th:text="${appointment.servicer.name}"></span></h4>
+            <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
+            <h4>Appliance:
+                <th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
+                    <span th:case="0">Refrigerator</span>
+                    <span th:case="1">Stove/ Oven</span>
+                    <span th:case="2">Washer</span>
+                    <span th:case="3">Dryer</span>
+                    <span th:case="4">Dishwasher</span>
+                    <span th:case="5">Microwave</span>
+                    <span th:case="6">Ice Machine</span>
+                    <span th:case="7">Other</span>
+                </th:block></h4>
+            <h4>Appliance Name: <span th:text="${appointment.serviceRecords.userAppliance.name}"></span></h4>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" th:id="${'modal' + appointment.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Leave review for <span th:text="${appointment.servicer.name}"></span></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{user/review}" th:method="post" th:object="${review}">
+                            <label for="comments"></label>
+                            <textarea name="comments" id="comments" cols="80" rows="6" th:field="*{comments}"></textarea>
+                            <br />
+                            <input type="hidden" id="sevicer_record_id" th:value="${appointment.serviceRecords.id}" th:field="*{serviceRecords}" />
+                            <input type="text" id="rating" name="rating" th:field="*{rating}" />
+                        </form>
+
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
