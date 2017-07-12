@@ -161,7 +161,6 @@ public class UserController {
             @RequestParam(name = "time-frame") int timeFrame,
             Model model
     ) {
-//        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
         Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
         List<User> servicers = new ArrayList<>();
         for (BigInteger bigIntId : servicerIds) {
@@ -173,11 +172,7 @@ public class UserController {
             if (match) {
                 servicers.add(user);
             }
-
         }
-        String x = "this is a string 1";
-        x.contains("1");
-
         model.addAttribute("servicers", servicers);
         return "user/servicers-results";
     }
@@ -190,7 +185,6 @@ public class UserController {
         model.addAttribute("servicer", servicer);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
         model.addAttribute("servicer_info", servicer_info);
-        System.out.println("servicer_info: " + servicer_info.getServices());
         return "user/viewservicer";
     }
 
