@@ -144,8 +144,8 @@ public class UserController {
 
     @GetMapping("/user/scheduleservice/results")
     public String serviceSearchResults(@RequestParam(name = "id") long id, Model model){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        model.addAttribute("user", user);
         Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(id);
         model.addAttribute("servicers", servicers);
 
