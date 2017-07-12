@@ -34,9 +34,13 @@
                 <h2>My Team</h2>
                 <h2><a href="/servicer/tech">View/ add</a></h2>
             </div>
-            <div class="col-sm-6">
+            <div th:if="${!servicer_info.services}" class="col-sm-6">
                 <h2>Setup Profile</h2>
                 <h2><a href="/servicer/setprofile">Setup Profile</a></h2>
+            </div>
+            <div th:if="${servicer_info.services}" class="col-sm-6">
+                <h2>Edit Profile</h2>
+                <h2><a href="/servicer/editprofile">Edit Profile</a></h2>
             </div>
             <div class="col-sm-6">
                 <h2>Availability</h2>
