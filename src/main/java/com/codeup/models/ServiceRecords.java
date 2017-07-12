@@ -20,11 +20,17 @@ public class ServiceRecords {
     @Column(nullable = false, length = 1000)
     private String complaint;
 
-    @Column(nullable = false)
+    @Column()
     private String parts_installed;
 
-    @Column(nullable = false, length = 2000)
+    @Column(length = 2000)
     private String desc_service;
+
+    @OneToOne
+    private Reviews review;
+
+    public ServiceRecords() {
+    }
 
     public int getId() {
         return id;
@@ -66,5 +72,11 @@ public class ServiceRecords {
         this.desc_service = desc_service;
     }
 
+    public Reviews getReview() {
+        return review;
+    }
 
+    public void setReview(Reviews review) {
+        this.review = review;
+    }
 }

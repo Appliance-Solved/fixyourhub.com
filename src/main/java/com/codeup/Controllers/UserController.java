@@ -1,13 +1,7 @@
 package com.codeup.Controllers;
 
-import com.codeup.Models.Servicer;
-import com.codeup.Models.User;
-import com.codeup.Models.UserAppliance;
-import com.codeup.Models.UserRole;
-import com.codeup.Services.ServicerSvc;
-import com.codeup.Services.UserAppliancesSvc;
-import com.codeup.Services.UserRolesSvc;
-import com.codeup.Services.UserSvc;
+import com.codeup.Models.*;
+import com.codeup.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,16 +25,22 @@ public class UserController {
     private UserRolesSvc userRolesSvc;
     private UserAppliancesSvc userAppliancesSvc;
     private ServicerSvc servicerSvc;
+    private AppointmentSvc appointmentSvc;
+    private ReviewsSvc reviewsSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc) {
+
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc){
+
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
         this.userAppliancesSvc = userAppliancesSvc;
         this.servicerSvc = servicerSvc;
+        this.appointmentSvc = appointmentSvc;
+        this.reviewsSvc = reviewsSvc;
     }
 
     @GetMapping("/")
@@ -175,6 +175,7 @@ public class UserController {
         }
         model.addAttribute("servicers", servicers);
         return "user/servicers-results";
+
     }
 
     @GetMapping("/user/viewservicer")
@@ -187,5 +188,36 @@ public class UserController {
         model.addAttribute("servicer_info", servicer_info);
         return "user/viewservicer";
     }
+
+    @GetMapping("/user/service-records")
+    public String viewServiceRecord(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Appointment appointment = new Appointment();
+        Iterable<Appointment> appointmentsByUser = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(appointmentsByUser);
+        model.addAttribute("appointments", appointmentsByUser);
+        model.addAttribute("user", user);
+        model.addAttribute("record", new ServiceRecords());
+
+        return "user/view-service-records";
+    }
+
+    @GetMapping("/user/reviews")
+    public String userReviews(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Appointment appointment = new Appointment();
+        Iterable<Appointment> needReviews = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(needReviews);
+        appointment.filterByIfReviewed(needReviews, false);
+        model.addAttribute("needreviews", needReviews);
+        model.addAttribute("review", new Reviews());
+        return "user/reviews";
+    }
+
+        @PostMapping("/user/review")
+    public String submitReview(@ModelAttribute Reviews review) {
+        reviewsSvc.save(review);
+        return "redirect:/user/reviews";
+        }
 
 }
