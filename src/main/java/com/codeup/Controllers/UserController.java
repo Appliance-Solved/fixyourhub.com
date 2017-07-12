@@ -144,16 +144,16 @@ public class UserController {
 
     @GetMapping("/user/scheduleservice/day")
     public String scheduleServiceDate(
-            @RequestParam(name = "id") long id,
+            @RequestParam(name = "applianceId") long applianceId,
             Model model
     ){
-        model.addAttribute("id", id);
+        model.addAttribute("applianceId", applianceId);
         return"user/schedule-service-date";
     }
 
     @GetMapping("/user/scheduleservice/results")
-    public String serviceSearchResults(@RequestParam(name = "id") long id, Model model){
-        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(id);
+    public String serviceSearchResults(@RequestParam(name = "applianceId") long applianceId, Model model){
+        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
         model.addAttribute("servicers", servicers);
         return "user/servicers-results";
     }
