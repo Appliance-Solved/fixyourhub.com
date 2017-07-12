@@ -157,12 +157,13 @@ public class UserController {
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        model.addAttribute("user", user);
         Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(id);
+        return null;
 
-    public String serviceSearchResults(@RequestParam(name = "applianceId") long applianceId, Model model){
-        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
-   
-        model.addAttribute("servicers", servicers);
-        return "user/servicers-results";
+//    public String serviceSearchResults(@RequestParam(name = "applianceId") long applianceId, Model model){
+//        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
+//
+//        model.addAttribute("servicers", servicers);
+//        return "user/servicers-results";
     }
 
     @GetMapping("/user/viewservicer")
