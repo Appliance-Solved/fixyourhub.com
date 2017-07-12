@@ -6,10 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by larryg on 7/9/17.
@@ -122,6 +119,20 @@ public class Appointment {
             week.add(plannerFormat.format(day));
         }
         return week;
+    }
+
+    public Iterable<Appointment> filterOutFutureAppointments(Iterable<Appointment> appointments) {
+        Iterator<Appointment> appointmentsThatPassed = appointments.iterator();
+        Appointment appointment =new Appointment();
+        while (appointmentsThatPassed.hasNext()) {
+            Appointment scheduled = appointmentsThatPassed.next();
+            if (appointment.checkIfDateTimePassed(scheduled)) {
+                appointmentsThatPassed.remove();
+            }else if(scheduled.getServiceRecords().getDesc_service() != null){
+                appointmentsThatPassed.remove();
+            }
+        }
+        return appointments;
     }
 
 

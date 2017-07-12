@@ -1,13 +1,7 @@
 package com.codeup.Controllers;
 
-import com.codeup.Models.Servicer;
-import com.codeup.Models.User;
-import com.codeup.Models.UserAppliance;
-import com.codeup.Models.UserRole;
-import com.codeup.Services.ServicerSvc;
-import com.codeup.Services.UserAppliancesSvc;
-import com.codeup.Services.UserRolesSvc;
-import com.codeup.Services.UserSvc;
+import com.codeup.Models.*;
+import com.codeup.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,16 +21,18 @@ public class UserController {
     private UserRolesSvc userRolesSvc;
     private UserAppliancesSvc userAppliancesSvc;
     private ServicerSvc servicerSvc;
+    private AppointmentSvc appointmentSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc){
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
         this.userAppliancesSvc = userAppliancesSvc;
         this.servicerSvc = servicerSvc;
+        this.appointmentSvc = appointmentSvc;
     }
 
     @GetMapping("/")
@@ -167,6 +163,19 @@ public class UserController {
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
         model.addAttribute("servicer_info", servicer_info);
         return "user/viewservicer";
+    }
+
+    @GetMapping("/user/service-records")
+    public String viewServiceRecord(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Appointment appointment = new Appointment();
+        Iterable<Appointment> appointmentsByUser = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointments(appointmentsByUser);
+        model.addAttribute("appointments", appointmentsByUser);
+        model.addAttribute("user", user);
+        model.addAttribute("record", new ServiceRecords());
+
+        return "user/view-service-records";
     }
 
 }

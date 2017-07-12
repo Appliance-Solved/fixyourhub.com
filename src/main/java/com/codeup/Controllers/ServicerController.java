@@ -191,15 +191,7 @@ public class ServicerController {
         User servicer = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Appointment appointment = new Appointment();
         Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(servicer, false);
-        Iterator<Appointment> appointmentsThatPassed = appointmentsByServicer.iterator();
-        while (appointmentsThatPassed.hasNext()) {
-            Appointment scheduled = appointmentsThatPassed.next();
-            if (appointment.checkIfDateTimePassed(scheduled)) {
-                appointmentsThatPassed.remove();
-            }else if(scheduled.getServiceRecords().getDesc_service() != null){
-                appointmentsThatPassed.remove();
-            }
-        }
+       appointment.filterOutFutureAppointments(appointmentsByServicer);
             model.addAttribute("appointments", appointmentsByServicer);
             model.addAttribute("user", servicer);
             model.addAttribute("record", new ServiceRecords());
@@ -215,6 +207,9 @@ public class ServicerController {
         serviceRecordsSvc.save(svcRecord);
             return "redirect:/servicer/submit-service";
         }
+
+
+
 
 
     }
