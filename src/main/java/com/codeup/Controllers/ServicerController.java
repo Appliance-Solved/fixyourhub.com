@@ -44,6 +44,11 @@ public class ServicerController {
         this.serviceRecordsSvc = serviceRecordsSvc;
     }
 
+    @GetMapping("/servicer/pend")
+    public  String showpending(Model model) {
+        return "servicer/pending";
+    }
+
     @GetMapping("/servicer/tech")
     public String showtechs(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
