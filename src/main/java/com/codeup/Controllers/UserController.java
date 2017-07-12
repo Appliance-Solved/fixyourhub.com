@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by larryg on 7/5/17.
  */
@@ -157,10 +161,24 @@ public class UserController {
             @RequestParam(name = "time-frame") int timeFrame,
             Model model
     ) {
-        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
-        Iterable<User> avalibleServicers = servicerSvc.findServicerByAvailability(timeFrame);
-        System.out.println(avalibleServicers);
-        model.addAttribute("servicers", avalibleServicers);
+//        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
+        Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
+        List<User> servicers = new ArrayList<>();
+        for (BigInteger bigIntId : servicerIds) {
+            Long longId = bigIntId.longValue();
+            User user = userSvc.findOne(longId);
+            Servicer servicer_info = servicerSvc.findServicerInfoByUserId(user);
+            String services = servicer_info.getServices();
+            boolean match = services.contains(Long.toString(applianceId));
+            if (match) {
+                servicers.add(user);
+            }
+
+        }
+        String x = "this is a string 1";
+        x.contains("1");
+
+        model.addAttribute("servicers", servicers);
         return "user/servicers-results";
     }
 
@@ -172,6 +190,7 @@ public class UserController {
         model.addAttribute("servicer", servicer);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
         model.addAttribute("servicer_info", servicer_info);
+        System.out.println("servicer_info: " + servicer_info.getServices());
         return "user/viewservicer";
     }
 
