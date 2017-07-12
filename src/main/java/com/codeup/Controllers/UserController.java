@@ -32,7 +32,7 @@ public class UserController {
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc) {
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
         this.userAppliancesSvc = userAppliancesSvc;
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping("/user/register")
-    public String registerUser(@ModelAttribute User user){
+    public String registerUser(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userSvc.save(user);
         UserRole userRole = new UserRole(user);
@@ -67,7 +67,7 @@ public class UserController {
     }
 
     @PostMapping("/servicer/register")
-    public String registerServicer(@ModelAttribute User user){
+    public String registerServicer(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userSvc.save(user);
         UserRole userRole = new UserRole(user);
@@ -77,9 +77,9 @@ public class UserController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboardHandler(){
+    public String dashboardHandler() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-       UserRole roles = userRolesSvc.findRolebyUser(user);
+        UserRole roles = userRolesSvc.findRolebyUser(user);
         return "redirect:/" + roles.getRole().toLowerCase() + "/dashboard";
     }
 
@@ -88,7 +88,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
-        model.addAttribute("userAppliances",userAppliances);
+        model.addAttribute("userAppliances", userAppliances);
         UserAppliance userAppliance = new UserAppliance();
         model.addAttribute("appliance", userAppliance);
 
@@ -104,7 +104,7 @@ public class UserController {
     }
 
     @PostMapping("/user/myappliance/delete")
-    public String deleteUserAppliance(@RequestParam(name = "id") Long id){
+    public String deleteUserAppliance(@RequestParam(name = "id") Long id) {
         userAppliancesSvc.delete(id);
         return "redirect:/user/myappliances";
     }
@@ -112,19 +112,19 @@ public class UserController {
     @GetMapping("/user/setprofile")
     public String showSetProfile(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "user/setup-profile";
     }
 
 
     @PostMapping("/user/setprofile")
     public String setUserProfile(
-            @RequestParam(name = "address")String address,
-            @RequestParam(name = "city")String city,
-            @RequestParam(name = "state")String state,
-            @RequestParam(name = "zip")Long zip,
-            @RequestParam(name = "phone")String phone
-            ) {
+            @RequestParam(name = "address") String address,
+            @RequestParam(name = "city") String city,
+            @RequestParam(name = "state") String state,
+            @RequestParam(name = "zip") Long zip,
+            @RequestParam(name = "phone") String phone
+    ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userSvc.update(address, city, state, zip, phone, user.getId());
         System.out.println("im out");
@@ -136,7 +136,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
-        model.addAttribute("userAppliances",userAppliances);
+        model.addAttribute("userAppliances", userAppliances);
         UserAppliance userAppliance = new UserAppliance();
         model.addAttribute("appliance", userAppliance);
         return "user/schedule-service";
@@ -146,20 +146,26 @@ public class UserController {
     public String scheduleServiceDate(
             @RequestParam(name = "applianceId") long applianceId,
             Model model
-    ){
+    ) {
         model.addAttribute("applianceId", applianceId);
-        return"user/schedule-service-date";
+        return "user/schedule-service-date";
     }
 
     @GetMapping("/user/scheduleservice/results")
-    public String serviceSearchResults(@RequestParam(name = "applianceId") long applianceId, Model model){
+    public String serviceSearchResults(
+            @RequestParam(name = "applianceId") long applianceId,
+            @RequestParam(name = "time-frame") int timeFrame,
+            Model model
+    ) {
         Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
-        model.addAttribute("servicers", servicers);
+        Iterable<User> avalibleServicers = servicerSvc.findServicerByAvailability(timeFrame);
+        System.out.println(avalibleServicers);
+        model.addAttribute("servicers", avalibleServicers);
         return "user/servicers-results";
     }
 
     @GetMapping("/user/viewservicer")
-    public String showServicerProfile(@RequestParam(name = "id") long id, Model model){
+    public String showServicerProfile(@RequestParam(name = "id") long id, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         User servicer = userSvc.findOne(id);

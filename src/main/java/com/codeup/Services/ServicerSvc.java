@@ -36,4 +36,8 @@ public class ServicerSvc {
         Servicer servicer_info = servicerDao.findServicerByUser(user);
         return servicer_info;
     }
+
+    public Iterable<User> findServicerByAvailability(long inDays){
+        return servicerDao.findServicerByAvailability(inDays);
+    }
 }
