@@ -25,9 +25,6 @@ h3 {
     color: snow;
 }
 
-button {
-    font-size: xx-large;
-}
 
 .box {
     border: 1px solid black;
@@ -38,15 +35,18 @@ button {
     margin: auto;
     position: relative;
     color: snow;
+    font-size: 2em;
 
 }
 
-.btn-primary {
+.service-btn {
+    font-size: 1.5em;
     background-color: #596059;
     border: solid 1px #596059;
     margin-bottom: 30px;
     margin: 9px;
     color: snow;
+    width:28%;
 }
 
 

@@ -6,9 +6,9 @@
 <body>
 <nav th:replace="fragments :: my-navbar" />
 <div class="container">
-<h1>Shedule Service</h1>
+<h1>Schedule Service</h1>
 
-<h3>select an appliance</h3>
+<h3>Select an appliance</h3>
 
 <div th:each="appliance: ${userAppliances}">
     <h4 th:text="${appliance.name}"></h4>
