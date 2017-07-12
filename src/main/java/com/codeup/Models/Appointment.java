@@ -121,7 +121,7 @@ public class Appointment {
         return week;
     }
 
-    public Iterable<Appointment> filterOutFutureAppointments(Iterable<Appointment> appointments) {
+    public Iterable<Appointment> filterOutFutureAppointmentsAndCompleteServiceRecords(Iterable<Appointment> appointments) {
         Iterator<Appointment> appointmentsThatPassed = appointments.iterator();
         Appointment appointment =new Appointment();
         while (appointmentsThatPassed.hasNext()) {
@@ -129,6 +129,20 @@ public class Appointment {
             if (appointment.checkIfDateTimePassed(scheduled)) {
                 appointmentsThatPassed.remove();
             }else if(scheduled.getServiceRecords().getDesc_service() != null){
+                appointmentsThatPassed.remove();
+            }
+        }
+        return appointments;
+    }
+
+    public Iterable<Appointment> filterOutFutureAppointmentsAndServiceRecordsNotComplete(Iterable<Appointment> appointments) {
+        Iterator<Appointment> appointmentsThatPassed = appointments.iterator();
+        Appointment appointment =new Appointment();
+        while (appointmentsThatPassed.hasNext()) {
+            Appointment scheduled = appointmentsThatPassed.next();
+            if (appointment.checkIfDateTimePassed(scheduled)) {
+                appointmentsThatPassed.remove();
+            }else if(scheduled.getServiceRecords().getDesc_service() == null){
                 appointmentsThatPassed.remove();
             }
         }

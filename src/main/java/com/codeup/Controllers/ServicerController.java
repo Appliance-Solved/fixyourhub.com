@@ -138,21 +138,7 @@ public class ServicerController {
         return "servicer/create-availability";
     }
 
-//    @PostMapping("/servicer/availability")
-//    public String createAvailability(@ModelAttribute Appointment appointment, Model model){
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        appointment.setServicer(user);
-//        if(appointment.startBeforeStopTimeAndWindowMax(appointment.getStartTime(), appointment.getStopTime())){
-//        if (appointment.checkIfDateTimePassed(appointment.getDate(), appointment.getStartTime())) {
-//            appointmentSvc.save(appointment);
-//            return "redirect:/servicer/create-availability";
-//        }else {
-//            return "redirect:/servicer/create-availability?past=true";
-//        }}else{
-//            return "redirect:/servicer/create-availability?timeconflict=true";
-//        }
 
-//    }
 
     @PostMapping("/servicer/appointment/delete")
     public String deleteAvailability(@RequestParam(name = "id") Long id) {
@@ -191,7 +177,7 @@ public class ServicerController {
         User servicer = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Appointment appointment = new Appointment();
         Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(servicer, false);
-       appointment.filterOutFutureAppointments(appointmentsByServicer);
+       appointment.filterOutFutureAppointmentsAndCompleteServiceRecords(appointmentsByServicer);
             model.addAttribute("appointments", appointmentsByServicer);
             model.addAttribute("user", servicer);
             model.addAttribute("record", new ServiceRecords());

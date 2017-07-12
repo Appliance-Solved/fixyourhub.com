@@ -170,7 +170,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Appointment appointment = new Appointment();
         Iterable<Appointment> appointmentsByUser = appointmentSvc.findAllByUser(user, false);
-        appointment.filterOutFutureAppointments(appointmentsByUser);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(appointmentsByUser);
         model.addAttribute("appointments", appointmentsByUser);
         model.addAttribute("user", user);
         model.addAttribute("record", new ServiceRecords());
