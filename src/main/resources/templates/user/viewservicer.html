@@ -6,15 +6,40 @@
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar"/>
-<div class="container">
+<div class="container text-center">
+    <h2>Service Provider</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="http://via.placeholder.com/250x250" alt="" class="img-circle" style="width:150px;"/>
+        </div>
+        <div class="col-md-6 text-left">
+            <br/><br/>
+            <h2 th:text="${servicer.username}"></h2>
+        </div>
+    </div>
+    <br/>
+    <div class="row well well-sm" style="padding:0;">
+        <div class="col-md-4">
+            <h4>Initial Fee</h4>
+            <h4>$ <span th:text="${servicer_info.serviceCallFee}"></span></h4>
+        </div>
+        <div class="col-md-4">
+            <h4>Call:</h4>
+            <h4 th:text="${servicer.phone}"></h4>
+        </div>
+        <div class="col-md-4">
+            <br/>
 
-    Service Provider
-    <h2 th:text="${servicer.username}"></h2>
-    <img src="http://via.placeholder.com/250x250" alt=""/>
-    <h4 th:text="${servicer.phone}"></h4>
-    <p th:text="${servicer_info.serviceCallFee}"></p>
-    <p th:text="${servicer_info.about}"></p>
+            <!--<form action="/">-->
+                <input type="submit" class="btn btn-primary" name="submit" value="Select" />
+            <!--</form>-->
 
+        </div>
+    </div>
+    <div class="text-left">
+        <h4>About:</h4>
+        <p th:text="${servicer_info.about}"></p>
+    </div>
 </div>
 <footer th:replace="fragments :: my-footer"/>
 </body>

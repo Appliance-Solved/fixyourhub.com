@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Select a date')"></th:block>
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container text-center">
+
+    <h3>Select the time frame you would like for your service</h3>
+    <h4>- Or select a specific date -</h4>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p>
+                <a href="#" class="btn btn-sq-lg btn-primary">
+                    <br/><br/><br/><strong>Today</strong>
+                </a>
+                <a href="#" class="btn btn-sq-lg btn-primary">
+                    <br/><br/><br/><strong>3 days</strong>
+                </a>
+                <a href="#" class="btn btn-sq-lg btn-primary">
+                    <br/><br/><br/><strong>5 days</strong>
+                </a>
+                <a href="#" class="btn btn-sq-lg btn-primary">
+                    <br/><br/><br/><strong>7 days</strong>
+                </a>
+                <a href="#" class="btn btn-sq-lg btn-primary">
+                    <br/><br/><br/><strong>Select a date</strong>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!--time frame doesn't work, this form will only take you
+    to a list of servicers that can work on the applianceId-->
+    <div class="row">
+        <form th:action="@{/user/scheduleservice/results}" th:method="GET" class="text-center col-lg-12">
+            <input type="hidden" name="applianceId" th:value="${applianceId}"/>
+            <input type="submit" value="Request Service"/>
+        </form>
+    </div>
+
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
+</body>
+</html>

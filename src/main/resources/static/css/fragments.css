@@ -67,3 +67,8 @@ footer {
     background-color: blue;
     width: 20%;
 }
+
+.btn-sq-lg {
+    width: 150px !important;
+    height: 150px !important;
+}
