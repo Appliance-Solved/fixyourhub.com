@@ -26,6 +26,10 @@ public class AppointmentSvc {
         return appointmentDao.findAllByServicerAndAvailability(servicer, available);
     }
 
+    public Iterable<Appointment> findAllByUser(User user, boolean available) {
+        return appointmentDao.findAllByUserAndAvailable(user, available);
+    }
+
     public void save(Appointment appointment){
         appointmentDao.save(appointment);
     }
