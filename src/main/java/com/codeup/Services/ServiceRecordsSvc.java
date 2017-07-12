@@ -1,5 +1,6 @@
 package com.codeup.Services;
 
+import com.codeup.Models.ServiceRecords;
 import com.codeup.Repositories.ServiceRecordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,13 @@ public class ServiceRecordsSvc {
     public ServiceRecordsSvc(ServiceRecordsRepository serviceRecordsDao) {
         this.serviceRecordsDao = serviceRecordsDao;
     }
+
+    public void save(ServiceRecords record) {
+        serviceRecordsDao.save(record);
+    }
+
+    public ServiceRecords findRecordbyId(int id){
+       return serviceRecordsDao.findServiceRecordById(id);
+    }
+
 }
