@@ -26,6 +26,9 @@ public class ServiceRecords {
     @Column(length = 2000)
     private String desc_service;
 
+    @OneToOne
+    private Reviews review;
+
     public ServiceRecords() {
     }
 
@@ -69,5 +72,11 @@ public class ServiceRecords {
         this.desc_service = desc_service;
     }
 
+    public Reviews getReview() {
+        return review;
+    }
 
+    public void setReview(Reviews review) {
+        this.review = review;
+    }
 }

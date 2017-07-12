@@ -197,6 +197,18 @@ public class Appointment {
         return min;
     }
 
+    public Iterable<Appointment> filterByIfReviewed(Iterable<Appointment> appointments, boolean ifreviewed){
+        Iterator<Appointment> appointmentIterator = appointments.iterator();
+        while (appointmentIterator.hasNext()) {
+            Appointment scheduled = appointmentIterator.next();
+            boolean reviewExist = scheduled.getServiceRecords().getReview() != null;
+            if(reviewExist != ifreviewed){
+                appointmentIterator.remove();
+            }
+        }
+        return appointments;
+    }
+
 
     public Long getId() {
         return id;

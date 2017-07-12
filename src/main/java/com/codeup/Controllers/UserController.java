@@ -22,17 +22,19 @@ public class UserController {
     private UserAppliancesSvc userAppliancesSvc;
     private ServicerSvc servicerSvc;
     private AppointmentSvc appointmentSvc;
+    private ReviewsSvc reviewsSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc){
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
         this.userAppliancesSvc = userAppliancesSvc;
         this.servicerSvc = servicerSvc;
         this.appointmentSvc = appointmentSvc;
+        this.reviewsSvc = reviewsSvc;
     }
 
     @GetMapping("/")
@@ -185,5 +187,23 @@ public class UserController {
 
         return "user/view-service-records";
     }
+
+    @GetMapping("/user/reviews")
+    public String userReviews(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Appointment appointment = new Appointment();
+        Iterable<Appointment> needReviews = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(needReviews);
+        appointment.filterByIfReviewed(needReviews, false);
+        model.addAttribute("needreviews", needReviews);
+        model.addAttribute("review", new Reviews());
+        return "user/reviews";
+    }
+
+        @PostMapping("/user/review")
+    public String submitReview(@ModelAttribute Reviews review) {
+        reviewsSvc.save(review);
+        return "redirect:/user/reviews";
+        }
 
 }
