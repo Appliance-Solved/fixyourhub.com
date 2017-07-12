@@ -6,6 +6,8 @@ import com.codeup.Repositories.ServicerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+
 /**
  * Created by Carlos on 7/5/17.
  */
@@ -35,5 +37,10 @@ public class ServicerSvc {
     public Servicer findServicerInfoByUserId(User user){
         Servicer servicer_info = servicerDao.findServicerByUser(user);
         return servicer_info;
+    }
+
+    public Iterable<BigInteger> findServicerByAvailability(long inDays){
+//        Iterable<BigInteger> bigInt = servicerDao.findServicerByAvailability(inDays);
+        return servicerDao.findServicerByAvailability(inDays);
     }
 }

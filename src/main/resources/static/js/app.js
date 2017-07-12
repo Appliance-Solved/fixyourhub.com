@@ -75,4 +75,10 @@ $(document).ready(function () {
         $("#setAvail").submit();
     })
 
+    $(".time-frame").click(function(){
+        var id = $(this).attr("id");
+        $("#time-frame").val(id);
+        $("#search-results").submit();
+    });
+
 });
