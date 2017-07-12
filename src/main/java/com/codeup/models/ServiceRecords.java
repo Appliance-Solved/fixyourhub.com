@@ -20,11 +20,14 @@ public class ServiceRecords {
     @Column(nullable = false, length = 1000)
     private String complaint;
 
-    @Column(nullable = false)
+    @Column()
     private String parts_installed;
 
-    @Column(nullable = false, length = 2000)
+    @Column(length = 2000)
     private String desc_service;
+
+    public ServiceRecords() {
+    }
 
     public int getId() {
         return id;

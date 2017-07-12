@@ -1,10 +1,7 @@
 package com.codeup.Controllers;
 
 import com.codeup.Models.*;
-import com.codeup.Services.AppointmentSvc;
-import com.codeup.Services.ServicerSvc;
-import com.codeup.Services.TechnicianSvc;
-import com.codeup.Services.UserSvc;
+import com.codeup.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -34,16 +30,18 @@ public class ServicerController {
     private TechnicianSvc techsvc;
     private ServicerSvc servicerSvc;
     private AppointmentSvc appointmentSvc;
+    private ServiceRecordsSvc serviceRecordsSvc;
     @Value("${file-upload-path}")
     private String uploadPath;
 
 
     @Autowired
-    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc) {
+    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ServiceRecordsSvc serviceRecordsSvc) {
         this.userSvc = userSvc;
         this.techsvc = techsvc;
         this.servicerSvc = servicerSvc;
         this.appointmentSvc = appointmentSvc;
+        this.serviceRecordsSvc = serviceRecordsSvc;
     }
 
     @GetMapping("/servicer/tech")
@@ -198,6 +196,8 @@ public class ServicerController {
             Appointment scheduled = appointmentsThatPassed.next();
             if (appointment.checkIfDateTimePassed(scheduled)) {
                 appointmentsThatPassed.remove();
+            }else if(scheduled.getServiceRecords().getDesc_service() != null){
+                appointmentsThatPassed.remove();
             }
         }
             model.addAttribute("appointments", appointmentsByServicer);
@@ -207,10 +207,14 @@ public class ServicerController {
             return "servicer/submit-servicerecord";
         }
 
-//        @PostMapping("/servicer/submit-service")
-//    public String submitServiceRecord(@ModelAttribute ServiceRecords record){
-//
-//        }
+        @PostMapping("/servicer/submit-service")
+    public String submitServiceRecord(@ModelAttribute ServiceRecords record){
+        ServiceRecords svcRecord = serviceRecordsSvc.findRecordbyId(record.getId());
+        svcRecord.setParts_installed(record.getParts_installed());
+        svcRecord.setDesc_service(record.getDesc_service());
+        serviceRecordsSvc.save(svcRecord);
+            return "redirect:/servicer/submit-service";
+        }
 
 
     }
