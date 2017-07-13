@@ -32,6 +32,12 @@ public class ServiceRecords {
     public ServiceRecords() {
     }
 
+    public ServiceRecords(String complaint, UserAppliance userAppliance){
+        this.complaint = complaint;
+        this.userAppliance = userAppliance;
+
+    }
+
     public int getId() {
         return id;
     }

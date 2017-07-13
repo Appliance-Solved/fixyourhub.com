@@ -2,7 +2,6 @@ package com.codeup.Controllers;
 
 import com.codeup.Models.*;
 import com.codeup.Services.*;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -61,6 +60,24 @@ public class UserController {
         User user = new User();
         model.addAttribute("user", user);
         return "register";
+    }
+
+    @GetMapping("/user/dashboard")
+    public String userDash(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Iterable<Appointment> appointmentRequests = appointmentSvc.findAllByUser(user, true);
+        model.addAttribute("appointmentRequests", appointmentRequests);
+        return "user/dashboard";
+    }
+
+    @PostMapping("/user/dashboard")
+    public String cancelRequest(@RequestParam(name = "id") Long id) {
+        Appointment appointment = appointmentSvc.findById(id);
+        appointment.setUser(null);
+        appointment.setServiceRecords(null);
+        appointmentSvc.save(appointment);
+        return "redirect:/user/dashboard";
     }
 
     @GetMapping("/user/review")
