@@ -31,9 +31,21 @@ h2 {
     text-align: center;
 }
 
-/*.rating > img:hover {*/
-    /*background-color: gold;*/
-/*}*/
+
+#myrating {
+    width: 250px;
+    margin: 0 auto;
+}
+
+#rateoverlay {
+    background-color: gold;
+
+}
+
+
+#rateoverlay img {
+    width: 250px;
+}
 
 .ratehover {
     background-color: gold;

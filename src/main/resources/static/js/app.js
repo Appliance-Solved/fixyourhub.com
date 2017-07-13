@@ -121,7 +121,13 @@ $(document).ready(function () {
     $.when(rateService()).done(undoRate());
     $.when(undoRate()).done(rateService());
 
-
-
     rateService();
+
+    var ratingpercent = $("#myrating > h4 > span").text();
+    console.log(ratingpercent);
+    ratingpercent = ((ratingpercent * 2) * 10) +1;
+    console.log(ratingpercent);
+    ratingpercent = ratingpercent + "%";
+    $("#rateoverlay").css("width", ratingpercent);
+
 });

@@ -63,6 +63,13 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping("/user/dashboard")
+    public String userDash(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        return "user/dashboard";
+    }
+
     @GetMapping("/user/review")
     public String showReview(Model model) {
         return "/user/review";
