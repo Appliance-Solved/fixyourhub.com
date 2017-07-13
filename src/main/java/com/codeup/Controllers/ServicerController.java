@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -31,17 +32,33 @@ public class ServicerController {
     private ServicerSvc servicerSvc;
     private AppointmentSvc appointmentSvc;
     private ServiceRecordsSvc serviceRecordsSvc;
+    private ReviewsSvc reviewsSvc;
     @Value("${file-upload-path}")
     private String uploadPath;
 
 
     @Autowired
-    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ServiceRecordsSvc serviceRecordsSvc) {
+    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ServiceRecordsSvc serviceRecordsSvc, ReviewsSvc reviewsSvc) {
         this.userSvc = userSvc;
         this.techsvc = techsvc;
         this.servicerSvc = servicerSvc;
         this.appointmentSvc = appointmentSvc;
         this.serviceRecordsSvc = serviceRecordsSvc;
+        this.reviewsSvc = reviewsSvc;
+    }
+
+    @GetMapping("/servicer/dashboard")
+    public String servicerDash(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+
+        Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(user, false);
+        Reviews review = new Reviews();
+        List<Reviews> servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
+        double avg = review.findReviewAvg(servicerReviews);
+
+        model.addAttribute("avgrating", avg);
+        return "servicer/dashboard";
     }
 
     @GetMapping("/servicer/pend")
