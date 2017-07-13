@@ -49,6 +49,10 @@ public class UserAppliancesSvc {
         return applianceTypes.get(appliance_id);
     }
 
+    public Long findApplianceTypeByUserApplianceId(long applianceId){
+        return userAppliancesDao.findApplianceTypeByUserApplianceId(applianceId);
+    }
+
     public void delete(Long id){
         userAppliancesDao.delete(id);
     }

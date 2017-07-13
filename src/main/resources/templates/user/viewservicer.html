@@ -44,12 +44,13 @@
 
     <h4 class="text-left">Available appointment blocks:</h4>
     <div class="col-sm-3" th:each="appointment: ${availability}">
+        <div data-toggle="modal" >
             <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
             <h4 th:text="${appointment.formatTime(appointment.startTime)}"></h4>
             <h4 th:text="${appointment.formatTime(appointment.stopTime)}"></h4>
 
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attr="data-target='#modal' + ${appointment.id}">Make Request</button>
-
+        </div>
         <!-- Modal -->
         <div th:id="${'modal' + appointment.id}" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -67,7 +68,7 @@
                         <h5 th:text="${appointment.formatTime(appointment.stopTime)}"></h5>
                         <br/>
                         <h5>Service On:
-                            <th:block th:switch="${applianceId}">
+                            <th:block th:switch="${applianceType}">
                                 <span th:case="0">Refrigerator</span>
                                 <span th:case="1">Stove/ Oven</span>
                                 <span th:case="2">Washer</span>

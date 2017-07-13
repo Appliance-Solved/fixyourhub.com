@@ -26,7 +26,7 @@
     <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
 
     <form th:action="@{/user/scheduleservice/complaint}" th:method="GET">
-        <input type="hidden" id="applianceId" name="applianceId" th:value="${appliance.appliance_id}" />
+        <input type="hidden" id="appliance" name="applianceId" th:value="${appliance.id}" />
         <input type="submit" value="Select" />
     </form>
 

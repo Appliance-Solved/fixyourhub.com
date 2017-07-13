@@ -12,7 +12,6 @@ import java.math.BigInteger;
  */
 public interface ServicerRepository extends CrudRepository<Servicer, Long>{
 
-    //Query does not work yet
     @Query("select s.user from Servicer s where s.services like concat('%',?1,'%')")
     Iterable<User> findServicerByApplianceId(long id);
 
