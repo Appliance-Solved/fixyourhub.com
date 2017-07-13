@@ -32,6 +32,10 @@ public class ServiceRecords {
     public ServiceRecords() {
     }
 
+
+    public ServiceRecords(String complaint, UserAppliance userAppliance) {
+    }
+
     public int getId() {
         return id;
     }

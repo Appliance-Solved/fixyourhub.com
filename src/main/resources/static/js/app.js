@@ -122,7 +122,7 @@ $(document).ready(function () {
     $.when(undoRate()).done(rateService());
 
     rateService();
-
+    //comment test
     var ratingpercent = $("#myrating > h4 > span").text();
     console.log(ratingpercent);
     ratingpercent = ((ratingpercent * 2) * 10) +1;
