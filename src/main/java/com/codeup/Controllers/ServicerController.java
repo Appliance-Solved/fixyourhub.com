@@ -49,6 +49,11 @@ public class ServicerController {
         return "servicer/pending";
     }
 
+    @GetMapping("/servicer/review")
+    public String showReview(Model model) {
+        return "servicer/reviews";
+    }
+
     @GetMapping("/servicer/tech")
     public String showtechs(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
