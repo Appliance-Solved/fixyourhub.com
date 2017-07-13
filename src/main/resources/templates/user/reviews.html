@@ -44,11 +44,15 @@
                     </div>
                         <form th:action="@{/user/review}" th:method="post" th:object="${review}">
                     <div class="modal-body">
-                            <label for="comments"></label>
+                        <div class="rating">
+                            <span id="star-5">☆</span><span id="star-4">☆</span><span id="star-3">☆</span><span id="star-2">☆</span><span id="star-1">☆</span>
+                        </div>
+                            <label for="comments">Comments</label>
                             <textarea name="comments" id="comments" cols="80" rows="6" th:field="*{comments}"></textarea>
-                            <br />
-                            <input type="hidden" id="sevicer_record_id" th:value="${appointment.serviceRecords.id}" th:field="*{serviceRecords}" />
-                            <input type="text" id="rating" name="rating" th:field="*{rating}" />
+
+
+                            <input type="hidden" id="service_record_id" name="service_record_id" th:value="${appointment.serviceRecords.id}" />
+                            <input type="hidden" id="rating" name="rating" th:field="*{rating}" />
 
 
                     </div>

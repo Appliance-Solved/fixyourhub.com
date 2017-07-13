@@ -81,4 +81,14 @@ $(document).ready(function () {
         $("#search-results").submit();
     });
 
+    $(".rating > span").click(function(){
+        var star = $(this).attr("id");
+        var starId = star.split("-");
+        $("#rating").val(starId[1]);
+        for(var i = 0; i < starId[1]; i++){
+            var changeId = "#star-" + (i +1);
+            $("#star-" + (i +1)).addClass("rated");
+        }
+    })
+
 });
