@@ -186,6 +186,7 @@ public class UserController {
             }
         }
         model.addAttribute("applianceId", applianceId);
+        System.out.println("applianceId " + applianceId);
         model.addAttribute("complaint", complaint);
         model.addAttribute("servicers", servicers);
         return "user/servicers-results";
@@ -196,6 +197,7 @@ public class UserController {
     public String showServicerProfile(
             @RequestParam(name = "id") long id,
             @RequestParam(name = "complaint") String complaint,
+            @RequestParam(name = "applianceId") long applianceId,
             Model model
     ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -207,6 +209,7 @@ public class UserController {
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
         model.addAttribute("servicer_info", servicer_info);
         model.addAttribute("complaint", complaint);
+        model.addAttribute("applianceId", applianceId);
         return "user/viewservicer";
     }
 
