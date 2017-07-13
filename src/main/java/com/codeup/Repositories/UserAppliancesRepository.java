@@ -14,4 +14,5 @@ Iterable<UserAppliance> findAllByUser(User user);
 @Query("select appliance_id from UserAppliance where id = ?1")
     Long findApplianceTypeByUserApplianceId(long applianceId);
 
+    UserAppliance findOneById(long id);
 }

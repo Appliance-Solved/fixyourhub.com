@@ -53,6 +53,10 @@ public class UserAppliancesSvc {
         return userAppliancesDao.findApplianceTypeByUserApplianceId(applianceId);
     }
 
+    public UserAppliance findOneById(long id){
+        return userAppliancesDao.findOneById(id);
+    }
+
     public void delete(Long id){
         userAppliancesDao.delete(id);
     }

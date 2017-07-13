@@ -82,12 +82,12 @@
                         <br/>
                         <h5>Issue/comments with appliance</h5>
                         <textarea th:text="${complaint}" rows="4" cols="50" name="complaint"
-                                  form="submit-request"></textarea>
+                                  th:attr="form='submit-request' + ${appointment.id}"></textarea>
                     </div>
-                    <form th:action="@{/dashboard}" class="modal-footer">
-
+                    <form th:id="${'submit-request' + appointment.id}"  th:action="@{/user/submitrequest}" class="modal-footer">
+                        <input type="hidden" name="appointmentId" th:value="${appointment.id}"/>
                         <input type="hidden" name="applianceId" th:value="${applianceId}"/>
-                        <input id="submit-request" type="submit" class="btn btn-primary"/>
+                        <input type="submit" class="btn btn-primary"/>
                     </form>
                 </div>
 

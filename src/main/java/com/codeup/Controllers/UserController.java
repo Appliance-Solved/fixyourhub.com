@@ -27,13 +27,14 @@ public class UserController {
     private ServicerSvc servicerSvc;
     private AppointmentSvc appointmentSvc;
     private ReviewsSvc reviewsSvc;
+    private ServiceRecordsSvc serviceRecordsSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
 
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc, ServiceRecordsSvc serviceRecordsSvc){
 
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
@@ -41,6 +42,7 @@ public class UserController {
         this.servicerSvc = servicerSvc;
         this.appointmentSvc = appointmentSvc;
         this.reviewsSvc = reviewsSvc;
+        this.serviceRecordsSvc = serviceRecordsSvc;
     }
 
     @GetMapping("/")
@@ -219,10 +221,20 @@ public class UserController {
         return "user/viewservicer";
     }
 
-    @PostMapping("/user/submitrequest")
+    @GetMapping("/user/submitrequest")
     public String submitServiceRequest(
+            @RequestParam(name = "complaint") String complaint,
+            @RequestParam(name = "applianceId") long applianceId,
+            @RequestParam(name = "appointmentId")long appointmentId
     ) {
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserAppliance userAppliance = userAppliancesSvc.findOneById(applianceId);
+        ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
+        serviceRecordsSvc.save(serviceRecord);
+        Appointment appointment = appointmentSvc.findById(appointmentId);
+        appointment.setServiceRecords(serviceRecord);
+        appointment.setUser(user);
+        appointmentSvc.save(appointment);
                 return"redirect:/user/dashboard";
     }
 
