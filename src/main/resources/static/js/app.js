@@ -81,4 +81,47 @@ $(document).ready(function () {
         $("#search-results").submit();
     });
 
+
+    function rateService() {
+        $(".rating > img").mouseenter(function () {
+            var $curr = $(this);
+            var star = $(this).attr("id");
+            var starId = star.split("-");
+            $(this).addClass("ratehover");
+            for(var i = 1; i < starId[1]; i++ ){
+                $curr =  $curr.prev();
+                $curr.addClass("ratehover");
+            }
+        }).mouseleave(function () {
+            $(".rating > img").removeClass("ratehover");
+        });
+
+        $(".rating > img").click(function () {
+            var $curr = $(this);
+            var star = $(this).attr("id");
+            var starId = star.split("-");
+            $(this).addClass("rated");
+            for(var i = 1; i <= starId[1]; i++ ){
+               $curr =  $curr.prev();
+               $curr.addClass("rated");
+            }
+            var $thisdiv = $(this).parent();
+            $thisdiv = $thisdiv.next();
+            var myinput = $thisdiv.attr("id");
+            $("#" + myinput + " > #rating").val(starId[1]);
+        })
+    }
+
+        function undoRate(){
+        $(".rating > img").click(function () {
+            $(".rating > img").removeClass("rated");
+        })
+        }
+
+    $.when(rateService()).done(undoRate());
+    $.when(undoRate()).done(rateService());
+
+
+
+    rateService();
 });

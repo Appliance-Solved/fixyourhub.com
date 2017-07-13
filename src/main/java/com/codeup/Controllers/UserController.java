@@ -2,6 +2,7 @@ package com.codeup.Controllers;
 
 import com.codeup.Models.*;
 import com.codeup.Services.*;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,13 +28,14 @@ public class UserController {
     private ServicerSvc servicerSvc;
     private AppointmentSvc appointmentSvc;
     private ReviewsSvc reviewsSvc;
+    private ServiceRecordsSvc serviceRecordsSvc;
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
 
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc, ServiceRecordsSvc serviceRecordsSvc){
 
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
@@ -41,6 +43,7 @@ public class UserController {
         this.servicerSvc = servicerSvc;
         this.appointmentSvc = appointmentSvc;
         this.reviewsSvc = reviewsSvc;
+        this.serviceRecordsSvc = serviceRecordsSvc;
     }
 
     @GetMapping("/")
@@ -243,8 +246,15 @@ public class UserController {
     }
 
         @PostMapping("/user/review")
-    public String submitReview(@ModelAttribute Reviews review) {
+    public String submitReview(@ModelAttribute Reviews review, @RequestParam(name = "service_record_id") int id) {
+            System.out.println(id);
+            ServiceRecords record = serviceRecordsSvc.findRecordbyId(id);
+
+        review.setServiceRecords(record);
         reviewsSvc.save(review);
+        Reviews setterReview = reviewsSvc.findOneByServiceRecord(record);
+        record.setReview(setterReview);
+        serviceRecordsSvc.save(record);
         return "redirect:/user/reviews";
         }
 
