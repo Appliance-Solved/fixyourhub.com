@@ -185,6 +185,7 @@ public class UserController {
                 servicers.add(user);
             }
         }
+        model.addAttribute("applianceId", applianceId);
         model.addAttribute("complaint", complaint);
         model.addAttribute("servicers", servicers);
         return "user/servicers-results";
@@ -201,6 +202,8 @@ public class UserController {
         model.addAttribute("user", user);
         User servicer = userSvc.findOne(id);
         model.addAttribute("servicer", servicer);
+        Iterable<Appointment> availability = appointmentSvc.findAllByServicer(servicer, true);
+        model.addAttribute("availability", availability);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
         model.addAttribute("servicer_info", servicer_info);
         model.addAttribute("complaint", complaint);
