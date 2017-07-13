@@ -31,21 +31,14 @@ h2 {
     text-align: center;
 }
 
- /*Css for star rating*/
-.rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: left;
+/*.rating > img:hover {*/
+    /*background-color: gold;*/
+/*}*/
+
+.ratehover {
+    background-color: gold;
 }
-.rating > span {
-    display: inline-block;
-    position: relative;
-    width: 1.5em;
-    font-size: 1.5em;
-}
-.rating > span:hover:before,
-.rating > span:hover ~ span:before, .rated {
-    content: "\2605";
-    position: absolute;
-    color: gold;
+
+.rated {
+    background-color: gold;
 }

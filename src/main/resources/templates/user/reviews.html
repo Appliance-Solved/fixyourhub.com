@@ -45,15 +45,22 @@
                         <form th:action="@{/user/review}" th:method="post" th:object="${review}">
                     <div class="modal-body">
                         <div class="rating">
-                            <span id="star-5">☆</span><span id="star-4">☆</span><span id="star-3">☆</span><span id="star-2">☆</span><span id="star-1">☆</span>
+                            <!--<span id="star-5">☆</span><span id="star-4">☆</span><span id="star-3">☆</span><span id="star-2">☆</span><span id="star-1">☆</span>-->
+                            <img src="/img/onestar.png" alt="" th:id="'star-1-' + ${appointment.id}" />
+                            <img src="/img/onestar.png" alt="" th:id="'star-2-' + ${appointment.id}" />
+                            <img src="/img/onestar.png" alt="" th:id="'star-3-' + ${appointment.id}" />
+                            <img src="/img/onestar.png" alt="" th:id="'star-4-' + ${appointment.id}" />
+                            <img src="/img/onestar.png" alt="" th:id="'star-5-' + ${appointment.id}" />
+
                         </div>
+                        <div th:id="'input-' + ${appointment.id}">
                             <label for="comments">Comments</label>
                             <textarea name="comments" id="comments" cols="80" rows="6" th:field="*{comments}"></textarea>
+                            <input type="hidden" id="rating" name="rating" th:field="*{rating}" />
 
 
                             <input type="hidden" id="service_record_id" name="service_record_id" th:value="${appointment.serviceRecords.id}" />
-                            <input type="hidden" id="rating" name="rating" th:field="*{rating}" />
-
+                        </div>
 
                     </div>
                 <div class="modal-footer">
