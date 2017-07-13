@@ -63,6 +63,11 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping("/user/review")
+    public String showReview(Model model) {
+        return "/user/review";
+    }
+
     @PostMapping("/user/register")
     public String registerUser(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -101,7 +106,6 @@ public class UserController {
 
         return "user/myappliances";
     }
-
     @PostMapping("/user/myappliance")
     public String addUserAppliance(UserAppliance userappliance) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -141,7 +145,7 @@ public class UserController {
     @GetMapping("/user/scheduleservice")
     public String scheduleService(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
+//        model.addAttribute("user", user);
         Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
         model.addAttribute("userAppliances", userAppliances);
         UserAppliance userAppliance = new UserAppliance();
@@ -149,22 +153,33 @@ public class UserController {
         return "user/schedule-service";
     }
 
+    @GetMapping("/user/scheduleservice/complaint")
+    public String scheduleServiceComplaint(
+            @RequestParam(name = "applianceId") long applianceId,
+            Model model
+    ){
+        model.addAttribute("applianceId", applianceId);
+        return "user/schedule-service-complaint";
+    }
+
     @GetMapping("/user/scheduleservice/day")
     public String scheduleServiceDate(
             @RequestParam(name = "applianceId") long applianceId,
+            @RequestParam(name = "complaint") String complaint,
             Model model
-    ) {
+    ){
         model.addAttribute("applianceId", applianceId);
+        model.addAttribute("complaint", complaint);
         return "user/schedule-service-date";
     }
 
     @GetMapping("/user/scheduleservice/results")
     public String serviceSearchResults(
             @RequestParam(name = "applianceId") long applianceId,
+            @RequestParam(name = "complaint") String complaint,
             @RequestParam(name = "time-frame") int timeFrame,
             Model model
     ) {
-//        Iterable<User> servicers = servicerSvc.findAllServicersByApplianceId(applianceId);
         Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
         List<User> servicers = new ArrayList<>();
         for (BigInteger bigIntId : servicerIds) {
@@ -177,20 +192,31 @@ public class UserController {
                 servicers.add(user);
             }
         }
+        model.addAttribute("applianceId", applianceId);
+        System.out.println("applianceId " + applianceId);
+        model.addAttribute("complaint", complaint);
         model.addAttribute("servicers", servicers);
         return "user/servicers-results";
 
     }
 
     @GetMapping("/user/viewservicer")
-    public String showServicerProfile(@RequestParam(name = "id") long id, Model model) {
+    public String showServicerProfile(
+            @RequestParam(name = "id") long id,
+            @RequestParam(name = "complaint") String complaint,
+            @RequestParam(name = "applianceId") long applianceId,
+            Model model
+    ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         User servicer = userSvc.findOne(id);
         model.addAttribute("servicer", servicer);
+        Iterable<Appointment> availability = appointmentSvc.findAllByServicer(servicer, true);
+        model.addAttribute("availability", availability);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
         model.addAttribute("servicer_info", servicer_info);
-        System.out.println("servicer_info: " + servicer_info.getServices());
+        model.addAttribute("complaint", complaint);
+        model.addAttribute("applianceId", applianceId);
         return "user/viewservicer";
     }
 

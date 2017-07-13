@@ -25,7 +25,7 @@
     <h5>Model: <span th:text="${appliance.model}"></span></h5>
     <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
 
-    <form th:action="@{/user/scheduleservice/day}" th:method="GET">
+    <form th:action="@{/user/scheduleservice/complaint}" th:method="GET">
         <input type="hidden" id="applianceId" name="applianceId" th:value="${appliance.appliance_id}" />
         <input type="submit" value="Select" />
     </form>
