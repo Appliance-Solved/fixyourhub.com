@@ -193,7 +193,6 @@ public class UserController {
             }
         }
         model.addAttribute("applianceId", applianceId);
-        System.out.println("applianceId " + applianceId);
         model.addAttribute("complaint", complaint);
         model.addAttribute("servicers", servicers);
         return "user/servicers-results";
@@ -215,9 +214,28 @@ public class UserController {
         model.addAttribute("availability", availability);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
         model.addAttribute("servicer_info", servicer_info);
+        Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
+        model.addAttribute("applianceType", applianceType);
         model.addAttribute("complaint", complaint);
         model.addAttribute("applianceId", applianceId);
         return "user/viewservicer";
+    }
+
+    @GetMapping("/user/submitrequest")
+    public String submitServiceRequest(
+            @RequestParam(name = "complaint") String complaint,
+            @RequestParam(name = "applianceId") long applianceId,
+            @RequestParam(name = "appointmentId")long appointmentId
+    ) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserAppliance userAppliance = userAppliancesSvc.findOneById(applianceId);
+        ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
+        serviceRecordsSvc.save(serviceRecord);
+        Appointment appointment = appointmentSvc.findById(appointmentId);
+        appointment.setServiceRecords(serviceRecord);
+        appointment.setUser(user);
+        appointmentSvc.save(appointment);
+                return"redirect:/user/dashboard";
     }
 
     @GetMapping("/user/service-records")

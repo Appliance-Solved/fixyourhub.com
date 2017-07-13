@@ -6,9 +6,6 @@ import com.codeup.Repositories.AppointmentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by larryg on 7/9/17.
  */
@@ -28,6 +25,10 @@ public class AppointmentSvc {
 
     public Iterable<Appointment> findAllByUser(User user, boolean available) {
         return appointmentDao.findAllByUserAndAvailable(user, available);
+    }
+
+    public Appointment findById(long id){
+        return appointmentDao.findByid(id);
     }
 
     public void save(Appointment appointment){
