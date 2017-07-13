@@ -14,6 +14,7 @@
         <h4 th:text="${servicer.username}"></h4>
         <form th:action="@{/user/viewservicer}" th:method="GET">
             <input type="hidden" id="id" name="id" th:value="${servicer.id}"/>
+            <input type="hidden" name="complaint" th:value="${complaint}"/>
             <input type="submit" value="View"/>
         </form>
     </div>

@@ -34,10 +34,9 @@
         </div>
     </div>
 
-    <!--time frame doesn't work, this form will only take you
-    to a list of servicers that can work on the applianceId-->
     <form id="search-results" th:action="@{/user/scheduleservice/results}" th:method="GET" class="text-center col-lg-12">
         <input id="time-frame" type="hidden" name="time-frame"/>
+        <input type="hidden" name="complaint" th:value="${complaint}"/>
         <input type="hidden" name="applianceId" th:value="${applianceId}"/>
     </form>
 
