@@ -60,6 +60,11 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping("/user/review")
+    public String showReview(Model model) {
+        return "/user/review";
+    }
+
     @PostMapping("/user/register")
     public String registerUser(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
