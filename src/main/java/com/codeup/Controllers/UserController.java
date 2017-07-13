@@ -218,6 +218,12 @@ public class UserController {
         return "user/viewservicer";
     }
 
+    @PostMapping("/user/submitrequest")
+    public String submitServiceRequest() {
+
+                return"redirect:/user/dashboard";
+    }
+
     @GetMapping("/user/service-records")
     public String viewServiceRecord(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
