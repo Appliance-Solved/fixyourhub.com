@@ -103,7 +103,6 @@ public class UserController {
 
         return "user/myappliances";
     }
-
     @PostMapping("/user/myappliance")
     public String addUserAppliance(UserAppliance userappliance) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
