@@ -14,10 +14,11 @@
 
     <div class="col-sm-5 col-xs-12 text-center">
         <h2 th:text="${user.name}"></h2>
-        <th:block th:if="${servicer.picUrl != null}">
-        <img th:src="${'/uploads/' + servicer.picUrl}" alt="" class="img-responsive img-rounded center-block"/>
+        <th:block th:if="${servicer != null}">
+            <img th:if="${servicer.picUrl != null}" th:src="${'/uploads/' + servicer.picUrl}" alt="" class="img-responsive img-rounded center-block"/>
+            <img th:if="${servicer.picUrl == null}" src="/img/default-logo.png" alt="" class="img-responsive img-rounded center-block"/>
         </th:block>
-        <th:block th:if="${servicer.picUrl == null}">
+        <th:block th:if="${servicer == null}">
             <img src="/img/default-logo.png" alt="" class="img-responsive img-rounded center-block"/>
         </th:block>
         <div id="myrating">
