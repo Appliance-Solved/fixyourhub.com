@@ -138,7 +138,36 @@ $(document).ready(function () {
 
     $(".selectRecord").click(function(){
         $(this).next().slideToggle();
-    })
+    });
+
+    $(".proTab").hide();
+    $("#availavility").show();
+
+    $(".tablink").click(function(){
+        $(".tablink").removeClass("active");
+        $(".proTab").hide();
+        $(this).addClass("active");
+        var id = $(".active").attr("id");
+        switch(id){
+            case "avail":
+                $("#availavility").slideDown();
+                break;
+            case "review":
+                $("#myReviews").slideDown();
+                break;
+            case "team":
+                $("#myTeam").slideDown();
+                break;
+            case "prof":
+                $("#profile").slideDown();
+                break;
+        }
+    });
+
+
+
+
+
 
 
 
