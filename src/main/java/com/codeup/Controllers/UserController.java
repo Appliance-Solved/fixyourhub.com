@@ -249,9 +249,15 @@ public class UserController {
         ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
         serviceRecordsSvc.save(serviceRecord);
         Appointment appointment = appointmentSvc.findById(appointmentId);
-        appointment.setServiceRecords(serviceRecord);
-        appointment.setUser(user);
-        appointmentSvc.save(appointment);
+        System.out.println("appointment.servicer_record: " + appointment.getServiceRecords());
+        if(appointment.getServiceRecords() == null){
+            appointment.setServiceRecords(serviceRecord);
+            appointment.setUser(user);
+            appointmentSvc.save(appointment);
+        } else{
+            Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(),appointment.getStopTime(),true,appointment.getServicer(),user,serviceRecord);
+            appointmentSvc.save(newAppointment);
+        }
                 return"redirect:/user/dashboard";
     }
 
