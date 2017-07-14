@@ -237,7 +237,6 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserAppliance userAppliance = userAppliancesSvc.findOneById(applianceId);
         ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
-        System.out.println(complaint);
         serviceRecordsSvc.save(serviceRecord);
         Appointment appointment = appointmentSvc.findById(appointmentId);
         appointment.setServiceRecords(serviceRecord);

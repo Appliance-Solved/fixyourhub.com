@@ -149,6 +149,18 @@ public class Appointment {
         return appointments;
     }
 
+    public Iterable<Appointment> filterOutPastAppointments(Iterable<Appointment> appointments) {
+        Iterator<Appointment> appointmentsThatPassed = appointments.iterator();
+        Appointment appointment = new Appointment();
+        while (appointmentsThatPassed.hasNext()) {
+            Appointment scheduled = appointmentsThatPassed.next();
+            if (!appointment.checkIfDateTimePassed(scheduled)) {
+                appointmentsThatPassed.remove();
+            }
+        }
+        return appointments;
+    }
+
 
 
     public List<Appointment> checkDatesetDate(List<Integer> dates, List<Integer> times) throws ParseException {
@@ -203,6 +215,27 @@ public class Appointment {
             Appointment scheduled = appointmentIterator.next();
             boolean reviewExist = scheduled.getServiceRecords().getReview() != null;
             if(reviewExist != ifreviewed){
+                appointmentIterator.remove();
+            }
+        }
+        return appointments;
+    }
+
+    public int countAppointments(Iterable<Appointment> appointments) {
+        Iterator<Appointment> counter = appointments.iterator();
+        int sum = 0;
+        while (counter.hasNext()){
+            counter.next();
+            sum++;
+        }
+        return sum;
+    }
+
+    public Iterable<Appointment> filterOutNonRequested(Iterable<Appointment> appointments){
+        Iterator<Appointment> appointmentIterator = appointments.iterator();
+        while(appointmentIterator.hasNext()){
+            Appointment appointment = appointmentIterator.next();
+            if(appointment.getUser() == null){
                 appointmentIterator.remove();
             }
         }

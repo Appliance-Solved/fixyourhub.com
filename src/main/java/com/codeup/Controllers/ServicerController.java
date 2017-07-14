@@ -52,13 +52,41 @@ public class ServicerController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
 
-        Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(user, false);
-        Reviews review = new Reviews();
-        List<Reviews> servicerReviews;
-        servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
-        double avg = review.findReviewAvg(servicerReviews);
+        Servicer servicer = servicerSvc.findServicerInfoByUserId(user);
+        model.addAttribute("servicer", servicer);
 
-        final Model avgrating = model.addAttribute("avgrating", avg);
+        Appointment appointment = new Appointment();
+        Reviews review = new Reviews();
+
+        Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(user, false);
+
+        List<Reviews> servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
+        double avg = review.findReviewAvg(servicerReviews);
+        model.addAttribute("avgrating", avg);
+        model.addAttribute("servicerReviews", servicerReviews);
+
+        appointment.filterOutPastAppointments(appointmentsByServicer);
+        model.addAttribute("scheduledAppointments",appointmentsByServicer);
+
+        int totalScheduledAppointments = appointment.countAppointments(appointmentsByServicer);
+        model.addAttribute("numberScheduled", totalScheduledAppointments);
+
+        Iterable<Appointment> pendingAppointments = appointmentSvc.findAllByServicer(user, true);
+        appointment.filterOutNonRequested(pendingAppointments);
+        model.addAttribute("pendingAppointments" , pendingAppointments);
+
+        int totalPending = appointment.countAppointments(pendingAppointments);
+        model.addAttribute("numberPending", totalPending);
+
+        Iterable<Appointment> appointmentsNeedingServiceRecords = appointmentSvc.findAllByServicer(user, false);
+        appointment.filterOutFutureAppointmentsAndCompleteServiceRecords(appointmentsNeedingServiceRecords);
+        model.addAttribute("appointmentsNeedSvcRec", appointmentsNeedingServiceRecords);
+
+        int totalNeedSvcRec = appointment.countAppointments(appointmentsNeedingServiceRecords);
+        model.addAttribute("numberNeedSvcRec", totalNeedSvcRec);
+
+        model.addAttribute("record", new ServiceRecords());
+
         return "servicer/dashboard";
     }
 
@@ -223,6 +251,22 @@ public class ServicerController {
             return "redirect:/servicer/submit-service";
         }
 
+        @PostMapping("/servicer/appointment/confirm")
+    public String confirmAppointment(@RequestParam(name = "confirm_id")Long id){
+        Appointment appointment = appointmentSvc.findById(id);
+        appointment.setAvailable(false);
+        appointmentSvc.save(appointment);
+        return "redirect:/dashboard";
+        }
+
+        @PostMapping("/appointment/decline")
+    public String declineAppointment(@RequestParam(name = "decline_id")Long id){
+        Appointment appointment = appointmentSvc.findById(id);
+        appointment.setUser(null);
+        appointment.setServiceRecords(null);
+        appointmentSvc.save(appointment);
+        return "redirect:/dashboard";
+        }
 
 
 
