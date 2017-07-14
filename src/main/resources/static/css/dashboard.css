@@ -1,6 +1,13 @@
-body {
+#dashContainer {
     background-color: white;
     color: #596059;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%
+}
+
+body {
+    background-color: #596059;
 }
 /* #596059  */
 h1 {
