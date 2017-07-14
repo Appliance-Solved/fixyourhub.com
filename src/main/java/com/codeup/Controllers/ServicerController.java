@@ -142,6 +142,9 @@ public class ServicerController {
         User user = new User((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("user", user);
         Servicer servicer = servicerSvc.findServicerInfoByUserId(user);
+        if(servicer == null){
+            servicer = new Servicer();
+        }
         model.addAttribute("servicer", servicer);
         return "servicer/setup-profile";
     }

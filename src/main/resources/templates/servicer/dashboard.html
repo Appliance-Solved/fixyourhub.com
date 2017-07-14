@@ -12,11 +12,12 @@
 
     <h1 class="welcome">Welcome to your Service Dashboard</h1>
 
-    <div class="col-sm-5 col-xs-12 text-center">
+    <div class="col-sm-4 col-xs-12 text-center">
         <h2 th:text="${user.name}"></h2>
         <th:block th:if="${servicer != null}">
-            <img th:if="${servicer.picUrl != null}" th:src="${'/uploads/' + servicer.picUrl}" alt="" class="img-responsive img-rounded center-block"/>
-            <img th:if="${servicer.picUrl == null}" src="/img/default-logo.png" alt="" class="img-responsive img-rounded center-block"/>
+            <span th:if="${servicer.picUrl == ''}"><img  src="/img/default-logo.png" alt="" class="img-responsive img-rounded center-block"/></span>
+            <span th:if="${servicer.picUrl != null and servicer.picUrl != ''}"><img  th:src="${'/uploads/' + servicer.picUrl}" alt="" class="img-responsive img-rounded center-block"/></span>
+
         </th:block>
         <th:block th:if="${servicer == null}">
             <img src="/img/default-logo.png" alt="" class="img-responsive img-rounded center-block"/>
@@ -29,7 +30,7 @@
         </div>
         <a href="/servicer/review">View Reviews</a>
     </div>
-    <div class="col-sm-7 col-xs-12" id="modules">
+    <div class="col-sm-8 col-xs-12" id="modules">
 
 
         <div class="col-sm-12 selector">
