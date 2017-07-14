@@ -54,10 +54,11 @@ public class ServicerController {
 
         Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(user, false);
         Reviews review = new Reviews();
-        List<Reviews> servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
+        List<Reviews> servicerReviews;
+        servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
         double avg = review.findReviewAvg(servicerReviews);
 
-        model.addAttribute("avgrating", avg);
+        final Model avgrating = model.addAttribute("avgrating", avg);
         return "servicer/dashboard";
     }
 
@@ -112,17 +113,18 @@ public class ServicerController {
     public String showServSetProfile(Model model) {
         User user = new User((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("user", user);
-        model.addAttribute("servicer", new Servicer());
+        Servicer servicer = servicerSvc.findServicerInfoByUserId(user);
+        model.addAttribute("servicer", servicer);
         return "servicer/setup-profile";
     }
 
     @PostMapping("/servicer/setprofile")
     public String setServUserProfile(
-            @RequestParam(name = "address") String address,
-            @RequestParam(name = "city") String city,
+            @RequestParam(name = "user.address") String address,
+            @RequestParam(name = "user.city") String city,
             @RequestParam(name = "state") String state,
-            @RequestParam(name = "zip") Long zip,
-            @RequestParam(name = "phone") String phone,
+            @RequestParam(name = "user.zipcode") Long zip,
+            @RequestParam(name = "user.phone") String phone,
             @ModelAttribute Servicer servicer,
             @RequestParam(name = "file") MultipartFile uploadedFile
     ) {

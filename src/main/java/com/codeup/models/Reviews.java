@@ -2,7 +2,9 @@ package com.codeup.Models;
 
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -90,4 +92,5 @@ public class Reviews {
     public void setServiceRecords(ServiceRecords serviceRecords) {
         this.serviceRecords = serviceRecords;
     }
+
 }
