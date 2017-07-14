@@ -200,12 +200,13 @@ public class UserController {
     ) {
         Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
         List<User> servicers = new ArrayList<>();
+        Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
         for (BigInteger bigIntId : servicerIds) {
             Long longId = bigIntId.longValue();
             User user = userSvc.findOne(longId);
             Servicer servicer_info = servicerSvc.findServicerInfoByUserId(user);
             String services = servicer_info.getServices();
-            boolean match = services.contains(Long.toString(applianceId));
+            boolean match = services.contains(Long.toString(applianceType));
             if (match) {
                 servicers.add(user);
             }
@@ -231,11 +232,22 @@ public class UserController {
         Iterable<Appointment> availability = appointmentSvc.findAllByServicer(servicer, true);
         model.addAttribute("availability", availability);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
+        String applianceTypeCode = servicer_info.getServices();
+        String printServices = servicerSvc.printAllServices(applianceTypeCode);
+        model.addAttribute("printServices", printServices);
         model.addAttribute("servicer_info", servicer_info);
         Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
         model.addAttribute("applianceType", applianceType);
         model.addAttribute("complaint", complaint);
         model.addAttribute("applianceId", applianceId);
+
+        Reviews review = new Reviews();
+        Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(servicer, false);
+        List<Reviews> servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
+        double avg = review.findReviewAvg(servicerReviews);
+        model.addAttribute("avgrating", avg);
+        model.addAttribute("servicerReviews", servicerReviews);
+
         return "user/viewservicer";
     }
 

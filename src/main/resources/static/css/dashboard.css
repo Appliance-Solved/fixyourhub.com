@@ -33,7 +33,7 @@ h2 {
 
 
 #myrating {
-    width: 250px;
+    width: 120px;
     margin: 0 auto;
 }
 
@@ -44,7 +44,7 @@ h2 {
 
 
 #rateoverlay img {
-    width: 250px;
+    width: 120px;
 }
 
 .ratehover {
@@ -54,6 +54,11 @@ h2 {
 .rated {
     background-color: gold;
 }
+
+.star {
+    width: 120px;
+}
+
 .selector > h3 {
     background-color: #005095;
     color: white;
