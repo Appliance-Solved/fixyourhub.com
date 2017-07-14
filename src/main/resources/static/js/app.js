@@ -124,7 +124,7 @@ $(document).ready(function () {
     rateService();
 
 
-    var ratingpercent = $("#myrating > h3 > span").text();
+    var ratingpercent = $("#myrating > p span").text();
     ratingpercent = (ratingpercent * 20);
     ratingpercent = ratingpercent + "%";
     $("#rateoverlay").css("width", ratingpercent);

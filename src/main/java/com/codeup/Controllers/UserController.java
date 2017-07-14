@@ -201,7 +201,6 @@ public class UserController {
         Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
         List<User> servicers = new ArrayList<>();
         Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
-        model.addAttribute("applianceType", applianceType);
         for (BigInteger bigIntId : servicerIds) {
             Long longId = bigIntId.longValue();
             User user = userSvc.findOne(longId);
