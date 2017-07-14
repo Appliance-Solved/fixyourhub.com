@@ -14,7 +14,12 @@
 
     <div class="col-sm-5 col-xs-12 text-center">
         <h2 th:text="${user.name}"></h2>
-        <img th:src="${servicer.picUrl}" alt="" class="img-responsive img-cicrle center-block"/>
+        <th:block th:if="${servicer.picUrl != null}">
+        <img th:src="${'/uploads/' + servicer.picUrl}" alt="" class="img-responsive img-rounded center-block"/>
+        </th:block>
+        <th:block th:if="${servicer.picUrl == null}">
+            <img src="/img/default-logo.png" alt="" class="img-responsive img-rounded center-block"/>
+        </th:block>
         <div id="myrating">
             <div id="rateoverlay">
                 <img src="/img/fivestar.png" alt=""/>
