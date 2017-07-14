@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -234,38 +233,8 @@ public class UserController {
         Iterable<Appointment> availability = appointmentSvc.findAllByServicer(servicer, true);
         model.addAttribute("availability", availability);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
-        String servicesOn = servicer_info.getServices();
-        List<String> serviceList = Arrays.asList(servicesOn.split(","));
-        String printServices = "| ";
-        for (String service: serviceList){
-            switch(service){
-                case "0":
-                    printServices += "Refrigerators | ";
-                    break;
-                case "1":
-                    printServices += "Stoves/Ovens | ";
-                    break;
-                case "2":
-                    printServices += "Washers | ";
-                    break;
-                case "3":
-                    printServices += "Dryers | ";
-                    break;
-                case "4":
-                    printServices += "Dishwashers | ";
-                    break;
-                case "5":
-                    printServices += "Microwaves | ";
-                    break;
-                case "6":
-                    printServices += "Ice Machines | ";
-                    break;
-                case "7":
-                    printServices += "Others |";
-                    break;
-            }
-        }
-        System.out.println("printServices" + printServices);
+        String applianceTypeCode = servicer_info.getServices();
+        String printServices = servicerSvc.printAllServices(applianceTypeCode);
         model.addAttribute("printServices", printServices);
         model.addAttribute("servicer_info", servicer_info);
         Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
