@@ -50,11 +50,18 @@ public class ServicerController {
     @GetMapping("/servicer/dashboard")
     public String servicerDash(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Servicer servicer = servicerSvc.findServicerInfoByUserId(user);
+        Appointment appointment = new Appointment();
         model.addAttribute("user", user);
+        model.addAttribute("servicer", servicer);
 
         Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(user, false);
         Reviews review = new Reviews();
         List<Reviews> servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
+        appointment.filterOutPastAppointments(appointmentsByServicer);
+        model.addAttribute("scheduledAppointments",appointmentsByServicer);
+        int totalScheduledAppointments = appointment.countAppointments(appointmentsByServicer);
+        model.addAttribute("numberScheduled", totalScheduledAppointments);
         double avg = review.findReviewAvg(servicerReviews);
 
         model.addAttribute("avgrating", avg);

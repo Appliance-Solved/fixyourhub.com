@@ -122,12 +122,16 @@ $(document).ready(function () {
     $.when(undoRate()).done(rateService());
 
     rateService();
-    //comment test
-    var ratingpercent = $("#myrating > h4 > span").text();
-    console.log(ratingpercent);
-    ratingpercent = ((ratingpercent * 2) * 10) +1;
-    console.log(ratingpercent);
+
+
+    var ratingpercent = $("#myrating > h3 > span").text();
+    ratingpercent = (ratingpercent * 20);
     ratingpercent = ratingpercent + "%";
     $("#rateoverlay").css("width", ratingpercent);
+
+    $(".selector > h3").click(function(){
+        $(".contentSelect").hide();
+        $(this).next().toggle();
+    })
 
 });
