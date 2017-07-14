@@ -258,7 +258,7 @@ public class ServicerController {
         return "redirect:/dashboard";
         }
 
-        @PostMapping("/servicer/appointment/decline")
+        @PostMapping("/appointment/decline")
     public String declineAppointment(@RequestParam(name = "decline_id")Long id){
         Appointment appointment = appointmentSvc.findById(id);
         appointment.setUser(null);

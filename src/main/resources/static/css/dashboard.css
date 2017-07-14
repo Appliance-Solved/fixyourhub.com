@@ -81,9 +81,9 @@ h2 {
 }
 
 .comments {
-    background-color: white;
-    color: #005095;
-    border: 2px solid #005095;
+    background-color: #005095;
+    color: white;
+    border: 1px solid black;
     border-radius: 10px;
     padding: 8px;
 }
