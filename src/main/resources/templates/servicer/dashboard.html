@@ -3,15 +3,17 @@
 <head>
     <th:block th:replace="fragments :: head('Dashboard')"></th:block>
     <link rel="stylesheet" href="/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/css/calender.css" />
     <link rel="stylesheet" href="/css/dashboard.css"/>
 </head>
 
 <body>
 <nav th:replace="fragments :: my-navbar"/>
-<div class="container">
 
-    <h1 class="welcome">Welcome to your Service Dashboard</h1>
 
+<div id="proTop" class="col-xs-12">
+    <div class="container">
+        <h1 class="welcome">Welcome to your Service Dashboard</h1>
     <div class="col-sm-4 col-xs-12 text-center">
         <h2 th:text="${user.name}"></h2>
         <th:block th:if="${servicer != null}">
@@ -28,37 +30,36 @@
             </div>
             <p><span th:text="${avgrating}"></span> Average rating</p>
         </div>
-        <a href="/servicer/review">View Reviews</a>
     </div>
     <div class="col-sm-8 col-xs-12" id="modules">
 
 
         <div class="col-sm-12 selector">
-        <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Scheduled <span class="badge" th:text="${numberScheduled}"></span></h3>
-           <div class="contentSelect">
-               <div th:each="appointment: ${scheduledAppointments}">
-                   <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>,  <span th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
-                   <h4><span th:text="${appointment.user.name}"></span> - <span th:text="${appointment.user.zipcode}"></span></h4>
-                   <h4><th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
-                       <span th:case="0">Refrigerator</span>
-                       <span th:case="1">Stove/ Oven</span>
-                       <span th:case="2">Washer</span>
-                       <span th:case="3">Dryer</span>
-                       <span th:case="4">Dishwasher</span>
-                       <span th:case="5">Microwave</span>
-                       <span th:case="6">Ice Machine</span>
-                       <span th:case="7">Other</span>
-                   </th:block> - <span th:text="${appointment.serviceRecords.complaint}"></span>
-                   </h4>
+            <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Scheduled <span class="badge" th:text="${numberScheduled}"></span></h3>
+            <div class="contentSelect">
+                <div th:each="appointment: ${scheduledAppointments}">
+                    <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>,  <span th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
+                    <h4><span th:text="${appointment.user.name}"></span> - <span th:text="${appointment.user.zipcode}"></span></h4>
+                    <h4><th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
+                        <span th:case="0">Refrigerator</span>
+                        <span th:case="1">Stove/ Oven</span>
+                        <span th:case="2">Washer</span>
+                        <span th:case="3">Dryer</span>
+                        <span th:case="4">Dishwasher</span>
+                        <span th:case="5">Microwave</span>
+                        <span th:case="6">Ice Machine</span>
+                        <span th:case="7">Other</span>
+                    </th:block> - <span th:text="${appointment.serviceRecords.complaint}"></span>
+                    </h4>
                     <hr />
-               </div>
+                </div>
 
-           </div>
+            </div>
         </div>
 
 
         <div class="col-sm-12 selector">
-        <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Service Request Pending Approval <span class="badge" th:text="${numberPending}"></span></h3>
+            <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Service Request Pending Approval <span class="badge" th:text="${numberPending}"></span></h3>
             <div class="contentSelect">
                 <div th:each="appointment: ${pendingAppointments}">
                     <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>,  <span th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
@@ -76,11 +77,11 @@
                     </h4>
                     <form th:action="@{appointment/confirm}" th:method="post">
                         <input type="hidden" name="confirm_id" id="confirm_id" th:value="${appointment.id}" />
-                    <button type="submit" class="btn btn-success">Confirm</button>
+                        <button type="submit" class="btn btn-success">Confirm</button>
                     </form>
                     <form th:action="@{/appointment/decline}" th:method="post">
                         <input type="hidden" name="decline_id" id="decline_id" th:value="${appointment.id}" />
-                    <button type="submit" class="btn btn-danger">Decline</button>
+                        <button type="submit" class="btn btn-danger">Decline</button>
                     </form>
                     <hr />
                 </div>
@@ -88,67 +89,249 @@
         </div>
 
         <div class="col-sm-12 selector">
-        <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Pending Service Records <span class="badge" th:text="${numberNeedSvcRec}"></span></h3>
+            <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Pending Service Records <span class="badge" th:text="${numberNeedSvcRec}"></span></h3>
             <div class="contentSelect">
 
-                    <div th:each="appointment: ${appointmentsNeedSvcRec}">
-                        <div class="selectRecord">
+                <div th:each="appointment: ${appointmentsNeedSvcRec}">
+                    <div class="selectRecord">
+                        <hr />
                         <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>, <span th:text="${appointment.formatTime(appointment.startTime)}"></span> - <span th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
                         <h4><span th:text="${appointment.user.name}"></span> - <span th:text="${appointment.user.zipcode}"></span></h4>
                         <h4><th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
-                                <span th:case="0">Refrigerator</span>
-                                <span th:case="1">Stove/ Oven</span>
-                                <span th:case="2">Washer</span>
-                                <span th:case="3">Dryer</span>
-                                <span th:case="4">Dishwasher</span>
-                                <span th:case="5">Microwave</span>
-                                <span th:case="6">Ice Machine</span>
-                                <span th:case="7">Other</span>
-                            </th:block> - <span th:text="${appointment.serviceRecords.complaint}"></span></h4>
-                        </div>
-                        <div class="viewRecord">
+                            <span th:case="0">Refrigerator</span>
+                            <span th:case="1">Stove/ Oven</span>
+                            <span th:case="2">Washer</span>
+                            <span th:case="3">Dryer</span>
+                            <span th:case="4">Dishwasher</span>
+                            <span th:case="5">Microwave</span>
+                            <span th:case="6">Ice Machine</span>
+                            <span th:case="7">Other</span>
+                        </th:block> - <span th:text="${appointment.serviceRecords.complaint}"></span></h4>
+                    </div>
+                    <div class="viewRecord">
                         <hr />
-                            <form th:action="@{/servicer/submit-service}" th:method="post" th:object="${record}">
-                        <input type="hidden" name="service_record_id" th:value="${appointment.serviceRecords.id}" th:field="*{id}" />
+                        <form th:action="@{/servicer/submit-service}" th:method="post" th:object="${record}">
+                            <input type="hidden" name="service_record_id" th:value="${appointment.serviceRecords.id}" th:field="*{id}" />
 
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <label for="parts" class="col-sm-10 col-sm-offset-1">Parts installed</label>
-                        <input type="text" id="parts" name="parts" class="col-sm-10 col-sm-offset-1" th:field="*{parts_installed}" />
-                    </div>
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <label for="description" class="col-sm-10 col-sm-offset-1">Description of service</label>
-                        <textarea name="description" id="description"  rows="8" class="col-sm-10 col-sm-offset-1" th:field="*{desc_service}"></textarea>
-                    </div>
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <input type="submit" value="Submit" class="col-sm-2 col-sm-offset-5" />
-                    </div>
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <label for="parts" class="col-sm-10 col-sm-offset-1">Parts installed</label>
+                                <input type="text" id="parts" name="parts" class="col-sm-10 col-sm-offset-1" th:field="*{parts_installed}" />
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <label for="description" class="col-sm-10 col-sm-offset-1">Description of service</label>
+                                <textarea name="description" id="description"  rows="8" class="col-sm-10 col-sm-offset-1" th:field="*{desc_service}"></textarea>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <input type="submit" value="Submit" class="col-sm-2 col-sm-offset-5" />
+                            </div>
 
-                </form>
-            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-            </div>
+    </div>
+</div>
+</div>
 
-    <div class="col-xs-12">
+
+
+    <ul class="nav nav-tabs col-xs-12">
+        <li role="presentation" id="avail" class="tablink active"><a href="#">Availability</a></li>
+        <li role="presentation" id="review" class="tablink"><a href="#">My Reviews</a></li>
+        <li role="presentation" id="team" class="tablink"><a href="#">My Team</a></li>
+        <li role="presentation" id="prof" class="tablink"><a href="#">My Profile</a></li>
+    </ul>
+
+<div class="container">
+
+    <div class="col-xs-12 proTab" id="myReviews">
         <div th:each="review : ${servicerReviews}" class="col-sm-3 comments">
-            <h4>Rating: <span th:text="${review.rating}"></span></h4>
+            <h4>Rating: <span th:text="${review.rating}"></span> Stars</h4>
             <h4>Comments: <span th:text="${review.comments}"></span></h4>
         </div>
     </div>
 
 
-        <div class="col-sm-6">
-            <h2>Availability</h2>
-            <h2><a href="/servicer/create-availability">View/ Add</a></h2>
+        <div class="col-sm-12 proTab" id="availavility">
+
+            <h2><span th:text="${user.name}"></span>'s Availability</h2>
+            <div class="col-sm-3 availappointments" th:each="appointment: ${availability}">
+                <h1 style="margin-top: 0"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></h1>
+                <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
+                <h4 th:text="${appointment.formatTime(appointment.startTime)}"></h4>
+                <h4 th:text="${appointment.formatTime(appointment.stopTime)}"></h4>
+                <form th:action="@{/servicer/appointment/delete}" th:method="post">
+                    <input type="hidden" id="id" name="id" th:value="${appointment.id}"/>
+                    <input type="submit" value="Delete"/>
+                </form>
+            </div>
+            <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3" id="error"></h4>
+            <table class="col-xs-12">
+                <tr>
+                    <th>Time</th>
+                    <th th:each="day: ${appointment.findTodayNext7('EEEEE MMMMM dd')}">
+                        <span th:text="${day}"></span>
+                    </th>
+
+                </tr>
+
+
+                <tr class="selector">
+                    <td>7:00 AM</td>
+                    <td class="d-0 t-7"> </td>
+                    <td class="d-1 t-7"> </td>
+                    <td class="d-2 t-7"> </td>
+                    <td class="d-3 t-7"> </td>
+                    <td class="d-4 t-7"> </td>
+                    <td class="d-5 t-7"> </td>
+                    <td class="d-6 t-7"> </td>
+                </tr>
+                <tr class="selector1">
+                    <td>8:00 AM</td>
+                    <td class="d-0 t-8"> </td>
+                    <td class="d-1 t-8"> </td>
+                    <td class="d-2 t-8"> </td>
+                    <td class="d-3 t-8"> </td>
+                    <td class="d-4 t-8"> </td>
+                    <td class="d-5 t-8"> </td>
+                    <td class="d-6 t-8"> </td>
+                </tr>
+                <tr class="selector2">
+                    <td>9:00 AM</td>
+                    <td class="d-0 t-9"> </td>
+                    <td class="d-1 t-9"> </td>
+                    <td class="d-2 t-9"> </td>
+                    <td class="d-3 t-9"> </td>
+                    <td class="d-4 t-9"> </td>
+                    <td class="d-5 t-9"> </td>
+                    <td class="d-6 t-9"> </td>
+                </tr>
+                <tr class="selector3">
+                    <td>10:00 AM</td>
+                    <td class="d-0 t-10"> </td>
+                    <td class="d-1 t-10"> </td>
+                    <td class="d-2 t-10"> </td>
+                    <td class="d-3 t-10"> </td>
+                    <td class="d-4 t-10"> </td>
+                    <td class="d-5 t-10"> </td>
+                    <td class="d-6 t-10"> </td>
+                </tr>
+                <tr class="selector4">
+                    <td>11:00 AM</td>
+                    <td class="d-0 t-11"> </td>
+                    <td class="d-1 t-11"> </td>
+                    <td class="d-2 t-11"> </td>
+                    <td class="d-3 t-11"> </td>
+                    <td class="d-4 t-11"> </td>
+                    <td class="d-5 t-11"> </td>
+                    <td class="d-6 t-11"> </td>
+                </tr>
+                <tr class="selector5">
+                    <td>12:00 PM</td>
+                    <td class="d-0 t-12"> </td>
+                    <td class="d-1 t-12"> </td>
+                    <td class="d-2 t-12"> </td>
+                    <td class="d-3 t-12"> </td>
+                    <td class="d-4 t-12"> </td>
+                    <td class="d-5 t-12"> </td>
+                    <td class="d-6 t-12"> </td>
+                </tr>
+                <tr class="selector6">
+                    <td>1:00 PM</td>
+                    <td class="d-0 t-13"> </td>
+                    <td class="d-1 t-13"> </td>
+                    <td class="d-2 t-13"> </td>
+                    <td class="d-3 t-13"> </td>
+                    <td class="d-4 t-13"> </td>
+                    <td class="d-5 t-13"> </td>
+                    <td class="d-6 t-13"> </td>
+                </tr>
+                <tr class="selector7">
+                    <td>2:00 PM</td>
+                    <td class="d-0 t-14"> </td>
+                    <td class="d-1 t-14"> </td>
+                    <td class="d-2 t-14"> </td>
+                    <td class="d-3 t-14"> </td>
+                    <td class="d-4 t-14"> </td>
+                    <td class="d-5 t-14"> </td>
+                    <td class="d-6 t-14"> </td>
+                </tr>
+                <tr class="selector8">
+                    <td>3:00 pm</td>
+                    <td class="d-0 t-15"> </td>
+                    <td class="d-1 t-15"> </td>
+                    <td class="d-2 t-15"> </td>
+                    <td class="d-3 t-15"> </td>
+                    <td class="d-4 t-15"> </td>
+                    <td class="d-5 t-15"> </td>
+                    <td class="d-6 t-15"> </td>
+                </tr>
+                <tr class="selector9">
+                    <td>4:00 PM</td>
+                    <td class="d-0 t-16"> </td>
+                    <td class="d-1 t-16"> </td>
+                    <td class="d-2 t-16"> </td>
+                    <td class="d-3 t-16"> </td>
+                    <td class="d-4 t-16"> </td>
+                    <td class="d-5 t-16"> </td>
+                    <td class="d-6 t-16"> </td>
+                </tr>
+                <tr class="selector10">
+                    <td>5:00 PM</td>
+                    <td class="d-0 t-17"> </td>
+                    <td class="d-1 t-17"> </td>
+                    <td class="d-2 t-17"> </td>
+                    <td class="d-3 t-17"> </td>
+                    <td class="d-4 t-17"> </td>
+                    <td class="d-5 t-17"> </td>
+                    <td class="d-6 t-17"> </td>
+                </tr>
+                <tr class="selector11">
+                    <td>6:00 PM</td>
+                    <td class="d-0 t-18"> </td>
+                    <td class="d-1 t-18"> </td>
+                    <td class="d-2 t-18"> </td>
+                    <td class="d-3 t-18"> </td>
+                    <td class="d-4 t-18"> </td>
+                    <td class="d-5 t-18"> </td>
+                    <td class="d-6 t-18"> </td>
+                </tr>
+                <tr class="selector12">
+                    <td>7:00 PM</td>
+                    <td class="d-0 t-19"> </td>
+                    <td class="d-1 t-19"> </td>
+                    <td class="d-2 t-19"> </td>
+                    <td class="d-3 t-19"> </td>
+                    <td class="d-4 t-19"> </td>
+                    <td class="d-5 t-19"> </td>
+                    <td class="d-6 t-19"> </td>
+                </tr>
+                <tr class="selector13">
+                    <td>8:00 PM</td>
+                    <td class="d-0 t-20"> </td>
+                    <td class="d-1 t-20"> </td>
+                    <td class="d-2 t-20"> </td>
+                    <td class="d-3 t-20"> </td>
+                    <td class="d-4 t-20"> </td>
+                    <td class="d-5 t-20"> </td>
+                    <td class="d-6 t-20"> </td>
+                </tr>
+            </table>
+
+            <form th:action="@{/servicer/setavailability}" th:method="post"  id="setAvail">
+                <input type="hidden" id="date" name="date" />
+                <input type="hidden" id="time" name="time" />
+            </form>
+            <button class="col-xs-2 col-xs-offset-1" id="add">Add</button>
 
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12 proTab" id="myTeam">
             <h2>My Team</h2>
             <h2><a href="/servicer/tech">View/ add</a></h2>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-12 proTab" id="profile">
             <h2>Setup Profile</h2>
             <h2><a href="/servicer/setprofile">Setup Profile</a></h2>
         </div>

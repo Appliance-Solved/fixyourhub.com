@@ -48,7 +48,7 @@ public class ServicerController {
     }
 
     @GetMapping("/servicer/dashboard")
-    public String servicerDash(Model model) {
+    public String servicerDash(@RequestParam(required = false) boolean past, @RequestParam(required = false) boolean timeconflict, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
 
@@ -86,6 +86,23 @@ public class ServicerController {
         model.addAttribute("numberNeedSvcRec", totalNeedSvcRec);
 
         model.addAttribute("record", new ServiceRecords());
+
+        Iterable<Appointment> availabilityCheck = appointmentSvc.findAllByServicer(user, true);
+        for (Appointment appointmentcheck : availabilityCheck) {
+            if (!appointment.checkIfDateTimePassed(appointmentcheck)) {
+                appointmentSvc.delete(appointmentcheck.getId());
+            }
+        }
+        Iterable<Appointment> availability = appointmentSvc.findAllByServicer(user, true);
+        model.addAttribute("availability", availability);
+        model.addAttribute("appointment", new Appointment());
+        if (past) {
+            String message = "Please specify a date that has not passed.";
+            model.addAttribute("error", message);
+        } else if (timeconflict) {
+            String message = "You must specify a window greater than one hour and no more than eight hours.";
+            model.addAttribute("error", message);
+        }
 
         return "servicer/dashboard";
     }
