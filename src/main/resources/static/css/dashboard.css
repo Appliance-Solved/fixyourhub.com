@@ -30,3 +30,60 @@ h2 {
     font-family: Serif;
     text-align: center;
 }
+
+
+#myrating {
+    width: 250px;
+    margin: 0 auto;
+}
+
+#rateoverlay {
+    background-color: gold;
+
+}
+
+
+#rateoverlay img {
+    width: 250px;
+}
+
+.ratehover {
+    background-color: gold;
+}
+
+.rated {
+    background-color: gold;
+}
+.selector > h3 {
+    background-color: #005095;
+    color: white;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 8px;
+    margin: 0 auto
+}
+
+.contentSelect {
+    background-color: white;
+    color: #333;
+    border: 1px solid black;
+    display: none;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 8px;
+    max-height: 260px;
+    overflow: auto;
+}
+
+#modules {
+    margin-top: 35px;
+}
+
+.comments {
+    background-color: #005095;
+    color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 8px;
+}

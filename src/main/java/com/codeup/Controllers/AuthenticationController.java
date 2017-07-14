@@ -20,18 +20,8 @@ public class AuthenticationController {
         return "login";
     }
 
-    @GetMapping("/user/dashboard")
-    public String userDash(Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
-        return "user/dashboard";
-    }
 
-    @GetMapping("/servicer/dashboard")
-    public String servicerDash(Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", user);
-        return "servicer/dashboard";
-    }
+
+
 
 }

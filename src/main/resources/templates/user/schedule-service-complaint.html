@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Select a date')"></th:block>
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container text-center">
+    <h1>Tell us whats wrong</h1>
+    <textarea form="complaint" name="complaint" id="complaintId" cols="30" rows="10"></textarea>
+    <form id="complaint" th:action="@{/user/scheduleservice/day}" th:method="GET" >
+        <input type="hidden" name="applianceId" th:value="${applianceId}" />
+        <input type="submit" class="btn btn-primary"/>
+    </form>
+
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
+</body>
+</html>

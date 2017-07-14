@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Select a date')"></th:block>
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar"/>
+<div class="container text-center">
+
+    <h3>Select the time frame you would like for your service</h3>
+    <!--<h4>- Or select a specific date -</h4>-->
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p>
+                <button id="1" class="btn btn-sq-lg btn-primary time-frame">
+                    <strong>Today</strong>
+                </button>
+                <button id="3" class="btn btn-sq-lg btn-primary time-frame">
+                    <strong>3 days</strong>
+                </button>
+                <button id="5" class="btn btn-sq-lg btn-primary time-frame">
+                    <strong>5 days</strong>
+                </button>
+                <button id="7" class="btn btn-sq-lg btn-primary time-frame">
+                    <strong>7 days</strong>
+                </button>
+                <!--may be omitted-->
+                <!--<button class="btn btn-sq-lg btn-primary time-frame">-->
+                <!--<br/><br/><br/><strong>Select a date</strong>-->
+                <!--</button>-->
+            </p>
+        </div>
+    </div>
+
+    <form id="search-results" th:action="@{/user/scheduleservice/results}" th:method="GET" class="text-center col-lg-12">
+        <input id="time-frame" type="hidden" name="time-frame"/>
+        <input type="hidden" name="complaint" th:value="${complaint}"/>
+        <input type="hidden" name="applianceId" th:value="${applianceId}"/>
+    </form>
+
+</div>
+<footer th:include="fragments :: my-footer" class="footer"/>
+<script src="/js/jquery.js"></script>
+<script src="/js/app.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+</body>
+</html>

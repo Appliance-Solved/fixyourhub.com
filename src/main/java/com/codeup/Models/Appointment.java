@@ -6,10 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by larryg on 7/9/17.
@@ -55,6 +52,16 @@ public class Appointment {
         this.available = available;
         this.servicer = servicer;
         this.user = user;
+    }
+
+    public Appointment(Date date, int startTime, int stopTime, boolean available, User servicer, User user, ServiceRecords serviceRecords) {
+        this.date = date;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.available = available;
+        this.servicer = servicer;
+        this.user = user;
+        this.serviceRecords = serviceRecords;
     }
 
     public String formatDate(Date date) {
@@ -124,6 +131,46 @@ public class Appointment {
         return week;
     }
 
+    public Iterable<Appointment> filterOutFutureAppointmentsAndCompleteServiceRecords(Iterable<Appointment> appointments) {
+        Iterator<Appointment> appointmentsThatPassed = appointments.iterator();
+        Appointment appointment =new Appointment();
+        while (appointmentsThatPassed.hasNext()) {
+            Appointment scheduled = appointmentsThatPassed.next();
+            if (appointment.checkIfDateTimePassed(scheduled)) {
+                appointmentsThatPassed.remove();
+            }else if(scheduled.getServiceRecords().getDesc_service() != null){
+                appointmentsThatPassed.remove();
+            }
+        }
+        return appointments;
+    }
+
+    public Iterable<Appointment> filterOutFutureAppointmentsAndServiceRecordsNotComplete(Iterable<Appointment> appointments) {
+        Iterator<Appointment> appointmentsThatPassed = appointments.iterator();
+        Appointment appointment =new Appointment();
+        while (appointmentsThatPassed.hasNext()) {
+            Appointment scheduled = appointmentsThatPassed.next();
+            if (appointment.checkIfDateTimePassed(scheduled)) {
+                appointmentsThatPassed.remove();
+            }else if(scheduled.getServiceRecords().getDesc_service() == null){
+                appointmentsThatPassed.remove();
+            }
+        }
+        return appointments;
+    }
+
+    public Iterable<Appointment> filterOutPastAppointments(Iterable<Appointment> appointments) {
+        Iterator<Appointment> appointmentsThatPassed = appointments.iterator();
+        Appointment appointment = new Appointment();
+        while (appointmentsThatPassed.hasNext()) {
+            Appointment scheduled = appointmentsThatPassed.next();
+            if (!appointment.checkIfDateTimePassed(scheduled)) {
+                appointmentsThatPassed.remove();
+            }
+        }
+        return appointments;
+    }
+
 
 
     public List<Appointment> checkDatesetDate(List<Integer> dates, List<Integer> times) throws ParseException {
@@ -170,6 +217,39 @@ public class Appointment {
             }
         }
         return min;
+    }
+
+    public Iterable<Appointment> filterByIfReviewed(Iterable<Appointment> appointments, boolean ifreviewed){
+        Iterator<Appointment> appointmentIterator = appointments.iterator();
+        while (appointmentIterator.hasNext()) {
+            Appointment scheduled = appointmentIterator.next();
+            boolean reviewExist = scheduled.getServiceRecords().getReview() != null;
+            if(reviewExist != ifreviewed){
+                appointmentIterator.remove();
+            }
+        }
+        return appointments;
+    }
+
+    public int countAppointments(Iterable<Appointment> appointments) {
+        Iterator<Appointment> counter = appointments.iterator();
+        int sum = 0;
+        while (counter.hasNext()){
+            counter.next();
+            sum++;
+        }
+        return sum;
+    }
+
+    public Iterable<Appointment> filterOutNonRequested(Iterable<Appointment> appointments){
+        Iterator<Appointment> appointmentIterator = appointments.iterator();
+        while(appointmentIterator.hasNext()){
+            Appointment appointment = appointmentIterator.next();
+            if(appointment.getUser() == null){
+                appointmentIterator.remove();
+            }
+        }
+        return appointments;
     }
 
 

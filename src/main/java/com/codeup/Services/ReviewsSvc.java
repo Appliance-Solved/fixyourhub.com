@@ -1,6 +1,7 @@
 package com.codeup.Services;
 
 import com.codeup.Models.Reviews;
+import com.codeup.Models.ServiceRecords;
 import com.codeup.Repositories.ReviewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,4 +23,9 @@ public class ReviewsSvc {
     public void save(Reviews review){
         reviewsDao.save(review);
     }
+
+    public Reviews findOneByServiceRecord(ServiceRecords record){
+        return reviewsDao.findReviewsByServiceRecords(record);
+    }
+
 }
