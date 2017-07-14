@@ -29,12 +29,7 @@
         </div>
         <div class="col-md-4">
             <br/>
-
-            <!--<form action="/">-->
-            <!--<input type="submit" class="btn btn-primary" name="submit" value="Select" />-->
-            <!--</form>-->
-
-
+            <a href="#view-availability" class="btn btn-primary">Availability</a>
         </div>
     </div>
     <div class="text-left">
@@ -42,14 +37,16 @@
         <p th:text="${servicer_info.about}"></p>
     </div>
 
-    <h4 class="text-left">Available appointment blocks:</h4>
+    <h4 class="text-left">Available appointment blocks: <a name="view-availability"></a></h4>
     <div class="col-sm-3" th:each="appointment: ${availability}">
-        <div data-toggle="modal" >
+        <div data-toggle="modal">
             <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
             <h4 th:text="${appointment.formatTime(appointment.startTime)}"></h4>
             <h4 th:text="${appointment.formatTime(appointment.stopTime)}"></h4>
 
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" th:attr="data-target='#modal' + ${appointment.id}">Make Request</button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                    th:attr="data-target='#modal' + ${appointment.id}">Make Request
+            </button>
         </div>
         <!-- Modal -->
         <div th:id="${'modal' + appointment.id}" class="modal fade" role="dialog">
@@ -84,7 +81,8 @@
                         <textarea th:text="${complaint}" rows="4" cols="50" name="complaint"
                                   th:attr="form='submit-request' + ${appointment.id}"></textarea>
                     </div>
-                    <form th:id="${'submit-request' + appointment.id}"  th:action="@{/user/submitrequest}" class="modal-footer">
+                    <form th:id="${'submit-request' + appointment.id}" th:action="@{/user/submitrequest}"
+                          class="modal-footer">
                         <input type="hidden" name="appointmentId" th:value="${appointment.id}"/>
                         <input type="hidden" name="applianceId" th:value="${applianceId}"/>
                         <input type="submit" class="btn btn-primary"/>

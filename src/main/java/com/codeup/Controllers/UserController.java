@@ -249,7 +249,6 @@ public class UserController {
         ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
         serviceRecordsSvc.save(serviceRecord);
         Appointment appointment = appointmentSvc.findById(appointmentId);
-        System.out.println("appointment.servicer_record: " + appointment.getServiceRecords());
         if(appointment.getServiceRecords() == null){
             appointment.setServiceRecords(serviceRecord);
             appointment.setUser(user);
