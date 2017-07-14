@@ -220,7 +220,7 @@ public class ServicerController {
     @PostMapping("/servicer/appointment/delete")
     public String deleteAvailability(@RequestParam(name = "id") Long id) {
         appointmentSvc.delete(id);
-        return "redirect:/servicer/create-availability";
+        return "redirect:/servicer/dashboard";
     }
 
     @PostMapping("/servicer/setavailability")
@@ -239,12 +239,12 @@ public class ServicerController {
         if (appointment.startBeforeStopTimeAndWindowMax(appointment.getStartTime(), appointment.getStopTime())) {
             if (appointment.checkIfDateTimePassed(appointment)) {
                 appointmentSvc.save(appointment);
-                return "redirect:/servicer/create-availability";
+                return "redirect:/servicer/dashboard";
             } else {
-                return "redirect:/servicer/create-availability?past=true";
+                return "redirect:/servicer/dashboard?past=true";
             }
         } else {
-            return "redirect:/servicer/create-availability?timeconflict=true";
+            return "redirect:/servicer/dashboard?timeconflict=true";
         }
     }
 
