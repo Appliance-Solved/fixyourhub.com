@@ -224,12 +224,22 @@ public class Appointment {
     public int countAppointments(Iterable<Appointment> appointments) {
         Iterator<Appointment> counter = appointments.iterator();
         int sum = 0;
-        while (counter.hasNext()) ;
-        {
+        while (counter.hasNext()){
             counter.next();
             sum++;
         }
         return sum;
+    }
+
+    public Iterable<Appointment> filterOutNonRequested(Iterable<Appointment> appointments){
+        Iterator<Appointment> appointmentIterator = appointments.iterator();
+        while(appointmentIterator.hasNext()){
+            Appointment appointment = appointmentIterator.next();
+            if(appointment.getUser() == null){
+                appointmentIterator.remove();
+            }
+        }
+        return appointments;
     }
 
 

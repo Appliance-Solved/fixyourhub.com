@@ -131,7 +131,15 @@ $(document).ready(function () {
 
     $(".selector > h3").click(function(){
         $(".contentSelect").hide();
-        $(this).next().toggle();
+        $(this).next().slideToggle();
     })
+
+    $(".viewRecord").hide();
+
+    $(".selectRecord").click(function(){
+        $(this).next().slideToggle();
+    })
+
+
 
 });
