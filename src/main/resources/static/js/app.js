@@ -121,7 +121,25 @@ $(document).ready(function () {
     $.when(rateService()).done(undoRate());
     $.when(undoRate()).done(rateService());
 
-
-
     rateService();
+
+
+    var ratingpercent = $("#myrating > h3 > span").text();
+    ratingpercent = (ratingpercent * 20);
+    ratingpercent = ratingpercent + "%";
+    $("#rateoverlay").css("width", ratingpercent);
+
+    $(".selector > h3").click(function(){
+        $(".contentSelect").hide();
+        $(this).next().slideToggle();
+    })
+
+    $(".viewRecord").hide();
+
+    $(".selectRecord").click(function(){
+        $(this).next().slideToggle();
+    })
+
+
+
 });

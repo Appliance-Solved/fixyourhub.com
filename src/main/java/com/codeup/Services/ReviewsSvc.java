@@ -27,4 +27,5 @@ public class ReviewsSvc {
     public Reviews findOneByServiceRecord(ServiceRecords record){
         return reviewsDao.findReviewsByServiceRecords(record);
     }
+
 }

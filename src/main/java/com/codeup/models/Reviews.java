@@ -3,6 +3,10 @@ package com.codeup.Models;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+
+import java.util.List;
+
 /**
  * Created by Carlos on 7/5/17.
  */
@@ -25,6 +29,29 @@ public class Reviews {
 
     @OneToOne
     private ServiceRecords serviceRecords;
+
+    public List<Reviews> findAllReviewsServicer(Iterable<Appointment> appointments){
+        List<Reviews> servicerReviews = new ArrayList<>();
+        for(Appointment appointment: appointments){
+            Reviews review = (appointment.getServiceRecords().getReview());
+            if(review != null){
+                servicerReviews.add(review);
+            }
+        }
+        return servicerReviews;
+    }
+
+    public double findReviewAvg(List<Reviews> reviewsList){
+        double sum = 0;
+        int i = 0;
+        for(Reviews review: reviewsList){
+            sum += review.getRating();
+            i++;
+        }
+        double avg =  sum / i;
+        double roundOff = Math.round(avg * 10.0) / 10.0;
+        return roundOff;
+    }
 
     public int getId() {
         return id;
@@ -65,4 +92,5 @@ public class Reviews {
     public void setServiceRecords(ServiceRecords serviceRecords) {
         this.serviceRecords = serviceRecords;
     }
+
 }

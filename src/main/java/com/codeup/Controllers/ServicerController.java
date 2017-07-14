@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -31,17 +32,62 @@ public class ServicerController {
     private ServicerSvc servicerSvc;
     private AppointmentSvc appointmentSvc;
     private ServiceRecordsSvc serviceRecordsSvc;
+    private ReviewsSvc reviewsSvc;
     @Value("${file-upload-path}")
     private String uploadPath;
 
 
     @Autowired
-    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ServiceRecordsSvc serviceRecordsSvc) {
+    public ServicerController(UserSvc userSvc, TechnicianSvc techsvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ServiceRecordsSvc serviceRecordsSvc, ReviewsSvc reviewsSvc) {
         this.userSvc = userSvc;
         this.techsvc = techsvc;
         this.servicerSvc = servicerSvc;
         this.appointmentSvc = appointmentSvc;
         this.serviceRecordsSvc = serviceRecordsSvc;
+        this.reviewsSvc = reviewsSvc;
+    }
+
+    @GetMapping("/servicer/dashboard")
+    public String servicerDash(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+
+        Servicer servicer = servicerSvc.findServicerInfoByUserId(user);
+        model.addAttribute("servicer", servicer);
+
+        Appointment appointment = new Appointment();
+        Reviews review = new Reviews();
+
+        Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(user, false);
+
+        List<Reviews> servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
+        double avg = review.findReviewAvg(servicerReviews);
+        model.addAttribute("avgrating", avg);
+        model.addAttribute("servicerReviews", servicerReviews);
+
+        appointment.filterOutPastAppointments(appointmentsByServicer);
+        model.addAttribute("scheduledAppointments",appointmentsByServicer);
+
+        int totalScheduledAppointments = appointment.countAppointments(appointmentsByServicer);
+        model.addAttribute("numberScheduled", totalScheduledAppointments);
+
+        Iterable<Appointment> pendingAppointments = appointmentSvc.findAllByServicer(user, true);
+        appointment.filterOutNonRequested(pendingAppointments);
+        model.addAttribute("pendingAppointments" , pendingAppointments);
+
+        int totalPending = appointment.countAppointments(pendingAppointments);
+        model.addAttribute("numberPending", totalPending);
+
+        Iterable<Appointment> appointmentsNeedingServiceRecords = appointmentSvc.findAllByServicer(user, false);
+        appointment.filterOutFutureAppointmentsAndCompleteServiceRecords(appointmentsNeedingServiceRecords);
+        model.addAttribute("appointmentsNeedSvcRec", appointmentsNeedingServiceRecords);
+
+        int totalNeedSvcRec = appointment.countAppointments(appointmentsNeedingServiceRecords);
+        model.addAttribute("numberNeedSvcRec", totalNeedSvcRec);
+
+        model.addAttribute("record", new ServiceRecords());
+
+        return "servicer/dashboard";
     }
 
     @GetMapping("/servicer/pend")
@@ -95,17 +141,18 @@ public class ServicerController {
     public String showServSetProfile(Model model) {
         User user = new User((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("user", user);
-        model.addAttribute("servicer", new Servicer());
+        Servicer servicer = servicerSvc.findServicerInfoByUserId(user);
+        model.addAttribute("servicer", servicer);
         return "servicer/setup-profile";
     }
 
     @PostMapping("/servicer/setprofile")
     public String setServUserProfile(
-            @RequestParam(name = "address") String address,
-            @RequestParam(name = "city") String city,
+            @RequestParam(name = "user.address") String address,
+            @RequestParam(name = "user.city") String city,
             @RequestParam(name = "state") String state,
-            @RequestParam(name = "zip") Long zip,
-            @RequestParam(name = "phone") String phone,
+            @RequestParam(name = "user.zipcode") Long zip,
+            @RequestParam(name = "user.phone") String phone,
             @ModelAttribute Servicer servicer,
             @RequestParam(name = "file") MultipartFile uploadedFile
     ) {
@@ -204,6 +251,22 @@ public class ServicerController {
             return "redirect:/servicer/submit-service";
         }
 
+        @PostMapping("/servicer/appointment/confirm")
+    public String confirmAppointment(@RequestParam(name = "confirm_id")Long id){
+        Appointment appointment = appointmentSvc.findById(id);
+        appointment.setAvailable(false);
+        appointmentSvc.save(appointment);
+        return "redirect:/dashboard";
+        }
+
+        @PostMapping("/appointment/decline")
+    public String declineAppointment(@RequestParam(name = "decline_id")Long id){
+        Appointment appointment = appointmentSvc.findById(id);
+        appointment.setUser(null);
+        appointment.setServiceRecords(null);
+        appointmentSvc.save(appointment);
+        return "redirect:/dashboard";
+        }
 
 
 
