@@ -54,6 +54,16 @@ public class Appointment {
         this.user = user;
     }
 
+    public Appointment(Date date, int startTime, int stopTime, boolean available, User servicer, User user, ServiceRecords serviceRecords) {
+        this.date = date;
+        this.startTime = startTime;
+        this.stopTime = stopTime;
+        this.available = available;
+        this.servicer = servicer;
+        this.user = user;
+        this.serviceRecords = serviceRecords;
+    }
+
     public String formatDate(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMMMM dd, YYYY");
         return dateFormat.format(date);

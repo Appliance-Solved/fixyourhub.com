@@ -35,6 +35,7 @@ public class ServiceRecords {
     public ServiceRecords(String complaint, UserAppliance userAppliance){
         this.complaint = complaint;
         this.userAppliance = userAppliance;
+
     }
 
 

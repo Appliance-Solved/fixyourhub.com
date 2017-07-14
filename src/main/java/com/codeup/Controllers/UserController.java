@@ -2,7 +2,6 @@ package com.codeup.Controllers;
 
 import com.codeup.Models.*;
 import com.codeup.Services.*;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,8 +66,20 @@ public class UserController {
     public String userDash(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
+        Iterable<Appointment> appointmentRequests = appointmentSvc.findAllByUser(user, true);
+        model.addAttribute("appointmentRequests", appointmentRequests);
         return "user/dashboard";
     }
+
+    @PostMapping("/user/dashboard")
+    public String cancelRequest(@RequestParam(name = "id") Long id) {
+        Appointment appointment = appointmentSvc.findById(id);
+        appointment.setUser(null);
+        appointment.setServiceRecords(null);
+        appointmentSvc.save(appointment);
+        return "redirect:/user/dashboard";
+    }
+
 
     @GetMapping("/user/review")
     public String showReview(Model model) {
@@ -239,9 +250,14 @@ public class UserController {
         ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
         serviceRecordsSvc.save(serviceRecord);
         Appointment appointment = appointmentSvc.findById(appointmentId);
-        appointment.setServiceRecords(serviceRecord);
-        appointment.setUser(user);
-        appointmentSvc.save(appointment);
+        if(appointment.getServiceRecords() == null){
+            appointment.setServiceRecords(serviceRecord);
+            appointment.setUser(user);
+            appointmentSvc.save(appointment);
+        } else{
+            Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(),appointment.getStopTime(),true,appointment.getServicer(),user,serviceRecord);
+            appointmentSvc.save(newAppointment);
+        }
                 return"redirect:/user/dashboard";
     }
 
