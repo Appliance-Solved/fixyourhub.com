@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -200,12 +201,14 @@ public class UserController {
     ) {
         Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
         List<User> servicers = new ArrayList<>();
+        Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
+        model.addAttribute("applianceType", applianceType);
         for (BigInteger bigIntId : servicerIds) {
             Long longId = bigIntId.longValue();
             User user = userSvc.findOne(longId);
             Servicer servicer_info = servicerSvc.findServicerInfoByUserId(user);
             String services = servicer_info.getServices();
-            boolean match = services.contains(Long.toString(applianceId));
+            boolean match = services.contains(Long.toString(applianceType));
             if (match) {
                 servicers.add(user);
             }
@@ -231,11 +234,52 @@ public class UserController {
         Iterable<Appointment> availability = appointmentSvc.findAllByServicer(servicer, true);
         model.addAttribute("availability", availability);
         Servicer servicer_info = servicerSvc.findServicerInfoByUserId(servicer);
+        String servicesOn = servicer_info.getServices();
+        List<String> serviceList = Arrays.asList(servicesOn.split(","));
+        String printServices = "| ";
+        for (String service: serviceList){
+            switch(service){
+                case "0":
+                    printServices += "Refrigerators | ";
+                    break;
+                case "1":
+                    printServices += "Stoves/Ovens | ";
+                    break;
+                case "2":
+                    printServices += "Washers | ";
+                    break;
+                case "3":
+                    printServices += "Dryers | ";
+                    break;
+                case "4":
+                    printServices += "Dishwashers | ";
+                    break;
+                case "5":
+                    printServices += "Microwaves | ";
+                    break;
+                case "6":
+                    printServices += "Ice Machines | ";
+                    break;
+                case "7":
+                    printServices += "Others |";
+                    break;
+            }
+        }
+        System.out.println("printServices" + printServices);
+        model.addAttribute("printServices", printServices);
         model.addAttribute("servicer_info", servicer_info);
         Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
         model.addAttribute("applianceType", applianceType);
         model.addAttribute("complaint", complaint);
         model.addAttribute("applianceId", applianceId);
+
+        Reviews review = new Reviews();
+        Iterable<Appointment> appointmentsByServicer = appointmentSvc.findAllByServicer(servicer, false);
+        List<Reviews> servicerReviews = review.findAllReviewsServicer(appointmentsByServicer);
+        double avg = review.findReviewAvg(servicerReviews);
+        model.addAttribute("avgrating", avg);
+        model.addAttribute("servicerReviews", servicerReviews);
+
         return "user/viewservicer";
     }
 
