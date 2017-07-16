@@ -131,22 +131,20 @@ $(document).ready(function () {
 
 
 
-    $(".selector").click(function(){
-        if($(".contentSelect:visible").parent().attr("id") !== $(this).attr("id")){
+    $(".selector > h3").click(function(){
+        if($(".contentSelect:visible").parent().attr("id") !== $(this).parent().attr("id")){
             $(".contentSelect:visible").parent().children().find(".glyphicon").toggleClass("glyphicon-chevron-down");
             $(".contentSelect:visible").parent().children().find(".glyphicon").toggleClass("glyphicon-chevron-up");
         $(".contentSelect").hide();
     }
-        $(this).children().find(".glyphicon").toggleClass("glyphicon-chevron-down");
-        $(this).children().find(".glyphicon").toggleClass("glyphicon-chevron-up");
-        $(this).children().next().slideToggle();
+        $(this).find(".glyphicon").toggleClass("glyphicon-chevron-down");
+        $(this).find(".glyphicon").toggleClass("glyphicon-chevron-up");
+        $(this).next().slideToggle();
     });
 
 
-    $(".viewRecord").hide();
-
-    $(".selectRecord").click(function(){
-        $(this).next().slideToggle();
+    $("#serviceSubmit").click(function(){
+        $("#serviceRecodForm").submit();
     });
 
 

@@ -151,6 +151,17 @@ h2 {
     max-height: 220px;
 }
 
+.more {
+    margin-top: -60px;
+}
+
+.modal-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+
 
 @media only screen and (max-width: 660px){
 
