@@ -104,6 +104,17 @@ public class ServicerController {
             model.addAttribute("error", message);
         }
 
+        Iterable<Technician> team = techsvc.findAllByUser(user);
+        model.addAttribute("team", team);
+        Technician tech = new Technician();
+        model.addAttribute("tech", tech);
+
+        Servicer servicerinfo = servicerSvc.findServicerInfoByUserId(user);
+        if(servicerinfo == null){
+            servicerinfo = new Servicer();
+        }
+        model.addAttribute("servicer", servicerinfo);
+
         return "servicer/dashboard";
     }
 
@@ -145,13 +156,13 @@ public class ServicerController {
         tech.setPicUrl(filename);
         tech.setUser(user);
         techsvc.save(tech);
-        return "redirect:/servicer/tech";
+        return "redirect:/servicer/dashboard#myteam";
     }
 
     @PostMapping("/servicer/tech/delete")
     public String deleteTech(@RequestParam(name = "id") Long id) {
         techsvc.delete(id);
-        return "redirect:/servicer/tech";
+        return "redirect:/servicer/dashboard#myteam";
     }
 
     @GetMapping("/servicer/setprofile")
@@ -189,7 +200,7 @@ public class ServicerController {
         servicer.setPicUrl(filename);
         servicer.setUser(user);
         servicerSvc.save(servicer);
-        return "redirect:/servicer/dashboard";
+        return "redirect:/servicer/dashboard#prof";
     }
 
     @GetMapping("/servicer/create-availability")
@@ -220,7 +231,7 @@ public class ServicerController {
     @PostMapping("/servicer/appointment/delete")
     public String deleteAvailability(@RequestParam(name = "id") Long id) {
         appointmentSvc.delete(id);
-        return "redirect:/servicer/dashboard";
+        return "redirect:/servicer/dashboard#avail";
     }
 
     @PostMapping("/servicer/setavailability")
@@ -239,7 +250,7 @@ public class ServicerController {
         if (appointment.startBeforeStopTimeAndWindowMax(appointment.getStartTime(), appointment.getStopTime())) {
             if (appointment.checkIfDateTimePassed(appointment)) {
                 appointmentSvc.save(appointment);
-                return "redirect:/servicer/dashboard";
+                return "redirect:/servicer/dashboard#avail";
             } else {
                 return "redirect:/servicer/dashboard?past=true";
             }
@@ -268,7 +279,7 @@ public class ServicerController {
         svcRecord.setParts_installed(record.getParts_installed());
         svcRecord.setDesc_service(record.getDesc_service());
         serviceRecordsSvc.save(svcRecord);
-            return "redirect:/servicer/submit-service";
+            return "redirect:/servicer/dashboard";
         }
 
         @PostMapping("/servicer/appointment/confirm")
@@ -276,7 +287,7 @@ public class ServicerController {
         Appointment appointment = appointmentSvc.findById(id);
         appointment.setAvailable(false);
         appointmentSvc.save(appointment);
-        return "redirect:/dashboard";
+        return "redirect:/servicer/dashboard";
         }
 
         @PostMapping("/appointment/decline")
@@ -285,7 +296,7 @@ public class ServicerController {
         appointment.setUser(null);
         appointment.setServiceRecords(null);
         appointmentSvc.save(appointment);
-        return "redirect:/dashboard";
+        return "redirect:/servicer/dashboard";
         }
 
 

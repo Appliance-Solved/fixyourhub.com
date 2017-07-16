@@ -129,16 +129,25 @@ $(document).ready(function () {
     ratingpercent = ratingpercent + "%";
     $("#rateoverlay").css("width", ratingpercent);
 
+
+
     $(".selector > h3").click(function(){
+        if($(".contentSelect:visible").parent().attr("id") !== $(this).parent().attr("id")){
+            $(".contentSelect:visible").parent().children().find(".glyphicon").toggleClass("glyphicon-chevron-down");
+            $(".contentSelect:visible").parent().children().find(".glyphicon").toggleClass("glyphicon-chevron-up");
         $(".contentSelect").hide();
-        $(this).next().slideToggle();
-    })
-
-    $(".viewRecord").hide();
-
-    $(".selectRecord").click(function(){
+    }
+        $(this).find(".glyphicon").toggleClass("glyphicon-chevron-down");
+        $(this).find(".glyphicon").toggleClass("glyphicon-chevron-up");
         $(this).next().slideToggle();
     });
+
+
+    $("#serviceSubmit").click(function(){
+        $("#serviceRecodForm").submit();
+    });
+
+
 
     $(".proTab").hide();
     $("#availavility").show();
@@ -163,6 +172,40 @@ $(document).ready(function () {
                 break;
         }
     });
+
+    var urlTab = window.location.href;
+    console.log(urlTab);
+    if(urlTab.includes("#")){
+    var tab = urlTab.split("#");
+    console.log(tab[1]);
+    switch(tab[1]){
+        case "avail":
+            $('.tablink').removeClass("active");
+            $("#avail").addClass("active");
+            $(".proTab").hide();
+            $("#availavility").slideDown();
+            break;
+        case "review":
+            $('.tablink').removeClass("active");
+            $("#review").addClass("active");
+            $(".proTab").hide();
+            $("#myReviews").slideDown();
+            break;
+        case "myteam":
+            $('.tablink').removeClass("active");
+            $("#team").addClass("active");
+            $(".proTab").hide();
+            $("#myTeam").slideDown();
+            break;
+        case "prof":
+            $('.tablink').removeClass("active");
+            $("#prof").addClass("active");
+            $(".proTab").hide();
+            $("#profile").slideDown();
+            break;
+    }}
+
+
 
 
 
