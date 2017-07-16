@@ -69,15 +69,13 @@ h2 {
 }
 
 .star {
-    width: 120px;
+    width: 25px;
 }
 
 .selector > h3 {
     background-color: #337ab7;
     color: white;
     border: 1px solid black;
-    /*border-top-left-radius: 10px;*/
-    /*border-top-right-radius: 10px;*/
     border-radius: 10px;
     padding: 8px;
     margin: 5px auto
@@ -88,10 +86,8 @@ h2 {
     color: #333;
     border: 1px solid black;
     display: none;
-    /*border-bottom-right-radius: 10px;*/
-    /*border-bottom-left-radius: 10px;*/
     border-radius: 10px;
-    padding: 8px;
+    padding: 0 8px;
     max-height: 200px;
     overflow: auto;
     margin-top: -6px;
@@ -107,7 +103,12 @@ h2 {
     border: 1px solid black;
     border-radius: 10px;
     padding: 20px;
-    margin: 30px;
+   width: 90%;
+    margin: 30px auto;
+}
+
+.comments {
+    height: 80%;
 }
 
 .availappointments {
@@ -131,4 +132,41 @@ h2 {
 
 .nav-tabs > li {
     padding: 0 20px;
+}
+
+.proTab {
+    margin: 50px auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.techContainer {
+    margin: 20px auto;
+    align-self: flex-end;
+}
+.commentContain{
+    align-self: stretch;
+}
+.techContainer img {
+    max-height: 220px;
+}
+
+.more {
+    margin-top: -60px;
+}
+
+.modal-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+
+
+@media only screen and (max-width: 660px){
+
+    .nav{
+        padding-left: 0;
+    }
+
 }
