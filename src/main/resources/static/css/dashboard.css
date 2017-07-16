@@ -3,7 +3,22 @@
     color: #596059;
     margin: 0 auto;
     padding: 0;
-    width: 100%
+    width: 100%;
+}
+
+#indexContainer {
+    background:
+            linear-gradient(
+            rgba(0, 0, 0, 0.00),
+            rgba(0, 0, 0, 0.00)
+    ), url("/img/hero.jpg") no-repeat center;
+    background-size: cover;
+    position: relative;
+    color: #596059;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    min-height: 91vh;
 }
 
 body {
@@ -11,7 +26,6 @@ body {
 }
 /* #596059  */
 h1 {
-    margin-top: 1.5em;
     text-align: center;
     font-size: 4em;
     font-family: Serif;
@@ -161,9 +175,70 @@ h2 {
     justify-content: space-around;
 }
 
+#indexWelcome {
+    background-color: rgba(89, 96, 89, 0.85);
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 17vh;
+    color: white;
+}
 
+.box {
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #575F6C;
+    font-family: Serif;
+    margin: auto;
+    color: snow;
+    font-size: 1.5em;
+    width: 100%;
+    padding: 15px 0;
 
-@media only screen and (max-width: 660px){
+}
+
+.applianceTypes{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 15px auto;
+}
+
+.service-btn {
+    font-size: 1.1em;
+    background-color: #596059;
+    border: solid 1px #596059;
+    color: snow;
+    width:21%;
+    text-align: center;
+    margin: 12px 0;
+}
+
+#btnContainer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    margin: 25px auto 15px auto;
+}
+
+@media screen and (max-width: 750px){
+
+    #btnContainer {
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+}
+
+@media screen and (max-width: 660px){
+
+    #indexContainer {
+        min-height: 100vh;
+    }
+
+    #indexWelcome {
+        margin-top: 8vh;
+    }
 
     .nav{
         padding-left: 0;
