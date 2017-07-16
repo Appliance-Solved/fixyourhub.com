@@ -35,7 +35,7 @@
     <div class="col-sm-8 col-xs-12" id="modules">
 
 
-        <div class="col-sm-12 selector">
+        <div class="col-sm-12 selector" id="mod-1">
             <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Scheduled <span class="badge" th:text="${numberScheduled}"></span></h3>
             <div class="contentSelect">
                 <div th:each="appointment: ${scheduledAppointments}">
@@ -59,7 +59,7 @@
         </div>
 
 
-        <div class="col-sm-12 selector">
+        <div class="col-sm-12 selector" id="mos-2">
             <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Service Request Pending Approval <span class="badge" th:text="${numberPending}"></span></h3>
             <div class="contentSelect">
                 <div th:each="appointment: ${pendingAppointments}">
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div class="col-sm-12 selector">
+        <div class="col-sm-12 selector" id="mod-3">
             <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Pending Service Records <span class="badge" th:text="${numberNeedSvcRec}"></span></h3>
             <div class="contentSelect">
 

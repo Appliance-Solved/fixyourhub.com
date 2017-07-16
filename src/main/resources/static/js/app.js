@@ -129,16 +129,27 @@ $(document).ready(function () {
     ratingpercent = ratingpercent + "%";
     $("#rateoverlay").css("width", ratingpercent);
 
-    $(".selector > h3").click(function(){
+
+
+    $(".selector").click(function(){
+        if($(".contentSelect:visible").parent().attr("id") !== $(this).attr("id")){
+            $(".contentSelect:visible").parent().children().find(".glyphicon").toggleClass("glyphicon-chevron-down");
+            $(".contentSelect:visible").parent().children().find(".glyphicon").toggleClass("glyphicon-chevron-up");
         $(".contentSelect").hide();
-        $(this).next().slideToggle();
-    })
+    }
+        $(this).children().find(".glyphicon").toggleClass("glyphicon-chevron-down");
+        $(this).children().find(".glyphicon").toggleClass("glyphicon-chevron-up");
+        $(this).children().next().slideToggle();
+    });
+
 
     $(".viewRecord").hide();
 
     $(".selectRecord").click(function(){
         $(this).next().slideToggle();
     });
+
+
 
     $(".proTab").hide();
     $("#availavility").show();
