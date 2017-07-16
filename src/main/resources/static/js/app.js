@@ -164,6 +164,38 @@ $(document).ready(function () {
         }
     });
 
+    var urlTab = window.location.href;
+    if(urlTab.includes("#")){
+    var tab = urlTab.split("#");
+    switch(tab[1]){
+        case "avail":
+            $('.tablink').removeClass("active");
+            $("#avail").addClass("active");
+            $(".proTab").hide();
+            $("#availavility").slideDown();
+            break;
+        case "review":
+            $('.tablink').removeClass("active");
+            $("#review").addClass("active");
+            $(".proTab").hide();
+            $("#myReviews").slideDown();
+            break;
+        case "team":
+            $('.tablink').removeClass("active");
+            $("#team").addClass("active");
+            $(".proTab").hide();
+            $("#myTeam").slideDown();
+            break;
+        case "prof":
+            $('.tablink').removeClass("active");
+            $("#prof").addClass("active");
+            $(".proTab").hide();
+            $("#profile").slideDown();
+            break;
+    }}
+
+
+
 
 
 
