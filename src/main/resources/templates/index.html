@@ -32,19 +32,22 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <div class="modal-body">
-                        <label class="zipcode" for="zipcode">Zipcode:</label>
-                        <input type="text" id="zipcode" name="zipcode"/>
-
-                    </div>
-                    <div class="modal-body">
-                        <label class="time" for="date">Select Date:</label>
-                        <input type="text" id="date" name="date"/>
-                    </div>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Choose Your Appliance:</h4>
                 </div>
                 <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="date">Select Date:</label>
+                        <input class="form-control" type="text" id="date" name="date"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipcode">Zipcode:</label>
+                        <input class="form-control" type="text" id="zipcode" name="zipcode"/>
+
+                    </div>
+
+
                     <div class="applianceTypes">
                         <a href="/user/scheduleservice/results?id=1" class="btn-lg btn-primary service-btn col-xs-2 col-sm-4">Refrigerator</a>
                         <a href="/user/scheduleservice/results?id=2"
