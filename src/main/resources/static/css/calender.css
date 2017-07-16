@@ -33,4 +33,12 @@ tr:nth-child(odd) {
     margin: 30px auto 100px auto;
 }
 
+@media screen and (max-width: 768px) {
+
+    table, th, td {
+        font-size: 1em;
+    }
+
+}
+
 

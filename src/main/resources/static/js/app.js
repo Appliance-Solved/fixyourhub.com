@@ -176,8 +176,10 @@ $(document).ready(function () {
     });
 
     var urlTab = window.location.href;
+    console.log(urlTab);
     if(urlTab.includes("#")){
     var tab = urlTab.split("#");
+    console.log(tab[1]);
     switch(tab[1]){
         case "avail":
             $('.tablink').removeClass("active");
@@ -191,7 +193,7 @@ $(document).ready(function () {
             $(".proTab").hide();
             $("#myReviews").slideDown();
             break;
-        case "team":
+        case "myteam":
             $('.tablink').removeClass("active");
             $("#team").addClass("active");
             $(".proTab").hide();
