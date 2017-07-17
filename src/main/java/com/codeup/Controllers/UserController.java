@@ -81,7 +81,15 @@ public class UserController {
         int totalPending = appointment.countAppointments(pendingRequest);
         model.addAttribute("numberPending", totalPending);
 
+        Iterable<Appointment> needReviews = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(needReviews);
+        appointment.filterByIfReviewed(needReviews, false);
 
+        int totalNeedSvcRec = appointment.countAppointments(needReviews);
+        model.addAttribute("numberNeedSvcRec", totalNeedSvcRec);
+
+        model.addAttribute("needreviews", needReviews);
+        model.addAttribute("review", new Reviews());
 
         return "user/dashboard";
     }
