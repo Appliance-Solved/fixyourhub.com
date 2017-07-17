@@ -91,6 +91,17 @@ public class UserController {
         model.addAttribute("needreviews", needReviews);
         model.addAttribute("review", new Reviews());
 
+
+        Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
+        model.addAttribute("userAppliances", userAppliances);
+        UserAppliance userAppliance = new UserAppliance();
+        model.addAttribute("appliance", userAppliance);
+
+        appointmentsByUser = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(appointmentsByUser);
+        model.addAttribute("appointments", appointmentsByUser);
+        model.addAttribute("record", new ServiceRecords());
+
         return "user/dashboard";
     }
 
