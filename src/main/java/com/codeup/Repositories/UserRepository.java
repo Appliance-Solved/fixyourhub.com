@@ -17,4 +17,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("update User u set u.address=?1, u.city=?2, u.state=?3, u.zipcode=?4, u.phone=?5 where u.id = ?6")
     public void updateUserProfile(String address, String city, String state, Long zipcode, String phone, Long id);
 
+
+
 }

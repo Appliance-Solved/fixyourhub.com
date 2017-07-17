@@ -46,6 +46,10 @@ public class ServicerSvc {
         return servicerDao.findServicerByAvailability(inDays);
     }
 
+    public Iterable<Servicer> findAllServicers(){
+       return servicerDao.findAll();
+    }
+
     public String printAllServices(String applianceTypeCode){
         List<String> serviceList = Arrays.asList(applianceTypeCode.split(","));
         String printServices = "| ";
