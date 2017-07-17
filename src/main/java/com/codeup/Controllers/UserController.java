@@ -66,13 +66,28 @@ public class UserController {
     public String userDash(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        Iterable<Appointment> appointmentRequests = appointmentSvc.findAllByUser(user, true);
-        model.addAttribute("appointmentRequests", appointmentRequests);
+
+        Appointment appointment = new Appointment();
+
+        Iterable<Appointment> appointmentsByUser = appointmentSvc.findAllByUser(user, false);
+
+        appointment.filterOutPastAppointments(appointmentsByUser);
+        model.addAttribute("scheduledAppointments",appointmentsByUser);
+        int totalScheduledAppointments = appointment.countAppointments(appointmentsByUser);
+        model.addAttribute("numberScheduled", totalScheduledAppointments);
+
+        Iterable<Appointment> pendingRequest = appointmentSvc.findAllByUser(user, true);
+        model.addAttribute("pendingRequest", pendingRequest);
+        int totalPending = appointment.countAppointments(pendingRequest);
+        model.addAttribute("numberPending", totalPending);
+
+
+
         return "user/dashboard";
     }
 
     @PostMapping("/user/dashboard")
-    public String cancelRequest(@RequestParam(name = "id") Long id) {
+    public String cancelRequest(@RequestParam(name = "cancel_id") Long id) {
         Appointment appointment = appointmentSvc.findById(id);
         appointment.setUser(null);
         appointment.setServiceRecords(null);
