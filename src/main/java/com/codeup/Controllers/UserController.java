@@ -270,6 +270,8 @@ public class UserController {
             Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(),appointment.getStopTime(),true,appointment.getServicer(),user,serviceRecord);
             appointmentSvc.save(newAppointment);
         }
+        Mailer mailer = new Mailer();
+        Mailer.send(mailer.getFrom(), mailer.getPassword(), appointment.getServicer().getEmail(), mailer.getRequestSub(), mailer.requestMsg(appointment));
                 return"redirect:/user/dashboard";
     }
 

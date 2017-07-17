@@ -205,8 +205,22 @@ $(document).ready(function () {
             break;
     }}
 
+$(".techChoice").click(function(){
+    $(".techChoice").removeClass("techSelected");
+    $(this).addClass("techSelected");
+})
 
 
+    $(".finalConfirm").click(function(){
+        var $selected = $(this).parent().prev();
+        if($selected.find(".techSelected").children("span").attr("id") !== undefined) {
+            var selectId = $selected.find(".techSelected").children("span").attr("id");
+            var techId = selectId.split("-");
+            console.log(techId[1]);
+            $selected.children("form").children("#tech_id").val(techId[1]);
+           $selected.children("form").submit();
+        }else{alert("You must assign a technician to the appointment.")}
+    })
 
 
 
