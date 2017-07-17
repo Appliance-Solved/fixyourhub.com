@@ -174,7 +174,6 @@ $(document).ready(function () {
     });
 
     var urlTab = window.location.href;
-    console.log(urlTab);
     if(urlTab.includes("#")){
     var tab = urlTab.split("#");
     console.log(tab[1]);

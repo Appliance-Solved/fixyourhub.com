@@ -144,7 +144,7 @@ h2 {
 }
 
 #proTop {
-    background-color: #596059;
+    background-color: #8ca1ab;
     margin: 0 auto;
 }
 
@@ -244,6 +244,39 @@ h2 {
     border-radius: 10px;
 }
 
+.registerType {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+
+.registerType span {
+    font-size: 1.5em;
+}
+
+#registerLayer {
+    background-color: rgba(140, 161, 171, 0.85);
+    border-radius: 10px;
+    border: 2px solid #596059;
+}
+
+#registerLayer .btn-default {
+    background-color: transparent;
+    border: 2px solid #596059;
+    color: #596059;
+}
+
+#registerLayer .btn-default:hover {
+    background-color: white;
+}
+
+.btn-default {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+}
+
+
 @media screen and (max-width: 750px){
 
     #btnContainer {
@@ -273,6 +306,10 @@ h2 {
 
     .service-btn {
         width: 41%;
+    }
+
+    .serviceRegister h1, .userRegister h1 {
+        font-size: 3em;
     }
 
 }

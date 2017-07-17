@@ -2,90 +2,97 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('Register')"></th:block>
-    <link rel="stylesheet" href="/css/register.css"/>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
 </head>
 
 <body>
+<div id="loginContainer">
 <nav th:replace="fragments :: my-navbar"/>
 <div class="container">
-    <div class="userRegister">
-        <h1>User Signup</h1>
+    <div id="registerLayer" class="col-sm-10 col-sm-offset-1 col-xs-12">
+    <div class="userRegister col-xs-12">
+        <h1>User Sign Up</h1>
     </div>
-    <div class="serviceRegister">
-        <h1>Servicer Signup</h1>
+    <div class="serviceRegister col-xs-12">
+        <h1>Servicer Sign Up</h1>
     </div>
-    <form class="col-sm-4 col-sm-offset-5">
-        <label class="choice" for="user">User
-            <input type="radio" class="userRole" id="user" name="userRole" value="user" checked="checked"/></label>
-        &nbsp;
-        &nbsp;
-        <label class="choice" for="servicer">Servicer
-            <input type="radio" class="userRole" id="servicer" name="userRole" value="servicer"/></label>
+    <form class="col-sm-10 col-sm-offset-1 col-xs-12 form-inline registerType">
+        <div class="form-group">
+        <label  for="user"><span>User</span>
+            <input type="radio" class="userRole form-control" id="user" name="userRole" value="user" checked="checked"/></label>
+        </div>
+        <div class="form-group">
+        <label for="servicer"><span>Servicer</span>
+            <input type="radio" class="userRole form-control" id="servicer" name="userRole" value="servicer"/></label>
+        </div>
     </form>
-    <div class="userRegister col-sm-4 col-sm-offset-5">
+    <div class="userRegister col-sm-10 col-sm-offset-1 col-xs-12">
         <form th:action="@{/user/register}" th:method="post" th:object="${user}">
-            <div>
-                <label class="other" for="name">Name</label>
-                <input type="text" id="name" name="name" th:field="*{name}" autofocus="autofocus"/>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" id="name" name="name" th:field="*{name}" autofocus="autofocus"/>
             </div>
-            <div>
-                <label class="other" for="username">Username</label>
-                <input type="text" id="username" name="username" th:field="*{username}"/>
+            <div class="form-group">
+                <label  for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="username" th:field="*{username}"/>
             </div>
-            <div>
-                <label class="other" for="name">Email</label>
-                <input type="text" id="email" name="email" th:field="*{email}"/>
+            <div class="form-group">
+                <label  for="email">Email</label>
+                <input class="form-control" type="text" id="email" name="email" th:field="*{email}"/>
             </div>
-            <div>
-                <label class="other" for="password">Password</label>
-                <input type="password" id="password" name="password"/>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password"/>
             </div>
-            <div>
-                <label class="other" for="name">Confirm Password</label>
-                <input type="password" id="passConfirm" name="passConfirm"/>
+            <div class="form-group">
+                <label for="name">Confirm Password</label>
+                <input class="form-control" type="password" id="passConfirm" name="passConfirm"/>
             </div>
-            <div>
+            <div class="form-group text-center">
 
-                <input class="go" type="submit" value="Register"/>
+                <input class="btn btn-default" type="submit" value="Register"/>
             </div>
         </form>
     </div>
 
 
-    <div class="serviceRegister col-sm-4 col-sm-offset-5">
+    <div class="serviceRegister col-sm-10 col-sm-offset-1 col-xs-12">
         <form th:action="@{/servicer/register}" th:method="post" th:object="${user}">
-            <div>
-                <label class="other" for="name">Company Name</label>
-                <input type="text" id="name" name="name" th:field="*{name}"/>
+            <div class="form-group">
+                <label for="name">Company Name</label>
+                <input class="form-control" type="text" id="name" name="name" th:field="*{name}"/>
             </div>
-            <div>
-                <label class="other" for="username">Username</label>
-                <input type="text" id="username" name="username" th:field="*{username}"/>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input class="form-control" type="text" id="username" name="username" th:field="*{username}"/>
             </div>
-            <div>
-                <label class="other" for="name">Email</label>
-                <input type="email" id="email" name="email" th:field="*{email}"/>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" id="email" name="email" th:field="*{email}"/>
             </div>
-            <div>
-                <label class="other" for="password">Password</label>
-                <input type="password" id="password" name="password"/>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" id="password" name="password"/>
             </div>
-            <div>
-                <label class="other" for="name">Confirm Password</label>
-                <input type="password" id="passConfirm" name="passConfirm"/>
+            <div class="form-group">
+                <label for="name">Confirm Password</label>
+                <input class="form-control" type="password" id="passConfirm" name="passConfirm"/>
             </div>
-            <div>
+            <div class="form-group text-center">
 
-                <input class="go" type="submit" value="Register"/>
+                <input class="btn btn-default" type="submit" value="Register"/>
             </div>
         </form>
     </div>
+    </div>
+</div>
 </div>
 <footer th:include="fragments :: my-footer" class="footer col-xs-12"/>
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous" class=""></script>
+<script src="js/jquery-ui.min.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
