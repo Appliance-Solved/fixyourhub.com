@@ -1,9 +1,18 @@
 #dashContainer {
+     background-color: white;
+     color: #596059;
+     margin: 0 auto;
+     padding: 0;
+     width: 100%;
+ }
+
+#loginContainer {
     background-color: white;
     color: #596059;
     margin: 0 auto;
     padding: 0;
     width: 100%;
+    min-height: 91vh;
 }
 
 #indexContainer {
@@ -19,6 +28,10 @@
     padding: 0;
     width: 100%;
     min-height: 91vh;
+}
+
+.navbar {
+    z-index: 2;
 }
 
 body {
