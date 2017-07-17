@@ -144,7 +144,7 @@ $(document).ready(function () {
 
 
     $("#serviceSubmit").click(function(){
-        $("#serviceRecodForm").submit();
+        $(this).parent().prev().children("#serviceRecordForm").submit();
     });
 
 

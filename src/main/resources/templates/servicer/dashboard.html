@@ -256,7 +256,7 @@
                                         <h4>Complaint: <span th:text="${appointment.serviceRecords.complaint}"></span></h4>
                                         <hr />
 
-                                        <form id="serviceRecodForm" th:action="@{/servicer/submit-service}" th:method="post" th:object="${record}">
+                                        <form id="serviceRecordForm" th:action="@{/servicer/submit-service}" th:method="post" th:object="${record}">
                                                 <input type="hidden" name="service_record_id" th:value="${appointment.serviceRecords.id}" th:field="*{id}" />
 
                                                 <div class="col-xs-12 form-group">

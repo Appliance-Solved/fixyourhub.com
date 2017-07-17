@@ -254,4 +254,12 @@ h2 {
         padding-left: 0;
     }
 
+    .applianceTypes {
+        justify-content: space-around;
+    }
+
+    .service-btn {
+        width: 41%;
+    }
+
 }
