@@ -283,7 +283,9 @@ public class ServicerController {
         }
 
         @PostMapping("/servicer/appointment/confirm")
-    public String confirmAppointment(@RequestParam(name = "confirm_id")Long id){
+    public String confirmAppointment(@RequestParam(name = "confirm_id")Long id, @RequestParam(name = "tech_id")Long tech_id){
+        Technician tech = techsvc.findOneById(tech_id);
+            System.out.println(tech.getName());
         Appointment appointment = appointmentSvc.findById(id);
         appointment.setAvailable(false);
         appointmentSvc.save(appointment);
