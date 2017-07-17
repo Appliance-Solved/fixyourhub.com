@@ -257,7 +257,7 @@
                                         <hr />
 
                                         <form id="serviceRecordForm" th:action="@{/servicer/submit-service}" th:method="post" th:object="${record}">
-                                                <input type="hidden" name="service_record_id" th:value="${appointment.serviceRecords.id}" th:field="*{id}" />
+                                                <input type="hidden" name="service_record_id" id="service_record_id" th:value="${appointment.serviceRecords.id}" />
 
                                                 <div class="col-xs-12 form-group">
                                                     <label for="parts">Parts installed</label>
@@ -272,7 +272,7 @@
 
                                 </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" id="serviceSubmit">Submit</button>
+                                        <button class="btn btn-primary serviceSubmit">Submit</button>
                                     </div>
                             </div>
                         </div>

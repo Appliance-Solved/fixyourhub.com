@@ -274,8 +274,8 @@ public class ServicerController {
         }
 
         @PostMapping("/servicer/submit-service")
-    public String submitServiceRecord(@ModelAttribute ServiceRecords record){
-        ServiceRecords svcRecord = serviceRecordsSvc.findRecordbyId(record.getId());
+    public String submitServiceRecord(@ModelAttribute ServiceRecords record, @RequestParam(name = "service_record_id")int id){
+        ServiceRecords svcRecord = serviceRecordsSvc.findRecordbyId(id);
         svcRecord.setParts_installed(record.getParts_installed());
         svcRecord.setDesc_service(record.getDesc_service());
         serviceRecordsSvc.save(svcRecord);

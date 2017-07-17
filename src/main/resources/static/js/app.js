@@ -143,7 +143,7 @@ $(document).ready(function () {
     });
 
 
-    $("#serviceSubmit").click(function(){
+    $(".serviceSubmit").click(function(){
         $(this).parent().prev().children("#serviceRecordForm").submit();
     });
 
