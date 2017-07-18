@@ -34,7 +34,7 @@ public class UserController {
 
     @Autowired
 
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc, ServiceRecordsSvc serviceRecordsSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc, ServiceRecordsSvc serviceRecordsSvc) {
 
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
@@ -66,13 +66,47 @@ public class UserController {
     public String userDash(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        Iterable<Appointment> appointmentRequests = appointmentSvc.findAllByUser(user, true);
-        model.addAttribute("appointmentRequests", appointmentRequests);
+
+        Appointment appointment = new Appointment();
+
+        Iterable<Appointment> appointmentsByUser = appointmentSvc.findAllByUser(user, false);
+
+        appointment.filterOutPastAppointments(appointmentsByUser);
+        model.addAttribute("scheduledAppointments", appointmentsByUser);
+        int totalScheduledAppointments = appointment.countAppointments(appointmentsByUser);
+        model.addAttribute("numberScheduled", totalScheduledAppointments);
+
+        Iterable<Appointment> pendingRequest = appointmentSvc.findAllByUser(user, true);
+        model.addAttribute("pendingRequest", pendingRequest);
+        int totalPending = appointment.countAppointments(pendingRequest);
+        model.addAttribute("numberPending", totalPending);
+
+        Iterable<Appointment> needReviews = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(needReviews);
+        appointment.filterByIfReviewed(needReviews, false);
+
+        int totalNeedSvcRec = appointment.countAppointments(needReviews);
+        model.addAttribute("numberNeedSvcRec", totalNeedSvcRec);
+
+        model.addAttribute("needreviews", needReviews);
+        model.addAttribute("review", new Reviews());
+
+
+        Iterable<UserAppliance> userAppliances = userAppliancesSvc.findAllByUser(user);
+        model.addAttribute("userAppliances", userAppliances);
+        UserAppliance userAppliance = new UserAppliance();
+        model.addAttribute("appliance", userAppliance);
+
+        appointmentsByUser = appointmentSvc.findAllByUser(user, false);
+        appointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(appointmentsByUser);
+        model.addAttribute("appointments", appointmentsByUser);
+        model.addAttribute("record", new ServiceRecords());
+
         return "user/dashboard";
     }
 
     @PostMapping("/user/dashboard")
-    public String cancelRequest(@RequestParam(name = "id") Long id) {
+    public String cancelRequest(@RequestParam(name = "cancel_id") Long id) {
         Appointment appointment = appointmentSvc.findById(id);
         appointment.setUser(null);
         appointment.setServiceRecords(null);
@@ -124,18 +158,19 @@ public class UserController {
 
         return "user/myappliances";
     }
+
     @PostMapping("/user/myappliance")
     public String addUserAppliance(UserAppliance userappliance) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userappliance.setUser(user);
         userAppliancesSvc.save(userappliance);
-        return "redirect:/user/myappliances";
+        return "redirect:/user/dashboard#review";
     }
 
     @PostMapping("/user/myappliance/delete")
     public String deleteUserAppliance(@RequestParam(name = "id") Long id) {
         userAppliancesSvc.delete(id);
-        return "redirect:/user/myappliances";
+        return "redirect:/user/dashboard#review";
     }
 
     @GetMapping("/user/setprofile")
@@ -157,7 +192,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userSvc.update(address, city, state, zip, phone, user.getId());
         System.out.println("im out");
-        return "redirect:/user/dashboard";
+        return "redirect:/user/dashboard#prof";
     }
 
     @GetMapping("/user/scheduleservice")
@@ -175,7 +210,7 @@ public class UserController {
     public String scheduleServiceComplaint(
             @RequestParam(name = "applianceId") long applianceId,
             Model model
-    ){
+    ) {
         model.addAttribute("applianceId", applianceId);
         return "user/schedule-service-complaint";
     }
@@ -185,7 +220,7 @@ public class UserController {
             @RequestParam(name = "applianceId") long applianceId,
             @RequestParam(name = "complaint") String complaint,
             Model model
-    ){
+    ) {
         model.addAttribute("applianceId", applianceId);
         model.addAttribute("complaint", complaint);
         return "user/schedule-service-date";
@@ -266,21 +301,22 @@ public class UserController {
     public String submitServiceRequest(
             @RequestParam(name = "complaint") String complaint,
             @RequestParam(name = "applianceId") long applianceId,
-            @RequestParam(name = "appointmentId")long appointmentId
+            @RequestParam(name = "appointmentId") long appointmentId
     ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserAppliance userAppliance = userAppliancesSvc.findOneById(applianceId);
         ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
         serviceRecordsSvc.save(serviceRecord);
         Appointment appointment = appointmentSvc.findById(appointmentId);
-        if(appointment.getServiceRecords() == null){
+        if (appointment.getServiceRecords() == null) {
             appointment.setServiceRecords(serviceRecord);
             appointment.setUser(user);
             appointmentSvc.save(appointment);
-        } else{
-            Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(),appointment.getStopTime(),true,appointment.getServicer(),user,serviceRecord);
+        } else {
+            Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(), appointment.getStopTime(), true, appointment.getServicer(), user, serviceRecord);
             appointmentSvc.save(newAppointment);
         }
+
         Mailer mailer = new Mailer();
         Mailer.send(mailer.getFrom(), mailer.getPassword(), appointment.getServicer().getEmail(), mailer.getRequestSub(), mailer.requestMsg(appointment));
                 return"redirect:/user/dashboard";
@@ -311,10 +347,10 @@ public class UserController {
         return "user/reviews";
     }
 
-        @PostMapping("/user/review")
+    @PostMapping("/user/review")
     public String submitReview(@ModelAttribute Reviews review, @RequestParam(name = "service_record_id") int id) {
-            System.out.println(id);
-            ServiceRecords record = serviceRecordsSvc.findRecordbyId(id);
+        System.out.println(id);
+        ServiceRecords record = serviceRecordsSvc.findRecordbyId(id);
 
         review.setServiceRecords(record);
         reviewsSvc.save(review);
@@ -322,6 +358,6 @@ public class UserController {
         record.setReview(setterReview);
         serviceRecordsSvc.save(record);
         return "redirect:/user/reviews";
-        }
+    }
 
 }

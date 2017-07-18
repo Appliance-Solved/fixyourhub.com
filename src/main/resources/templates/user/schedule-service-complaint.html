@@ -2,16 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('Select a date')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar"/>
 <div class="container text-center">
-    <h1>Tell us whats wrong</h1>
-    <textarea form="complaint" name="complaint" id="complaintId" cols="30" rows="10"></textarea>
-    <form id="complaint" th:action="@{/user/scheduleservice/day}" th:method="GET" >
-        <input type="hidden" name="applianceId" th:value="${applianceId}" />
-        <input type="submit" class="btn btn-primary"/>
-    </form>
+
+    <div class="row ">
+        <div class="col-sm-1 col-xs-0">
+            <div style="color:transparent;">0</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">1</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">2</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCircle ">3</div>
+        </div>
+        <div class="col-sm-2 col-xs-3">
+            <div class="numberCircle ">4</div>
+        </div>
+    </div>
+
+    <br/>
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 grayDiv">
+            <h1 style="color:white;">-Tell us whats wrong-</h1>
+            <textarea form="complaint" name="complaint" id="complaintId" cols="50" rows="10"></textarea>
+            <form id="complaint" th:action="@{/user/scheduleservice/day}" th:method="GET">
+                <input type="hidden" name="applianceId" th:value="${applianceId}"/>
+                <input type="submit" class="btn btn-primary"/>
+            </form>
+        </div>
+    </div>
 
 </div>
 <footer th:include="fragments :: my-footer" class="footer col-xs-12"/>
