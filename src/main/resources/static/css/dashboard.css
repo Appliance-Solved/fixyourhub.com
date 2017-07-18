@@ -276,6 +276,23 @@ h2 {
     color: white;
 }
 
+.modal-header {
+    background-color: #337ab7;
+    color: white;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+#pass , #log {
+    color: coral;
+    font-size: 2em;
+    font-family: Serif;
+}
+
 
 @media screen and (max-width: 750px){
 
