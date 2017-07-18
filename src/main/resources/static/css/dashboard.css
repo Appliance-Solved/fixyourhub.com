@@ -293,6 +293,11 @@ h2 {
     font-family: Serif;
 }
 
+button.close {
+    color: white !important;
+    opacity: 1 !important;
+}
+
 
 @media screen and (max-width: 750px){
 
