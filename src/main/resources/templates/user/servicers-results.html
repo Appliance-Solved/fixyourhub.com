@@ -34,8 +34,15 @@
         <div class="well" th:each="servicer: ${servicers}">
             <div class="row">
                 <div class="col-xs-3">
-                    <img src="http://via.placeholder.com/75x75" alt=""
-                         class="img-rounded"/>
+                    <th:block th:if="${servicer.findServicerByUser(servicer, allservicers) == null}">
+                        <img src="/img/default-logo.png" alt="" style="max-width: 100px" class="img-responsive img-rounded center-block"/>
+                    </th:block>
+
+                    <th:block th:if="${servicer.findServicerByUser(servicer, allservicers) != null}">
+                    <span th:if="${servicer.findServicerByUser(servicer, allservicers).picUrl != null and servicer.findServicerByUser(servicer, allservicers).picUrl != ''}"><img  th:src="${'/uploads/' + servicer.findServicerByUser(servicer, allservicers).picUrl}" alt="" style="max-width: 100px" class="img-responsive img-rounded center-block"/></span>
+                    <span th:if="${servicer.findServicerByUser(servicer, allservicers).picUrl == ''}"><img  src="/img/default-logo.png" alt="" style="max-width: 100px" class="img-responsive img-rounded center-block"/></span>
+
+                    </th:block>
                 </div>
                 <br/>
                 <h4 class="col-xs-3" th:text="${servicer.name}"></h4>

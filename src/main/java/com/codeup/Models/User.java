@@ -41,6 +41,7 @@ public class User {
     @Column
     private String phone;
 
+
     public User(String username, String password, String email, String name) {
         this.username = username;
         this.password = password;
@@ -58,6 +59,7 @@ public class User {
         this.state = state;
         this.zipcode = zipcode;
         this.phone = phone;
+
     }
 
     public User() {
@@ -74,8 +76,19 @@ public class User {
         state = user.state;
         zipcode = user.zipcode;
         phone = user.phone;
+
     }
-    
+
+    public Servicer findServicerByUser(User user, Iterable<Servicer> servicers){
+        Servicer myservicer;
+        for(Servicer servicer: servicers){
+            if(servicer.getUser().getId() == user.getId()){
+                myservicer = servicer;
+                return myservicer;
+            }
+        }
+        return  null;
+    }
 
     public Long getId() {
         return id;
@@ -156,4 +169,6 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
 }

@@ -10,7 +10,15 @@
 <div class="container grayDiv text-center">
     <div class="row">
         <div class="col-md-6">
-            <img src="http://via.placeholder.com/250x250" alt="" class="img-rounded img-responive"/>
+            <th:block th:if="${servicer_info == null}">
+                <img src="/img/default-logo.png" alt="" style="max-width: 100px" class="img-responsive img-rounded center-block"/>
+            </th:block>
+
+            <th:block th:if="${servicer_info != null}">
+                <span th:if="${servicer_info != null and servicer_info.picUrl != ''}"><img  th:src="${'/uploads/' + servicer_info.picUrl}" alt=""  class="img-responsive img-rounded center-block"/></span>
+                <span th:if="${servicer_info.picUrl == ''}"><img  src="/img/default-logo.png" alt="" class="img-responsive img-rounded center-block"/></span>
+
+            </th:block>
         </div>
         <div class="col-md-6 text-left">
             <br/>
