@@ -2,33 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('Log In')"></th:block>
-    <link rel="stylesheet" href="/css/login.css"/>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
 </head>
 
 <body>
+<div id="indexContainer">
 <nav th:replace="fragments :: my-navbar"/>
 <div class="container">
-    <div id="pass" class="col-sm-4 col-sm-offset-5" th:if="${param.error}">
+    <div id="pass" class="col-xs-12 text-center" th:if="${param.error}">
         Invalid Username and/or Password.
     </div>
-    <div id="log" class="col-sm-4 col-sm-offset-5" th:if="${param.logout}">
+    <div id="log" class="col-xs-12 text-center" th:if="${param.logout}">
         You have been logged out.
     </div>
-    <form th:action="@{/login}" th:method="post">
-        <h1 class="login">Login</h1>
-        <div class="col-sm-4 col-sm-offset-5">
-            <label class="choice" for="username">Username</label>
-            <input type="text" id="username" name="username" autofocus="true"/>
+    <div id="indexWelcome" class="col-sm-8 col-sm-offset-2 col-xs-12">
+        <h1 class="col-xs-12">Login</h1>
+    <form th:action="@{/login}" th:method="post" class="col-xs-12">
+        <div class="form-group">
+            <label  for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control" autofocus="true"/>
         </div>
-        <div class="col-sm-4 col-sm-offset-5">
-            <label class="choice" for="password">Password</label>
-            <input type="password" id="password" name="password"/>
+        <div class="form-group">
+            <label  for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control"/>
         </div>
-        <div class="col-sm-4 col-sm-offset-5">
+        <div class="form-group text-center">
 
-            <input type="submit" value="Login"/>
+            <input class="btn btn-default" type="submit" value="Login"/>
         </div>
     </form>
+    </div>
+</div>
 </div>
 <footer th:include="fragments :: my-footer" class="footer col-xs-12"/>
 </body>

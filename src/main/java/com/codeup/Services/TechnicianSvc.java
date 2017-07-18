@@ -33,4 +33,8 @@ public class TechnicianSvc {
     public void delete(Long id) {
         technicianDao.delete(id);
     }
+
+    public Technician findOneById(Long id){
+        return technicianDao.findOne(id);
+    }
 }

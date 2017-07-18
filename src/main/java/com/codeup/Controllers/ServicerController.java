@@ -274,8 +274,8 @@ public class ServicerController {
         }
 
         @PostMapping("/servicer/submit-service")
-    public String submitServiceRecord(@ModelAttribute ServiceRecords record){
-        ServiceRecords svcRecord = serviceRecordsSvc.findRecordbyId(record.getId());
+    public String submitServiceRecord(@ModelAttribute ServiceRecords record, @RequestParam(name = "service_record_id")int id){
+        ServiceRecords svcRecord = serviceRecordsSvc.findRecordbyId(id);
         svcRecord.setParts_installed(record.getParts_installed());
         svcRecord.setDesc_service(record.getDesc_service());
         serviceRecordsSvc.save(svcRecord);
@@ -283,10 +283,13 @@ public class ServicerController {
         }
 
         @PostMapping("/servicer/appointment/confirm")
-    public String confirmAppointment(@RequestParam(name = "confirm_id")Long id){
+    public String confirmAppointment(@RequestParam(name = "confirm_id")Long id, @RequestParam(name = "tech_id")Long tech_id){
+        Technician tech = techsvc.findOneById(tech_id);
         Appointment appointment = appointmentSvc.findById(id);
+        Mailer mailer = new Mailer();
         appointment.setAvailable(false);
         appointmentSvc.save(appointment);
+        Mailer.send(mailer.getFrom(), mailer.getPassword(), appointment.getUser().getEmail(), mailer.getConfirmSub(), mailer.confirmMsg(appointment, tech));
         return "redirect:/servicer/dashboard";
         }
 

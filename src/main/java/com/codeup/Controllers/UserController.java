@@ -228,30 +228,41 @@ public class UserController {
 
     @GetMapping("/user/scheduleservice/results")
     public String serviceSearchResults(
-            @RequestParam(name = "applianceId") long applianceId,
+            @RequestParam(name = "applianceId") Long applianceId,
             @RequestParam(name = "complaint") String complaint,
-            @RequestParam(name = "time-frame") int timeFrame,
+            @RequestParam(name = "time-frame") Integer timeFrame,
             Model model
     ) {
-        Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
-        List<User> servicers = new ArrayList<>();
-        Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
-        for (BigInteger bigIntId : servicerIds) {
-            Long longId = bigIntId.longValue();
-            User user = userSvc.findOne(longId);
-            Servicer servicer_info = servicerSvc.findServicerInfoByUserId(user);
-            String services = servicer_info.getServices();
-            boolean match = services.contains(Long.toString(applianceType));
-            if (match) {
-                servicers.add(user);
-            }
-        }
-        model.addAttribute("applianceId", applianceId);
-        model.addAttribute("complaint", complaint);
-        model.addAttribute("servicers", servicers);
+                    Iterable<BigInteger> servicerIds = servicerSvc.findServicerByAvailability(timeFrame);
+                    List<User> servicers = new ArrayList<>();
+                    Long applianceType = userAppliancesSvc.findApplianceTypeByUserApplianceId(applianceId);
+                    for (BigInteger bigIntId : servicerIds) {
+                        Long longId = bigIntId.longValue();
+                        User user = userSvc.findOne(longId);
+                        Servicer servicer_info = servicerSvc.findServicerInfoByUserId(user);
+                        String services = servicer_info.getServices();
+                        boolean match = services.contains(Long.toString(applianceType));
+                        if (match) {
+                            servicers.add(user);
+                        }
+                    }
+                    model.addAttribute("applianceId", applianceId);
+                    model.addAttribute("complaint", complaint);
+                    model.addAttribute("servicers", servicers);
+                    System.out.println("filtered");
+
         return "user/servicers-results";
 
     }
+
+    @GetMapping("/index/results")
+    public String viewIndexSearchResults(Model model){
+        Iterable<Servicer> servicers = servicerSvc.findAllServicers();
+        System.out.println(servicers);
+        model.addAttribute("servicers", servicers);
+                return "results";
+    }
+
 
     @GetMapping("/user/viewservicer")
     public String showServicerProfile(
@@ -305,7 +316,10 @@ public class UserController {
             Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(), appointment.getStopTime(), true, appointment.getServicer(), user, serviceRecord);
             appointmentSvc.save(newAppointment);
         }
-        return "redirect:/user/dashboard";
+
+        Mailer mailer = new Mailer();
+        Mailer.send(mailer.getFrom(), mailer.getPassword(), appointment.getServicer().getEmail(), mailer.getRequestSub(), mailer.requestMsg(appointment));
+                return"redirect:/user/dashboard";
     }
 
     @GetMapping("/user/service-records")

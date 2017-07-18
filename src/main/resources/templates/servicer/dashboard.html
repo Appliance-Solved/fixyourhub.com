@@ -27,7 +27,7 @@
         </th:block>
         <div id="myrating">
             <div id="rateoverlay">
-                <img src="/img/fivestar.png" alt=""/>
+                <img src="/img/fivestar1.png" alt=""/>
             </div>
             <p><span th:text="${avgrating}"></span> Average rating</p>
         </div>
@@ -163,14 +163,37 @@
                                     <button type="submit" class="btn btn-danger">Decline</button>
                                 </form>
 
-                                <form th:action="@{appointment/confirm}" th:method="post">
-                                    <input type="hidden" name="confirm_id" id="confirm_id" th:value="${appointment.id}" />
-                                    <button type="submit" class="btn btn-success">Confirm</button>
-                                </form>
+                                <button class="btn btn-success" data-toggle="modal" th:attr="data-target='#tech' + ${appointment.id}">Confirm</button>
                             </div>
+
                             </div>
                         </div>
                     </div>
+                        <div class="modal fade" th:id="${'tech' + appointment.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h3 class="modal-title" id="myModalLabel">Assign a Technician</h3>
+                                    </div>
+                                    <div class="modal-body techModal">
+                                        <form id="confirmAppointment" th:action="@{appointment/confirm}" th:method="post">
+                                            <input type="hidden" name="confirm_id" id="confirm_id" th:value="${appointment.id}" />
+                                            <input type="hidden" name="tech_id" id="tech_id" />
+                                        </form>
+                                        <div class="col-xs-12 col-sm-6 techContainer techChoice text-center" th:each="tech: ${team}">
+                                            <img class="img-responsive center-block img-rounded" th:src="'/uploads/' + ${tech.PicUrl}" alt=""/>
+                                            <h4 th:text="${tech.name}"></h4>
+                                            <span class="techDummy" th:id="${'tech-' + tech.id}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary finalConfirm">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                 </div>
             </div>
@@ -233,8 +256,8 @@
                                         <h4>Complaint: <span th:text="${appointment.serviceRecords.complaint}"></span></h4>
                                         <hr />
 
-                                        <form id="serviceRecodForm" th:action="@{/servicer/submit-service}" th:method="post" th:object="${record}">
-                                                <input type="hidden" name="service_record_id" th:value="${appointment.serviceRecords.id}" th:field="*{id}" />
+                                        <form id="serviceRecordForm" th:action="@{/servicer/submit-service}" th:method="post" th:object="${record}">
+                                                <input type="hidden" name="service_record_id" id="service_record_id" th:value="${appointment.serviceRecords.id}" />
 
                                                 <div class="col-xs-12 form-group">
                                                     <label for="parts">Parts installed</label>
@@ -249,7 +272,7 @@
 
                                 </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-primary" id="serviceSubmit">Submit</button>
+                                        <button class="btn btn-primary serviceSubmit">Submit</button>
                                     </div>
                             </div>
                         </div>

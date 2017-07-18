@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Your results')"></th:block>
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar"/>
+
+<div class="container">
+
+    <h1>Your Results</h1>
+
+    <div th:each="servicer: ${servicers}">
+        <h4 th:text="${servicer.user.name}"></h4>
+        <a href="/register"> <button class="btn btn-primary">Register</button></a>
+        <p>Please register or login to view profiles and schedule service</p>
+    </div>
+
+</div>
+
+<footer th:include="fragments :: my-footer" class="footer col-xs-12"/>
+</body>
+</html>
