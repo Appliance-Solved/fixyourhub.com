@@ -34,7 +34,7 @@ public class UserController {
 
     @Autowired
 
-    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc, ServiceRecordsSvc serviceRecordsSvc){
+    public UserController(UserSvc userSvc, UserRolesSvc userRolesSvc, UserAppliancesSvc userAppliancesSvc, ServicerSvc servicerSvc, AppointmentSvc appointmentSvc, ReviewsSvc reviewsSvc, ServiceRecordsSvc serviceRecordsSvc) {
 
         this.userSvc = userSvc;
         this.userRolesSvc = userRolesSvc;
@@ -72,7 +72,7 @@ public class UserController {
         Iterable<Appointment> appointmentsByUser = appointmentSvc.findAllByUser(user, false);
 
         appointment.filterOutPastAppointments(appointmentsByUser);
-        model.addAttribute("scheduledAppointments",appointmentsByUser);
+        model.addAttribute("scheduledAppointments", appointmentsByUser);
         int totalScheduledAppointments = appointment.countAppointments(appointmentsByUser);
         model.addAttribute("numberScheduled", totalScheduledAppointments);
 
@@ -158,6 +158,7 @@ public class UserController {
 
         return "user/myappliances";
     }
+
     @PostMapping("/user/myappliance")
     public String addUserAppliance(UserAppliance userappliance) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -209,7 +210,7 @@ public class UserController {
     public String scheduleServiceComplaint(
             @RequestParam(name = "applianceId") long applianceId,
             Model model
-    ){
+    ) {
         model.addAttribute("applianceId", applianceId);
         return "user/schedule-service-complaint";
     }
@@ -219,7 +220,7 @@ public class UserController {
             @RequestParam(name = "applianceId") long applianceId,
             @RequestParam(name = "complaint") String complaint,
             Model model
-    ){
+    ) {
         model.addAttribute("applianceId", applianceId);
         model.addAttribute("complaint", complaint);
         return "user/schedule-service-date";
@@ -289,22 +290,22 @@ public class UserController {
     public String submitServiceRequest(
             @RequestParam(name = "complaint") String complaint,
             @RequestParam(name = "applianceId") long applianceId,
-            @RequestParam(name = "appointmentId")long appointmentId
+            @RequestParam(name = "appointmentId") long appointmentId
     ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserAppliance userAppliance = userAppliancesSvc.findOneById(applianceId);
         ServiceRecords serviceRecord = new ServiceRecords(complaint, userAppliance);
         serviceRecordsSvc.save(serviceRecord);
         Appointment appointment = appointmentSvc.findById(appointmentId);
-        if(appointment.getServiceRecords() == null){
+        if (appointment.getServiceRecords() == null) {
             appointment.setServiceRecords(serviceRecord);
             appointment.setUser(user);
             appointmentSvc.save(appointment);
-        } else{
-            Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(),appointment.getStopTime(),true,appointment.getServicer(),user,serviceRecord);
+        } else {
+            Appointment newAppointment = new Appointment(appointment.getDate(), appointment.getStartTime(), appointment.getStopTime(), true, appointment.getServicer(), user, serviceRecord);
             appointmentSvc.save(newAppointment);
         }
-                return"redirect:/user/dashboard";
+        return "redirect:/user/dashboard";
     }
 
     @GetMapping("/user/service-records")
@@ -332,10 +333,10 @@ public class UserController {
         return "user/reviews";
     }
 
-        @PostMapping("/user/review")
+    @PostMapping("/user/review")
     public String submitReview(@ModelAttribute Reviews review, @RequestParam(name = "service_record_id") int id) {
-            System.out.println(id);
-            ServiceRecords record = serviceRecordsSvc.findRecordbyId(id);
+        System.out.println(id);
+        ServiceRecords record = serviceRecordsSvc.findRecordbyId(id);
 
         review.setServiceRecords(record);
         reviewsSvc.save(review);
@@ -343,6 +344,6 @@ public class UserController {
         record.setReview(setterReview);
         serviceRecordsSvc.save(record);
         return "redirect:/user/reviews";
-        }
+    }
 
 }

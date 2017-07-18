@@ -2,24 +2,53 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('Your results')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar"/>
 
 <div class="container">
 
-    <h1>Your Results</h1>
-
-    <div th:each="servicer: ${servicers}">
-        <h4 th:text="${servicer.username}"></h4>
-        <form th:action="@{/user/viewservicer}" th:method="GET">
-            <input type="hidden" id="id" name="id" th:value="${servicer.id}"/>
-            <input type="hidden" name="complaint" th:value="${complaint}"/>
-            <input type="hidden" name="applianceId" th:value="${applianceId}"/>
-            <input type="submit" value="View"/>
-        </form>
+    <div class="row ">
+        <div class="col-sm-1 col-xs-0">
+            <div style="color:transparent;">0</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">1</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">2</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">3</div>
+        </div>
+        <div class="col-sm-2 col-xs-3">
+            <div class="numberCirclePrimary ">4</div>
+        </div>
     </div>
 
+
+    <div class="col-sm-8 col-sm-offset-2 grayDiv">
+        <h1 class="text-center" style="color: white;">-Select From Your Results-</h1>
+
+        <div class="well" th:each="servicer: ${servicers}">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="http://via.placeholder.com/75x75" alt=""
+                         class="img-rounded"/>
+                </div>
+                <br/>
+                <h4 class="col-xs-3" th:text="${servicer.name}"></h4>
+                <h6 class="col-xs-3"><span th:text="${avgrating}"></span>Average rating</h6>
+                <form class="col-xs-3" th:action="@{/user/viewservicer}" th:method="GET">
+                    <input type="hidden" id="id" name="id" th:value="${servicer.id}"/>
+                    <input type="hidden" name="complaint" th:value="${complaint}"/>
+                    <input type="hidden" name="applianceId" th:value="${applianceId}"/>
+                    <input type="submit" value="View" class="btn btn-primary"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <footer th:include="fragments :: my-footer" class="footer col-xs-12"/>

@@ -245,3 +245,39 @@ h2 {
     }
 
 }
+
+.numberCircle {
+    border-radius: 50%;
+
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+
+    background: #fff;
+    border: 2px solid #ADADAD;
+    color: #ADADAD;
+    text-align: center;
+
+    font: 32px Arial, sans-serif;
+}
+
+.numberCirclePrimary {
+    border-radius: 50%;
+
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+
+    background: #337ab7;
+    border: 2px solid #fff;
+    color: #fff;
+    text-align: center;
+
+    font: 32px Arial, sans-serif;
+}
+
+.grayDiv{
+    background-color: #8ca1ab;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}

@@ -2,18 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="fragments :: head('Select a date')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
 </head>
 <body>
 <nav th:replace="fragments :: my-navbar"/>
 <div class="container text-center">
 
-    <h3>Select the time frame you would like for your service</h3>
-    <!--<h4>- Or select a specific date -</h4>-->
+    <div class="row ">
+        <div class="col-sm-1 col-xs-0">
+            <div style="color:transparent;">0</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">1</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">2</div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="numberCirclePrimary ">3</div>
+        </div>
+        <div class="col-sm-2 col-xs-3">
+            <div class="numberCircle ">4</div>
+        </div>
+    </div>
 
-
-    <div class="row">
-        <div class="col-lg-12">
-            <p>
+    <br/>
+    <div class="col-sm-8 col-sm-offset-2 grayDiv">
+        <h3 style="color: white;">-Select the time frame you would like for your service-</h3>
+        <div class="row">
+            <div class="col-lg-12">
                 <button id="1" class="btn btn-sq-lg btn-primary time-frame">
                     <strong>Today</strong>
                 </button>
@@ -26,15 +43,12 @@
                 <button id="7" class="btn btn-sq-lg btn-primary time-frame">
                     <strong>7 days</strong>
                 </button>
-                <!--may be omitted-->
-                <!--<button class="btn btn-sq-lg btn-primary time-frame">-->
-                <!--<br/><br/><br/><strong>Select a date</strong>-->
-                <!--</button>-->
-            </p>
+            </div>
         </div>
     </div>
 
-    <form id="search-results" th:action="@{/user/scheduleservice/results}" th:method="GET" class="text-center col-lg-12">
+    <form id="search-results" th:action="@{/user/scheduleservice/results}" th:method="GET"
+          class="text-center col-lg-12">
         <input id="time-frame" type="hidden" name="time-frame"/>
         <input type="hidden" name="complaint" th:value="${complaint}"/>
         <input type="hidden" name="applianceId" th:value="${applianceId}"/>
