@@ -2,6 +2,27 @@ body {
     height: auto;
 }
 
+.navbar-inverse .navbar-nav>li>a{
+    color: white;
+}
+
+.navbar-inverse .btn-link{
+    color: white;
+}
+
+.navbar-inverse .navbar-brand{
+    color: white;
+}
+
+.navbar-inverse .navbar-brand:hover{
+    background-color: rgba(89, 96, 89, 0.85);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    background-color: rgba(89, 96, 89, 0.85);
+    color: white;
+}
+
 footer {
     height: 70px;
     background-color: black;
