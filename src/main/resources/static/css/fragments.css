@@ -93,3 +93,8 @@ footer {
     width: 150px !important;
     height: 150px !important;
 }
+
+.footer.col-xs-12 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
