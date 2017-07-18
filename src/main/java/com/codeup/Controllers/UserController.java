@@ -357,7 +357,7 @@ public class UserController {
         Reviews setterReview = reviewsSvc.findOneByServiceRecord(record);
         record.setReview(setterReview);
         serviceRecordsSvc.save(record);
-        return "redirect:/user/reviews";
+        return "redirect:/user/dashboard";
     }
 
 }
