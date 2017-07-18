@@ -303,7 +303,7 @@
 <div class="container">
 
     <div class="col-xs-12 proTab" id="myReviews">
-        <div th:each="review : ${servicerReviews}" class="col-md-3 col-sm-4 col-xs-6 commentContain">
+        <div th:each="review : ${servicerReviews}" class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0 commentContain">
         <div class="comments">
             <h4>Rating: <span th:text="${review.rating}"></span> Stars</h4>
             <h4>Comments: <span th:text="${review.comments}"></span></h4>
@@ -316,7 +316,7 @@
 
             <h2 class="col-xs-12"><span th:text="${user.name}"></span>'s Availability</h2>
 
-            <div class="col-md-3 col-sm-4 col-xs-6  " th:each="appointment: ${availability}">
+            <div class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0" th:each="appointment: ${availability}">
                 <div class="availappointments">
                 <h1 style="margin-top: 0"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></h1>
                 <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
