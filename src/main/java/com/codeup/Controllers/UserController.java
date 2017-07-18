@@ -191,7 +191,7 @@ public class UserController {
     ) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userSvc.update(address, city, state, zip, phone, user.getId());
-        System.out.println("im out");
+
         return "redirect:/user/dashboard#prof";
     }
 
@@ -246,10 +246,12 @@ public class UserController {
                             servicers.add(user);
                         }
                     }
+                    Iterable<Servicer> servicerIterable = servicerSvc.findAllServicers();
+                    model.addAttribute("allservicers", servicerIterable);
                     model.addAttribute("applianceId", applianceId);
                     model.addAttribute("complaint", complaint);
                     model.addAttribute("servicers", servicers);
-                    System.out.println("filtered");
+
 
         return "user/servicers-results";
 
@@ -258,7 +260,7 @@ public class UserController {
     @GetMapping("/index/results")
     public String viewIndexSearchResults(Model model){
         Iterable<Servicer> servicers = servicerSvc.findAllServicers();
-        System.out.println(servicers);
+
         model.addAttribute("servicers", servicers);
                 return "results";
     }
@@ -349,7 +351,7 @@ public class UserController {
 
     @PostMapping("/user/review")
     public String submitReview(@ModelAttribute Reviews review, @RequestParam(name = "service_record_id") int id) {
-        System.out.println(id);
+
         ServiceRecords record = serviceRecordsSvc.findRecordbyId(id);
 
         review.setServiceRecords(record);
