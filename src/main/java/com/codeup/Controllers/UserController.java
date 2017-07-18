@@ -163,13 +163,13 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userappliance.setUser(user);
         userAppliancesSvc.save(userappliance);
-        return "redirect:/user/myappliances";
+        return "redirect:/user/dashboard#review";
     }
 
     @PostMapping("/user/myappliance/delete")
     public String deleteUserAppliance(@RequestParam(name = "id") Long id) {
         userAppliancesSvc.delete(id);
-        return "redirect:/user/myappliances";
+        return "redirect:/user/dashboard#review";
     }
 
     @GetMapping("/user/setprofile")
@@ -191,7 +191,7 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userSvc.update(address, city, state, zip, phone, user.getId());
         System.out.println("im out");
-        return "redirect:/user/dashboard";
+        return "redirect:/user/dashboard#prof";
     }
 
     @GetMapping("/user/scheduleservice")
