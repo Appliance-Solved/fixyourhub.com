@@ -148,6 +148,7 @@
                                             <h3 class="modal-title" id="myModalLabel">Service Request</h3>
                                         </div>
                                         <div class="modal-body">
+
                                             <h4>Requested for: <span
                                                     th:text="${appointment.formatDate(appointment.date)}"></span></h4>
                                             <h4>Between: <span
@@ -198,6 +199,7 @@
                                 </div>
                             </div>
 
+
                         </div>
                     </div>
                 </div>
@@ -242,28 +244,26 @@
                                                     aria-hidden="true">&times;</span></button>
                                             <h4 class="modal-title" id="myModalLabel">Leave review for <span
                                                     th:text="${appointment.servicer.name}"></span></h4>
-                                        </div>
-                                        <form th:action="@{/user/review}" th:method="post" th:object="${review}">
+                                       <form th:action="@{/user/review}" th:method="post" th:object="${review}">
                                             <div class="modal-body">
-                                                <div class="rating">
-                                                    <img src="/img/onestar.png" alt="" class="star"
-                                                         th:id="'star-1-' + ${appointment.id}"/>
-                                                    <img src="/img/onestar.png" alt="" class="star"
-                                                         th:id="'star-2-' + ${appointment.id}"/>
-                                                    <img src="/img/onestar.png" alt="" class="star"
-                                                         th:id="'star-3-' + ${appointment.id}"/>
-                                                    <img src="/img/onestar.png" alt="" class="star"
-                                                         th:id="'star-4-' + ${appointment.id}"/>
-                                                    <img src="/img/onestar.png" alt="" class="star"
-                                                         th:id="'star-5-' + ${appointment.id}"/>
+                                                 <div class="rating text-center">
+                                                <img src="/img/onestar.png" alt="" class="star"
+                                                     th:id="'star-1-' + ${appointment.id}"/>
+                                                <img src="/img/onestar.png" alt="" class="star"
+                                                     th:id="'star-2-' + ${appointment.id}"/>
+                                                <img src="/img/onestar.png" alt="" class="star"
+                                                     th:id="'star-3-' + ${appointment.id}"/>
+                                                <img src="/img/onestar.png" alt="" class="star"
+                                                     th:id="'star-4-' + ${appointment.id}"/>
+                                                <img src="/img/onestar.png" alt="" class="star"
+                                                     th:id="'star-5-' + ${appointment.id}"/>
 
-                                                </div>
-                                                <div th:id="'input-' + ${appointment.id}">
-                                                    <label for="comments">Comments</label>
-                                                    <textarea name="comments" id="comments" cols="80" rows="6"
-                                                              th:field="*{comments}"></textarea>
-                                                    <input type="hidden" id="rating" name="rating"
-                                                           th:field="*{rating}"/>
+                                            </div>
+                                            <div th:id="'input-' + ${appointment.id}" class="col-xs-12">
+                                                <label for="comments">Comments</label>
+                                                <textarea name="comments" id="comments" style="width: 100%" class="center-block" rows="6"
+                                                          th:field="*{comments}"></textarea>
+                                                <input type="hidden" id="rating" name="rating" th:field="*{rating}"/>
 
 
                                                     <input type="hidden" id="service_record_id" name="service_record_id"
@@ -271,14 +271,11 @@
                                                 </div>
 
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                    Cancel
-                                                </button>
-                                                <input type="submit" class="btn btn-primary" value="Submit"/>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        <div class="modal-footer" >
+                                            <input type="submit" class="btn btn-primary" value="Submit"/>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
