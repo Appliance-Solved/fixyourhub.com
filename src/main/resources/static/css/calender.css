@@ -1,6 +1,7 @@
 table {
     margin: 25px auto;
-    background-color: #596059;
+    background-color: #8ca1ab;
+    color: white
 }
 table, th, td {
     padding: 10px;
@@ -14,11 +15,11 @@ th {
 }
 
 tr:nth-child(even) {
-    color: white;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 tr:nth-child(odd) {
-    background-color: rgba(255, 255, 255, 0.42);
+
 }
 
 .selecting {

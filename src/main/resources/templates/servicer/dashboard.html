@@ -322,11 +322,11 @@
             </div>
             </div>
             <h4 th:text="${error}" class="col-sm-6 col-sm-offset-3" id="error"></h4>
-            <div class="table-responsive">
+            <div class="table-responsive col-xs-12">
             <table class="col-xs-12 table">
                 <tr>
                     <th>Time</th>
-                    <th th:each="day: ${appointment.findTodayNext7('EEEEE MMMMM dd')}">
+                    <th th:each="day: ${appointment.findTodayNext7('EEE MMMMM dd')}">
                         <span th:text="${day}"></span>
                     </th>
 

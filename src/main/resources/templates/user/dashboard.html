@@ -238,7 +238,7 @@
                                     </div>
                                     <form th:action="@{/user/review}" th:method="post" th:object="${review}">
                                         <div class="modal-body">
-                                            <div class="rating">
+                                            <div class="rating text-center">
                                                 <img src="/img/onestar.png" alt="" class="star"
                                                      th:id="'star-1-' + ${appointment.id}"/>
                                                 <img src="/img/onestar.png" alt="" class="star"
@@ -251,9 +251,9 @@
                                                      th:id="'star-5-' + ${appointment.id}"/>
 
                                             </div>
-                                            <div th:id="'input-' + ${appointment.id}">
+                                            <div th:id="'input-' + ${appointment.id}" class="col-xs-12">
                                                 <label for="comments">Comments</label>
-                                                <textarea name="comments" id="comments" cols="80" rows="6"
+                                                <textarea name="comments" id="comments" style="width: 100%" class="center-block" rows="6"
                                                           th:field="*{comments}"></textarea>
                                                 <input type="hidden" id="rating" name="rating" th:field="*{rating}"/>
 
@@ -263,9 +263,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
-                                            </button>
+                                        <div class="modal-footer" >
                                             <input type="submit" class="btn btn-primary" value="Submit"/>
                                         </div>
                                     </form>
