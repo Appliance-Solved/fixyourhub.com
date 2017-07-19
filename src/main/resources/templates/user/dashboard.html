@@ -9,206 +9,23 @@
 <div id="container">
     <nav th:replace="fragments :: my-navbar"/>
 
-    <div id="proTop" class="col-xs-12">
+    <div id="proTop" class="col-xs-12" style="min-height: 453px;">
         <div class="container">
             <h1>Welcome to your User Dashboard <span th:text="${user.username}"></span>!</h1>
 
-
-            <div class="col-sm-12 selector" id="mod-1">
-                <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Scheduled
-                    <span
-                            class="badge" th:text="${numberScheduled}"></span></h3>
-                <div class="contentSelect">
-                    <div th:each="appointment: ${scheduledAppointments}">
-                        <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>, <span
-                                th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
-                                th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
-                        <h4><span th:text="${appointment.user.name}"></span> - <span
-                                th:text="${appointment.user.zipcode}"></span></h4>
-                        <h4>
-                            <th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
-                                <span th:case="0">Refrigerator</span>
-                                <span th:case="1">Stove/ Oven</span>
-                                <span th:case="2">Washer</span>
-                                <span th:case="3">Dryer</span>
-                                <span th:case="4">Dishwasher</span>
-                                <span th:case="5">Microwave</span>
-                                <span th:case="6">Ice Machine</span>
-                                <span th:case="7">Other</span>
-                            </th:block>
-                        </h4>
-                        <button class="btn btn-primary btn-sm pull-right more" data-toggle="modal"
-                                th:attr="data-target='#modal' + ${appointment.id}">More Info
-                        </button>
-                        <hr/>
-
-                        <!-- Modal -->
-                        <div class="modal fade" th:id="${'modal' + appointment.id}" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Scheduled Appointment</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4>Scheduled for: <span
-                                                th:text="${appointment.formatDate(appointment.date)}"></span></h4>
-                                        <h4>Between: <span
-                                                th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
-                                                th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
-                                        <hr/>
-                                        <h4>Customer name: <span th:text="${appointment.user.name}"></span></h4>
-                                        <h4>Address: <span th:text="${appointment.user.address}"></span></h4>
-                                        <h4><span th:text="${appointment.user.city}"></span>, <span
-                                                th:text="${appointment.user.state}"></span> <span
-                                                th:text="${appointment.user.zipcode}"></span></h4>
-                                        <h4>Phone: <span th:text="${appointment.user.phone}"></span></h4>
-                                        <hr/>
-                                        <h4>Appliance:
-                                            <th:block
-                                                    th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
-                                                <span th:case="0">Refrigerator</span>
-                                                <span th:case="1">Stove/ Oven</span>
-                                                <span th:case="2">Washer</span>
-                                                <span th:case="3">Dryer</span>
-                                                <span th:case="4">Dishwasher</span>
-                                                <span th:case="5">Microwave</span>
-                                                <span th:case="6">Ice Machine</span>
-                                                <span th:case="7">Other</span>
-                                            </th:block>
-                                        </h4>
-                                        <h4>Model: <span
-                                                th:text="${appointment.serviceRecords.userAppliance.model}"></span>
-                                        </h4>
-                                        <h4>Serial: <span
-                                                th:text="${appointment.serviceRecords.userAppliance.serial}"></span>
-                                        </h4>
-                                        <hr/>
-                                        <h4>Complaint: <span th:text="${appointment.serviceRecords.complaint}"></span>
-                                        </h4>
-                                    </div>
-                                </div>
-                                <!--<div class="modal-footer">-->
-                                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                                <!--</div>-->
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div class="col-sm-12 selector" id="mos-2">
-                <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Service Request Pending
-                    <span
-                            class="badge" th:text="${numberPending}"></span></h3>
-                <div class="contentSelect">
-                    <div th:each="appointment: ${pendingRequest}">
-                        <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>, <span
-                                th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
-                                th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
-                        <h4><span th:text="${appointment.user.name}"></span> - <span
-                                th:text="${appointment.user.zipcode}"></span></h4>
-                        <h4>
-                            <th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
-                                <span th:case="0">Refrigerator</span>
-                                <span th:case="1">Stove/ Oven</span>
-                                <span th:case="2">Washer</span>
-                                <span th:case="3">Dryer</span>
-                                <span th:case="4">Dishwasher</span>
-                                <span th:case="5">Microwave</span>
-                                <span th:case="6">Ice Machine</span>
-                                <span th:case="7">Other</span>
-                            </th:block>
-                        </h4>
-
-                        <button class="btn btn-primary btn-sm pull-right more" data-toggle="modal"
-                                th:attr="data-target='#modal' + ${appointment.id}">View Request
-                        </button>
-                        <hr/>
-
-                        <!-- Modal -->
-                        <div class="modal fade" th:id="${'modal' + appointment.id}" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                        <h3 class="modal-title" id="myModalLabel">Service Request</h3>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h4>Requested for: <span
-                                                th:text="${appointment.formatDate(appointment.date)}"></span></h4>
-                                        <h4>Between: <span
-                                                th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
-                                                th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
-                                        <hr/>
-                                        <h4>Customer name: <span th:text="${appointment.user.name}"></span></h4>
-                                        <h4>Address: <span th:text="${appointment.user.address}"></span></h4>
-                                        <h4><span th:text="${appointment.user.city}"></span>, <span
-                                                th:text="${appointment.user.state}"></span> <span
-                                                th:text="${appointment.user.zipcode}"></span></h4>
-                                        <h4>Phone: <span th:text="${appointment.user.phone}"></span></h4>
-                                        <hr/>
-                                        <h4>Appliance:
-                                            <th:block
-                                                    th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
-                                                <span th:case="0">Refrigerator</span>
-                                                <span th:case="1">Stove/ Oven</span>
-                                                <span th:case="2">Washer</span>
-                                                <span th:case="3">Dryer</span>
-                                                <span th:case="4">Dishwasher</span>
-                                                <span th:case="5">Microwave</span>
-                                                <span th:case="6">Ice Machine</span>
-                                                <span th:case="7">Other</span>
-                                            </th:block>
-                                        </h4>
-                                        <h4>Model: <span
-                                                th:text="${appointment.serviceRecords.userAppliance.model}"></span>
-                                        </h4>
-                                        <h4>Serial: <span
-                                                th:text="${appointment.serviceRecords.userAppliance.serial}"></span>
-                                        </h4>
-                                        <hr/>
-                                        <h4>Complaint: <span th:text="${appointment.serviceRecords.complaint}"></span>
-                                        </h4>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <form th:action="@{/user/dashboard}" th:method="post">
-                                            <input type="hidden" id="cancel_id" name="cancel_id"
-                                                   th:value="${appointment.id}"/>
-                                            <button type="submit" class="btn btn-danger">Cancel</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-sm-12 selector" id="mod-3">
-                <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Review <span class="badge"
-                                                                                                           th:text="${numberNeedSvcRec}"></span>
-                </h3>
-                <div class="contentSelect">
-
-                    <div class="col-sm-3" th:each="appointment: ${needreviews}">
-                        <div data-toggle="modal" th:attr="data-target='#modal' + ${appointment.id}">
-                            <h4>Company: <span th:text="${appointment.servicer.name}"></span></h4>
-                            <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
-                            <h4>Appliance:
+            <div class="wrapper">
+                <div class="col-sm-8 col-sm-offset-2 selector" id="mod-1">
+                    <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Appointments Scheduled
+                        <span
+                                class="badge" th:text="${numberScheduled}"></span></h3>
+                    <div class="contentSelect">
+                        <div th:each="appointment: ${scheduledAppointments}">
+                            <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>, <span
+                                    th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
+                                    th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
+                            <h4><span th:text="${appointment.user.name}"></span> - <span
+                                    th:text="${appointment.user.zipcode}"></span></h4>
+                            <h4>
                                 <th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
                                     <span th:case="0">Refrigerator</span>
                                     <span th:case="1">Stove/ Oven</span>
@@ -220,25 +37,216 @@
                                     <span th:case="7">Other</span>
                                 </th:block>
                             </h4>
-                            <h4>Appliance Name: <span th:text="${appointment.serviceRecords.userAppliance.name}"></span>
-                            </h4>
+                            <button class="btn btn-primary btn-sm pull-right more" data-toggle="modal"
+                                    th:attr="data-target='#modal' + ${appointment.id}">More Info
+                            </button>
+                            <hr/>
+
+                            <!-- Modal -->
+                            <div class="modal fade" th:id="${'modal' + appointment.id}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Scheduled Appointment</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4>Scheduled for: <span
+                                                    th:text="${appointment.formatDate(appointment.date)}"></span></h4>
+                                            <h4>Between: <span
+                                                    th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
+                                                    th:text="${appointment.formatTime(appointment.stopTime)}"></span>
+                                            </h4>
+                                            <hr/>
+                                            <h4>Customer name: <span th:text="${appointment.user.name}"></span></h4>
+                                            <h4>Address: <span th:text="${appointment.user.address}"></span></h4>
+                                            <h4><span th:text="${appointment.user.city}"></span>, <span
+                                                    th:text="${appointment.user.state}"></span> <span
+                                                    th:text="${appointment.user.zipcode}"></span></h4>
+                                            <h4>Phone: <span th:text="${appointment.user.phone}"></span></h4>
+                                            <hr/>
+                                            <h4>Appliance:
+                                                <th:block
+                                                        th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
+                                                    <span th:case="0">Refrigerator</span>
+                                                    <span th:case="1">Stove/ Oven</span>
+                                                    <span th:case="2">Washer</span>
+                                                    <span th:case="3">Dryer</span>
+                                                    <span th:case="4">Dishwasher</span>
+                                                    <span th:case="5">Microwave</span>
+                                                    <span th:case="6">Ice Machine</span>
+                                                    <span th:case="7">Other</span>
+                                                </th:block>
+                                            </h4>
+                                            <h4>Model: <span
+                                                    th:text="${appointment.serviceRecords.userAppliance.model}"></span>
+                                            </h4>
+                                            <h4>Serial: <span
+                                                    th:text="${appointment.serviceRecords.userAppliance.serial}"></span>
+                                            </h4>
+                                            <hr/>
+                                            <h4>Complaint: <span
+                                                    th:text="${appointment.serviceRecords.complaint}"></span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <!--<div class="modal-footer">-->
+                                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+
+
                         </div>
 
-                        <!-- Modal -->
-                        <div class="modal fade" th:id="${'modal' + appointment.id}" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Leave review for <span
-                                                th:text="${appointment.servicer.name}"></span></h4>
-                                    </div>
-                                    <form th:action="@{/user/review}" th:method="post" th:object="${review}">
+                    </div>
+                </div>
+
+
+                <div class="col-sm-8 col-sm-offset-2 selector" id="mos-2">
+                    <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Service Request
+                        Pending
+                        <span
+                                class="badge" th:text="${numberPending}"></span></h3>
+                    <div class="contentSelect">
+                        <div th:each="appointment: ${pendingRequest}">
+                            <h4><span th:text="${appointment.formatDate(appointment.date)}"></span>, <span
+                                    th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
+                                    th:text="${appointment.formatTime(appointment.stopTime)}"></span></h4>
+                            <h4><span th:text="${appointment.user.name}"></span> - <span
+                                    th:text="${appointment.user.zipcode}"></span></h4>
+                            <h4>
+                                <th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
+                                    <span th:case="0">Refrigerator</span>
+                                    <span th:case="1">Stove/ Oven</span>
+                                    <span th:case="2">Washer</span>
+                                    <span th:case="3">Dryer</span>
+                                    <span th:case="4">Dishwasher</span>
+                                    <span th:case="5">Microwave</span>
+                                    <span th:case="6">Ice Machine</span>
+                                    <span th:case="7">Other</span>
+                                </th:block>
+                            </h4>
+
+                            <button class="btn btn-primary btn-sm pull-right more" data-toggle="modal"
+                                    th:attr="data-target='#modal' + ${appointment.id}">View Request
+                            </button>
+                            <hr/>
+
+                            <!-- Modal -->
+                            <div class="modal fade" th:id="${'modal' + appointment.id}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                            <h3 class="modal-title" id="myModalLabel">Service Request</h3>
+                                        </div>
                                         <div class="modal-body">
-                                            <div class="rating text-center">
+
+                                            <h4>Requested for: <span
+                                                    th:text="${appointment.formatDate(appointment.date)}"></span></h4>
+                                            <h4>Between: <span
+                                                    th:text="${appointment.formatTime(appointment.startTime)}"></span>-<span
+                                                    th:text="${appointment.formatTime(appointment.stopTime)}"></span>
+                                            </h4>
+                                            <hr/>
+                                            <h4>Customer name: <span th:text="${appointment.user.name}"></span></h4>
+                                            <h4>Address: <span th:text="${appointment.user.address}"></span></h4>
+                                            <h4><span th:text="${appointment.user.city}"></span>, <span
+                                                    th:text="${appointment.user.state}"></span> <span
+                                                    th:text="${appointment.user.zipcode}"></span></h4>
+                                            <h4>Phone: <span th:text="${appointment.user.phone}"></span></h4>
+                                            <hr/>
+                                            <h4>Appliance:
+                                                <th:block
+                                                        th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
+                                                    <span th:case="0">Refrigerator</span>
+                                                    <span th:case="1">Stove/ Oven</span>
+                                                    <span th:case="2">Washer</span>
+                                                    <span th:case="3">Dryer</span>
+                                                    <span th:case="4">Dishwasher</span>
+                                                    <span th:case="5">Microwave</span>
+                                                    <span th:case="6">Ice Machine</span>
+                                                    <span th:case="7">Other</span>
+                                                </th:block>
+                                            </h4>
+                                            <h4>Model: <span
+                                                    th:text="${appointment.serviceRecords.userAppliance.model}"></span>
+                                            </h4>
+                                            <h4>Serial: <span
+                                                    th:text="${appointment.serviceRecords.userAppliance.serial}"></span>
+                                            </h4>
+                                            <hr/>
+                                            <h4>Complaint: <span
+                                                    th:text="${appointment.serviceRecords.complaint}"></span>
+                                            </h4>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <form th:action="@{/user/dashboard}" th:method="post">
+                                                <input type="hidden" id="cancel_id" name="cancel_id"
+                                                       th:value="${appointment.id}"/>
+                                                <button type="submit" class="btn btn-danger">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-8 col-sm-offset-2 selector" id="mod-3">
+                    <h3><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Review <span
+                            class="badge"
+                            th:text="${numberNeedSvcRec}"></span>
+                    </h3>
+                    <div class="contentSelect">
+
+                        <div class="col-sm-3" th:each="appointment: ${needreviews}">
+                            <div data-toggle="modal" th:attr="data-target='#modal' + ${appointment.id}">
+                                <h4>Company: <span th:text="${appointment.servicer.name}"></span></h4>
+                                <h4 th:text="${appointment.formatDate(appointment.date)}"></h4>
+                                <h4>Appliance:
+                                    <th:block th:switch="${appointment.serviceRecords.userAppliance.appliance_id}">
+                                        <span th:case="0">Refrigerator</span>
+                                        <span th:case="1">Stove/ Oven</span>
+                                        <span th:case="2">Washer</span>
+                                        <span th:case="3">Dryer</span>
+                                        <span th:case="4">Dishwasher</span>
+                                        <span th:case="5">Microwave</span>
+                                        <span th:case="6">Ice Machine</span>
+                                        <span th:case="7">Other</span>
+                                    </th:block>
+                                </h4>
+                                <h4>Appliance Name: <span
+                                        th:text="${appointment.serviceRecords.userAppliance.name}"></span>
+                                </h4>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" th:id="${'modal' + appointment.id}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Leave review for <span
+                                                    th:text="${appointment.servicer.name}"></span></h4>
+                                       <form th:action="@{/user/review}" th:method="post" th:object="${review}">
+                                            <div class="modal-body">
+                                                 <div class="rating text-center">
                                                 <img src="/img/onestar.png" alt="" class="star"
                                                      th:id="'star-1-' + ${appointment.id}"/>
                                                 <img src="/img/onestar.png" alt="" class="star"
@@ -258,15 +266,16 @@
                                                 <input type="hidden" id="rating" name="rating" th:field="*{rating}"/>
 
 
-                                                <input type="hidden" id="service_record_id" name="service_record_id"
-                                                       th:value="${appointment.serviceRecords.id}"/>
-                                            </div>
+                                                    <input type="hidden" id="service_record_id" name="service_record_id"
+                                                           th:value="${appointment.serviceRecords.id}"/>
+                                                </div>
 
-                                        </div>
+                                            </div>
                                         <div class="modal-footer" >
                                             <input type="submit" class="btn btn-primary" value="Submit"/>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
@@ -288,62 +297,69 @@
 
     <div class="container">
 
-        <div class="col-xs-12 proTab" id="availavility">
+        <div class="col-xs-12 proTab text-center" id="availavility">
+            <h1 class="col-xs-12">-Schedule Service-</h1>
 
-            <div class="row text-center">
-                <div class="col-sm-1 col-xs-0">
-                    <div style="color:transparent;">0</div>
+
+            <div class="row text-center center-block">
+
+                <div class="col-sm-11">
+                    <div class="col-sm-1 col-xs-0">
+                        <div style="color:transparent;">0</div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class="numberCirclePrimary ">1</div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class="numberCircle ">2</div>
+                    </div>
+                    <div class="col-sm-3 col-xs-3">
+                        <div class="numberCircle ">3</div>
+                    </div>
+                    <div class="col-sm-2 col-xs-3">
+                        <div class="numberCircle ">4</div>
+                    </div>
+                    <span class="col-sm-12">just 4 steps to fix your appliance</span>
                 </div>
-                <div class="col-sm-3 col-xs-3">
-                    <div class="numberCirclePrimary ">1</div>
-                </div>
-                <div class="col-sm-3 col-xs-3">
-                    <div class="numberCircle ">2</div>
-                </div>
-                <div class="col-sm-3 col-xs-3">
-                    <div class="numberCircle ">3</div>
-                </div>
-                <div class="col-sm-2 col-xs-3">
-                    <div class="numberCircle ">4</div>
-                </div>
-                <span>just 4 steps to fix your appliance</span>
             </div>
 
-            <h2 class="col-xs-12">-Schedule Service-</h2>
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0"
+                     th:each="appliance: ${userAppliances}">
+                    <div class="text-center appliance">
+                        <h3 th:text="${appliance.name}"></h3>
+                        <h4>Type:
+                            <th:block th:switch="${appliance.appliance_id}">
+                                <span th:case="0">Regrigerator</span>
+                                <span th:case="1">Stove/ Oven</span>
+                                <span th:case="2">Washer</span>
+                                <span th:case="3">Dryer</span>
+                                <span th:case="4">Dishwasher</span>
+                                <span th:case="5">Microwave</span>
+                                <span th:case="6">Ice Machine</span>
+                                <span th:case="7">Other</span>
+                            </th:block>
+                        </h4>
+                        <h4>Model: <span th:text="${appliance.model}"></span></h4>
+                        <h4>Serial: <span th:text="${appliance.serial}"></span></h4>
 
-            <div class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0" th:each="appliance: ${userAppliances}">
-                <div class="text-center appliance">
-                    <h4 th:text="${appliance.name}"></h4>
-                    <h5>Type:
-                        <th:block th:switch="${appliance.appliance_id}">
-                            <span th:case="0">Regrigerator</span>
-                            <span th:case="1">Stove/ Oven</span>
-                            <span th:case="2">Washer</span>
-                            <span th:case="3">Dryer</span>
-                            <span th:case="4">Dishwasher</span>
-                            <span th:case="5">Microwave</span>
-                            <span th:case="6">Ice Machine</span>
-                            <span th:case="7">Other</span>
-                        </th:block>
-                    </h5>
-                    <h5>Model: <span th:text="${appliance.model}"></span></h5>
-                    <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
-
-                    <form th:action="@{/user/scheduleservice/complaint}" th:method="GET">
-                        <input type="hidden" id="appliance" name="applianceId" th:value="${appliance.id}"/>
-                        <span class="glyphicon glyphicon-wrench"></span>
-                        <input type="submit" value="Select" class="btn btn-success"/>
-                    </form>
+                        <form th:action="@{/user/scheduleservice/complaint}" th:method="GET">
+                            <input type="hidden" id="appliance" name="applianceId" th:value="${appliance.id}"/>
+                            <span class="glyphicon glyphicon-wrench"></span>
+                            <input type="submit" value="Select" class="btn btn-success"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-xs-12 proTab" id="myReviews">
             <h1 class="col-xs-12"><span th:text="${user.name}"></span>'s Appliances</h1>
-            <div class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0" th:each="appliance: ${userAppliances}">
+            <div class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0"
+                 th:each="appliance: ${userAppliances}">
                 <div class="text-center appliance">
-                    <h4 th:text="${appliance.name}"></h4>
-                    <h5>Type:
+                    <h3 th:text="${appliance.name}"></h3>
+                    <h4>Type:
                         <th:block th:switch="${appliance.appliance_id}">
                             <span th:case="0">Refrigerator</span>
                             <span th:case="1">Stove/ Oven</span>
@@ -354,9 +370,9 @@
                             <span th:case="6">Ice Machine</span>
                             <span th:case="7">Other</span>
                         </th:block>
-                    </h5>
-                    <h5>Model: <span th:text="${appliance.model}"></span></h5>
-                    <h5>Serial: <span th:text="${appliance.serial}"></span></h5>
+                    </h4>
+                    <h4>Model: <span th:text="${appliance.model}"></span></h4>
+                    <h4>Serial: <span th:text="${appliance.serial}"></span></h4>
                     <form th:action="@{/user/myappliance/delete}" th:method="post">
                         <input type="hidden" id="id" name="id" th:value="${appliance.id}"/>
                         <input type="submit" value="Delete" class="btn btn-danger btn-xs"/>
