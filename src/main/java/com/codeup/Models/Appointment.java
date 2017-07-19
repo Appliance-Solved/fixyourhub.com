@@ -252,6 +252,18 @@ public class Appointment {
         return appointments;
     }
 
+    public List<Reviews> findAllReviewsforServicer(Iterable<Appointment> appointments, User servicer){
+        Iterator<Appointment> filteredAppointments = appointments.iterator();
+        List<Reviews> reviews = new ArrayList<>();
+        while(filteredAppointments.hasNext()){
+            Appointment appointment = filteredAppointments.next();
+            if(appointment.getServicer().getId() == servicer.getId()){
+               reviews.add(appointment.getServiceRecords().getReview());
+            }
+        }
+        return reviews;
+    }
+
 
     public Long getId() {
         return id;

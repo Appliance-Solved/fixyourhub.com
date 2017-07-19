@@ -8,12 +8,12 @@
 <nav th:replace="fragments :: my-navbar"/>
 
 <div class="container">
-    <div class="col-sm-8 col-sm-offset-2 grayDiv">
+    <div class="col-md-8 col-md-offset-2 col-xs-12 grayDiv">
         <h1 class="text-center" style="color: white;">-Your Results-</h1>
 
         <div class="well" th:each="servicer: ${servicers}">
-            <div class="row">
-                <div class="col-xs-3">
+            <div class="row results">
+                <div class="col-sm-3 col-xs-6">
                     <th:block>
                         <span th:if="${servicer.picUrl != null and servicer.picUrl != ''}"><img  th:src="${'/uploads/' + servicer.picUrl}" alt="" style="max-width: 100px" class="img-responsive img-rounded center-block"/></span>
                         <span th:if="${servicer.picUrl == ''}"><img  src="/img/default-logo.png" alt="" style="max-width: 100px" class="img-responsive img-rounded center-block"/></span>
@@ -21,9 +21,9 @@
                     </th:block>
                 </div>
                 <br/>
-                <h4 class="col-xs-3" th:text="${servicer.user.name}"></h4>
-                <h6 class="col-xs-3"><span th:text="${avgrating}"></span>Average rating</h6>
-                <div class="col-xs-3">
+                <h4 class="col-sm-3 col-xs-6 text-center" th:text="${servicer.user.name}"></h4>
+                <h5 class="col-sm-3 col-xs-6 text-center"><span th:text="${blankReview.findReviewAvg(blankAppointment.findAllReviewsforServicer(reviewedAppointments, servicer.user))}"></span> Avg. rating</h5>
+                <div class="col-sm-3 col-xs-6 text-center">
                 <a href="/register"> <button class="btn btn-primary">Register</button></a>
                 </div>
                 <p class="col-xs-12 text-center" id="pleaseReg">Please register or login to view profiles and schedule service</p>

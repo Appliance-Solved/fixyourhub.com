@@ -247,6 +247,16 @@ public class UserController {
                         }
                     }
                     Iterable<Servicer> servicerIterable = servicerSvc.findAllServicers();
+
+                    Iterable<Appointment> reviewedAppointments = appointmentSvc.findAll();
+                    Appointment blankAppointment = new Appointment();
+                    blankAppointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(reviewedAppointments);
+                    blankAppointment.filterByIfReviewed(reviewedAppointments, true);
+                    Reviews blankReview = new Reviews();
+                    model.addAttribute("blankReview", blankReview);
+                    model.addAttribute("blankAppointment", blankAppointment);
+                    model.addAttribute("reviewedAppointments", reviewedAppointments);
+
                     model.addAttribute("allservicers", servicerIterable);
                     model.addAttribute("applianceId", applianceId);
                     model.addAttribute("complaint", complaint);
@@ -259,6 +269,17 @@ public class UserController {
 
     @GetMapping("/index/results")
     public String viewIndexSearchResults(Model model){
+
+        Iterable<Appointment> reviewedAppointments = appointmentSvc.findAll();
+        Appointment blankAppointment = new Appointment();
+        blankAppointment.filterOutFutureAppointmentsAndServiceRecordsNotComplete(reviewedAppointments);
+        blankAppointment.filterByIfReviewed(reviewedAppointments, true);
+        Reviews blankReview = new Reviews();
+        model.addAttribute("blankReview", blankReview);
+        model.addAttribute("blankAppointment", blankAppointment);
+        model.addAttribute("reviewedAppointments", reviewedAppointments);
+
+
         Iterable<Servicer> servicers = servicerSvc.findAllServicers();
 
         model.addAttribute("servicers", servicers);
