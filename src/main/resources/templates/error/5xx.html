@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('Oops')"></th:block>
+    <link rel="stylesheet" href="/css/dashboard.css"/>
+</head>
+
+<body>
+<div id="loginContainer">
+    <nav th:replace="fragments :: my-navbar"/>
+    <div class="container">
+        <div id="registerLayer" class="col-sm-10 col-sm-offset-1 col-xs-12 text-center">
+            <h1 class="col-xs-12 text-align">Sorry, something went wrong.</h1>
+            <a href="/dashboard"><img src="../img/default-logo.png"  class="img-rounded img-responsive center-block" style="max-height: 400px" alt="" /></a>
+            <h3 class="col-xs-12">We here at the Fixithub team work hard to prevent errors but they do happen. So if your seeing this just click the logo above to go home.</h3>
+
+
+        </div>
+    </div>
+</div>
+<footer th:include="fragments :: my-footer" class="footer col-xs-12"/>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous" class=""></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
