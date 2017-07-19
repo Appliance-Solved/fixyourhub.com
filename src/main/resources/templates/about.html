@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments :: head('About')"></th:block>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+    <style>
+
+        body{
+            background-color: #8ca1ab;
+            color: white;
+        }
+
+        .thumbnail {
+            text-align: center;
+        }
+
+        .fa{
+            font-size: 40px;
+        }
+
+        a {
+          font-size: 20px;
+            color: white;
+        }
+
+        a:hover{
+            color:blue;
+        }
+
+    </style>
+
+</head>
+<body>
+<nav th:replace="fragments :: my-navbar"/>
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 style="color: black;">About Page</h1>
+
+    </div>
+</div>
+<div class="container text-center">
+    <div class="row ">
+        <div class="col-xs-12 "><h2>-The Developers-</h2></div>
+        <div class="col-xs-4" align="middle">
+            <div class="thumbnail" style="max-width: 253px;">
+                <img src="/img/AmberleeChildress2.jpg" alt=""/>
+            </div>
+            <h3>Amberlee Childress</h3>
+            <p><i class="fa fa-github" ></i> <a href="" target="_blank">Github</a></p>
+            <p><i class="fa fa-linkedin-square"></i> <a href="" target="_blank">LinkedIn</a></p>
+        </div>
+        <div class="col-xs-4" align="middle">
+            <div class="thumbnail" style="max-width: 253px;">
+                <img src="/img/LarryGonzales1.jpg" alt=""/>
+            </div>
+            <h3>Larry Gonzales</h3>
+            <p><i class="fa fa-github"></i> <a href="" target="_blank">Github</a></p>
+            <p><i class="fa fa-linkedin-square"></i> <a href="" target="_blank">LinkedIn</a></p>
+        </div>
+        <div class="col-xs-4" align="middle">
+            <div class="thumbnail" style="max-width: 253px;">
+                <img src="/img/CarlosSoto1.jpg" alt=""/>
+            </div>
+            <h3>Carlos Soto</h3>
+            <p><i class="fa fa-github"></i> <a href="" target="_blank">Github</a></p>
+            <p><i class="fa fa-linkedin-square"></i> <a href="" target="_blank">LinkedIn</a></p>
+        </div>
+    </div>
+</div>
+
+
+<footer th:include="fragments :: my-footer" class="footer col-xs-12"/>
+</body>
+</html>

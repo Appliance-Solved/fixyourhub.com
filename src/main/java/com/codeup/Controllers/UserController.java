@@ -50,6 +50,11 @@ public class UserController {
         return "index";
     }
 
+    @GetMapping("/about")
+    public String about(){
+        return"about";
+    }
+
     @GetMapping("/selection")
     public String selection() {
         return "selection";
