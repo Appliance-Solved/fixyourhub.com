@@ -198,9 +198,9 @@ h2 {
 }
 
 .box {
-    border: 1px solid black;
+    border: 2px solid white;
     border-radius: 10px;
-    background-color: #575F6C;
+    background-color: transparent;
     font-family: Serif;
     margin: auto;
     color: snow;
@@ -219,8 +219,8 @@ h2 {
 
 .service-btn {
     font-size: 1.1em;
-    background-color: #596059;
-    border: solid 1px #596059;
+    background-color: #337ab7;
+    border: solid 1px white;
     color: snow;
     width:21%;
     text-align: center;
