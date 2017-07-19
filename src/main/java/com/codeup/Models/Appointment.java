@@ -152,7 +152,11 @@ public class Appointment {
             Appointment scheduled = appointmentsThatPassed.next();
             if (appointment.checkIfDateTimePassed(scheduled)) {
                 appointmentsThatPassed.remove();
-            }else if(scheduled.getServiceRecords().getDesc_service() == null){
+            }else if (scheduled.getServiceRecords()  != null){
+                if(scheduled.getServiceRecords().getDesc_service() == null) {
+                    appointmentsThatPassed.remove();
+                }
+            }else if (scheduled.getServiceRecords() == null){
                 appointmentsThatPassed.remove();
             }
         }
@@ -223,10 +227,12 @@ public class Appointment {
         Iterator<Appointment> appointmentIterator = appointments.iterator();
         while (appointmentIterator.hasNext()) {
             Appointment scheduled = appointmentIterator.next();
-            boolean reviewExist = scheduled.getServiceRecords().getReview() != null;
-            if(reviewExist != ifreviewed){
-                appointmentIterator.remove();
-            }
+
+                boolean reviewExist = scheduled.getServiceRecords().getReview() != null;
+                if (reviewExist != ifreviewed) {
+                    appointmentIterator.remove();
+                }
+
         }
         return appointments;
     }
