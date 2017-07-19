@@ -39,4 +39,8 @@ public class AppointmentSvc {
         appointmentDao.delete(id);
     }
 
+    public  Iterable<Appointment> findAll() {
+        return appointmentDao.findAll();
+    }
+
 }

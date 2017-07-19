@@ -312,6 +312,13 @@ button.close {
     color: #337ab7;
 }
 
+.results {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
 @media screen and (max-width: 660px){
 
     #indexContainer {
