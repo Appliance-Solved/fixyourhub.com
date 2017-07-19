@@ -302,14 +302,7 @@
 
 <div class="container">
 
-    <div class="col-xs-12 proTab" id="myReviews">
-        <div th:each="review : ${servicerReviews}" class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0 commentContain">
-        <div class="comments">
-            <h4>Rating: <span th:text="${review.rating}"></span> Stars</h4>
-            <h4>Comments: <span th:text="${review.comments}"></span></h4>
-        </div>
-        </div>
-    </div>
+
 
 
         <div class="col-xs-12 proTab" id="availavility">
@@ -490,6 +483,17 @@
             <button class="btn btn-success center-block col-xs-2 col-xs-offset-5" id="add">Add</button>
 
         </div>
+
+
+    <div class="col-xs-12 proTab" id="myReviews">
+        <div th:each="review : ${servicerReviews}" class="col-md-3 col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0 commentContain">
+            <div class="comments">
+                <h4>Rating: <span th:text="${review.rating}"></span> Stars</h4>
+                <h4>Comments: <span th:text="${review.comments}"></span></h4>
+            </div>
+        </div>
+    </div>
+
 
         <div class="col-xs-12 proTab" id="myTeam">
             <h2 class="col-xs-12">My Team</h2>
