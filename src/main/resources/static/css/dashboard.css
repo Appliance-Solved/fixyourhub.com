@@ -36,26 +36,28 @@
 
 body {
     background-color: white;
+    font-family: Arial;
+
 }
 /* #596059  */
 h1 {
     text-align: center;
     font-size: 4em;
-    font-family: Serif;
+    /*font-family: Serif;*/
     /*color: snow;*/
 }
 
 .time {
     margin-top: 1.5em;
     font-size: 2.2em;
-    font-family: Serif;
+    /*font-family: Serif;*/
     color: snow;
 }
 h2 {
     margin-top: 1.5em;
     text-align: center;
     font-size: 2em;
-    font-family: Serif;
+    /*font-family: Serif;*/
     /*color: snow;*/
 }
 
@@ -66,7 +68,7 @@ h2 {
 #error {
     color: coral;
     font-size: 2em;
-    font-family: Serif;
+    /*font-family: Serif;*/
     text-align: center;
 }
 
@@ -124,7 +126,7 @@ h2 {
     margin-top: 35px;
 }
 
-.comments, .availappointments, .appliance {
+.comments, .availappointments, .appliance, .records{
     background-color:#337ab7;
     color: white;
     border: 1px solid black;
@@ -134,13 +136,39 @@ h2 {
     margin: 30px auto;
 }
 
-.comments, .appliance {
+.comments, .appliance, .records {
     height: 80%;
 }
 
 .availappointments {
     text-align: center;
     padding: 8px;
+}
+
+.records, .appliance {
+    position: relative;
+}
+
+.records > div {
+    margin-bottom: 50px;
+}
+
+.appliance > div {
+    margin-bottom: 40px;
+}
+
+.records .btn{
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -35px
+}
+
+.appliance .btn {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -23px;
 }
 
 #proTop {
@@ -183,6 +211,10 @@ h2 {
     margin-top: -60px;
 }
 
+.reviewbtn {
+    margin-top: -80px;
+}
+
 .four {
     display: flex;
     flex-flow: row nowrap;
@@ -208,7 +240,7 @@ h2 {
     border: 2px solid white;
     border-radius: 10px;
     background-color: transparent;
-    font-family: Serif;
+    /*font-family: Serif;*/
     margin: auto;
     color: snow;
     font-size: 1.5em;
@@ -297,7 +329,7 @@ h2 {
 #pass , #log {
     color: coral;
     font-size: 2em;
-    font-family: Serif;
+    /*font-family: Serif;*/
 }
 
 button.close {
