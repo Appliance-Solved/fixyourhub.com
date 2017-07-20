@@ -134,7 +134,7 @@ h2 {
     margin: 30px auto;
 }
 
-.comments {
+.comments, .appliance {
     height: 80%;
 }
 
@@ -165,6 +165,7 @@ h2 {
     margin: 50px auto;
     display: flex;
     flex-flow: row wrap;
+    align-items: stretch;
 }
 
 .techContainer {
@@ -180,6 +181,12 @@ h2 {
 
 .more {
     margin-top: -60px;
+}
+
+.four {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
 }
 
 .modal-footer {
@@ -343,6 +350,10 @@ button.close {
 
     .serviceRegister h1, .userRegister h1 {
         font-size: 3em;
+    }
+
+    .four {
+        justify-content: space-between;
     }
 
 }
